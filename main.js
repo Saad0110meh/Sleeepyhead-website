@@ -497,6 +497,9 @@ function applyWallpaperTheme(palette) {
   const img = document.getElementById('wallpaper-img');
   if (!vid || !img) return;
 
+  const hasWallpaper = palette !== 'PS2 Classic Blue';
+  document.body.classList.toggle('has-wallpaper', hasWallpaper);
+
   if (palette === 'Frutiger Aero') {
     vid.src = 'Themes/Frutiger/frutiger_live.mp4';
     vid.classList.remove('hidden');
@@ -1033,4 +1036,7 @@ function unlockAchievement(id) {
     unlockedAchievements.push(id);
     localStorage.setItem('sleepyhead_achievements', JSON.stringify(unlockedAchievements));
   }
-}
+}
+
+// Apply initial wallpaper theme
+applyWallpaperTheme(CONSOLE_PALETTES[paletteIndex]);
