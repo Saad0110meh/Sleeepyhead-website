@@ -1,5 +1,5 @@
 /* ============================================================
-   ROOT / DESIGN SYSTEM / PS2 COLOR PALETTE
+   ROOT / DESIGN SYSTEM / CONSOLE PALETTES & THEMES
 ============================================================= */
 :root {
   --ps2-blue-deep: #020718;
@@ -15,6 +15,55 @@
   
   --font-display: 'Orbitron', 'Press Start 2P', monospace;
   --font-body: 'VT323', 'Share Tech Mono', monospace;
+}
+
+/* PALETTE: Dorfic (Warm Earth & Bronze Tech) */
+body[data-palette="Dorfic"] {
+  --ps2-blue-deep: #170d0b;
+  --ps2-blue-main: #2b1713;
+  --ps2-blue-panel: rgba(43, 23, 19, 0.92);
+  --ps2-cyan: #f4a261;
+  --ps2-cyan-glow: rgba(244, 162, 97, 0.6);
+  --ps2-cyan-dim: #8d4925;
+  --ps2-magenta: #e76f51;
+  --ps2-gold: #e9c46a;
+}
+
+/* PALETTE: Liquid Metal (Mercury Chrome & Steel Blue) */
+body[data-palette="Liquid Metal"] {
+  --ps2-blue-deep: #0d1117;
+  --ps2-blue-main: #161b22;
+  --ps2-blue-panel: rgba(22, 27, 34, 0.92);
+  --ps2-cyan: #38bdf8;
+  --ps2-cyan-glow: rgba(56, 189, 248, 0.6);
+  --ps2-cyan-dim: #1e3a8a;
+  --ps2-magenta: #f43f5e;
+  --ps2-silver: #f1f5f9;
+  --ps2-gold: #fbbf24;
+}
+
+/* PALETTE: Frutiger Aero (Glossy Y2K Aqua & Cyan) */
+body[data-palette="Frutiger Aero"] {
+  --ps2-blue-deep: #022c43;
+  --ps2-blue-main: #053f5e;
+  --ps2-blue-panel: rgba(5, 63, 94, 0.92);
+  --ps2-cyan: #00b4d8;
+  --ps2-cyan-glow: rgba(0, 180, 216, 0.6);
+  --ps2-cyan-dim: #115e59;
+  --ps2-magenta: #00f5d4;
+  --ps2-gold: #ffd166;
+}
+
+/* PALETTE: Cyberpunk (Neon Pink & Cyber Yellow) */
+body[data-palette="Cyberpunk"] {
+  --ps2-blue-deep: #0f051d;
+  --ps2-blue-main: #240046;
+  --ps2-blue-panel: rgba(36, 0, 70, 0.92);
+  --ps2-cyan: #00f0ff;
+  --ps2-cyan-glow: rgba(0, 240, 255, 0.7);
+  --ps2-cyan-dim: #5c0099;
+  --ps2-magenta: #ff007f;
+  --ps2-gold: #ffe600;
 }
 
 * { box-sizing: border-box; }
@@ -50,6 +99,31 @@ body, html {
   z-index: 999;
   background-size: 100% 3px, 6px 100%;
   pointer-events: none;
+}
+
+/* VCR VHS Tracking & Glitch Effect Filter */
+.vcr-overlay::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+  z-index: 998;
+  pointer-events: none;
+  animation: vcrTracking 4s linear infinite;
+}
+
+@keyframes vcrTracking {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
 }
 
 /* Generic full-viewport layer */

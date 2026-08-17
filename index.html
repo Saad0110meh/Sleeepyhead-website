@@ -114,13 +114,13 @@
   ============================================================= -->
   <section id="ps2-sysconfig-screen" class="screen hidden">
     <div class="sysconfig-header-bar">
-      <div class="sysconfig-date" id="sys-date-disp">17/08/2026</div>
-      <div class="sysconfig-time" id="sys-time-disp">22:30:15</div>
+      <div class="sysconfig-date" id="sys-date-disp">18/08/2026</div>
+      <div class="sysconfig-time" id="sys-time-disp">00:29:57</div>
     </div>
 
     <div class="sysconfig-body">
       <div class="spoke-dial-wrapper">
-        <canvas id="spoke-dial-canvas" width="400" height="300"></canvas>
+        <canvas id="spoke-dial-canvas" width="380" height="280"></canvas>
       </div>
       <div class="sysconfig-controls">
         <h2 class="sysconfig-title">System Configuration</h2>
@@ -129,17 +129,25 @@
           <span class="opt-label">Date Format</span>
           <span class="opt-value" id="val-date-format">DD/MM/YYYY</span>
         </div>
-        <div class="sysconfig-opt" id="opt-crt" data-cfg="crt">
-          <span class="opt-label">CRT Scanline Filter</span>
-          <span class="opt-value" id="val-crt">ENABLED</span>
+        <div class="sysconfig-opt" id="opt-clock" data-cfg="clock">
+          <span class="opt-label">Clock Display</span>
+          <span class="opt-value" id="val-clock">24-Hour</span>
+        </div>
+        <div class="sysconfig-opt" id="opt-vcr" data-cfg="vcr">
+          <span class="opt-label">Screen Filter / VCR</span>
+          <span class="opt-value" id="val-vcr">VCR VHS Tracking</span>
+        </div>
+        <div class="sysconfig-opt" id="opt-palette" data-cfg="palette">
+          <span class="opt-label">Console Palette</span>
+          <span class="opt-value" id="val-palette">PS2 Classic Blue</span>
+        </div>
+        <div class="sysconfig-opt" id="opt-browser-theme" data-cfg="btheme">
+          <span class="opt-label">Browser Theme</span>
+          <span class="opt-value" id="val-btheme">Classic Save Cards</span>
         </div>
         <div class="sysconfig-opt" id="opt-audio" data-cfg="audio">
           <span class="opt-label">PS2 Audio Synthesizer</span>
           <span class="opt-value" id="val-audio">ENABLED</span>
-        </div>
-        <div class="sysconfig-opt" id="opt-theme" data-cfg="theme">
-          <span class="opt-label">Console Palette</span>
-          <span class="opt-value">PS2 Classic Blue</span>
         </div>
       </div>
     </div>
@@ -162,7 +170,7 @@
       <div class="memcard-top-left">
         <h1 class="memcard-ps2-logo">PS2</h1>
         <h2 class="memcard-section-title" id="selected-icon-header">My Projects</h2>
-        <div class="memcard-sub-info" id="selected-icon-subheader">Hyper Drift Game / 51 KB</div>
+        <div class="memcard-sub-info" id="selected-icon-subheader">RUBIX Game / 64 KB</div>
       </div>
       <div class="memcard-top-right">
         <span class="memcard-slot-label">Memory Card (PS2)/1</span>
@@ -170,13 +178,13 @@
     </div>
 
     <div class="memcard-icons-grid" id="memcard-grid">
-      <!-- 1. Hyper Drift Game Entry -->
+      <!-- 1. RUBIX Game Entry -->
       <div class="save-icon-card selected" data-icon="game" id="icon-game">
         <div class="save-icon-halo"></div>
         <div class="save-icon-box game-box">
           <div class="save-icon-symbol">&#9889;</div>
         </div>
-        <span class="save-icon-title">Hyper Drift Game</span>
+        <span class="save-icon-title">RUBIX</span>
       </div>
 
       <!-- 2. Project Alpha -->
@@ -234,7 +242,7 @@
   </section>
 
   <!-- ============================================================
-       SCREEN 7: HYPER LIGHT DRIFTER CANVAS GAME WORLD
+       SCREEN 7: HYPER LIGHT DRIFTER CANVAS GAME WORLD (RUBIX)
   ============================================================= -->
   <section id="game-wrap" class="screen hidden">
     <canvas id="game-canvas"></canvas>
@@ -245,7 +253,7 @@
     <!-- Retro Action HUD -->
     <div id="hud">
       <div class="hud-panel">
-        <div class="hud-title">HYPER DRIFTER // PORTFOLIO WORLD</div>
+        <div class="hud-title">RUBIX // PORTFOLIO WORLD</div>
         <div class="hud-controls-bar">
           <span class="key-pill">WASD</span> Move
           <span class="key-pill">SPACE</span> Dash

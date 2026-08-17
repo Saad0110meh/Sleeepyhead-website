@@ -40,8 +40,22 @@ const ACHIEVEMENTS = [
 let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_achievements')) || ["booted"];
 
 // Config state
-let cfgDateFormat = 'DD/MM/YYYY'; // or 'MM/DD/YYYY'
-let cfgCRT = true;
+const DATE_FORMATS = ['DD/MM/YYYY', 'YYYY-MM-DD', 'MM/DD/YYYY'];
+let dateFmtIndex = 0;
+let cfgDateFormat = DATE_FORMATS[0];
+
+const CLOCK_DISPLAYS = ['24-Hour', '12-Hour (AM/PM)'];
+let clockDispIndex = 0;
+
+const VCR_FILTERS = ['VCR VHS Tracking', 'CRT Scanlines', 'Disabled'];
+let vcrFilterIndex = 0;
+
+const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Cyberpunk'];
+let paletteIndex = 0;
+
+const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix', 'VCR Slate'];
+let bthemeIndex = 0;
+
 let cfgAudio = true;
 
 // ==========================================
@@ -323,7 +337,7 @@ const bootVideo = document.getElementById('boot-video');
 
 let currentScreen = 'boot';
 let mainMenuIndex = 0; // 0: Browser, 1: System Configuration
-let sysConfigIndex = 0; // 0: Date, 1: CRT, 2: Audio, 3: Theme
+let sysConfigIndex = 0; // 0: Date, 1: Clock, 2: VCR, 3: Palette, 4: BrowserTheme, 5: Audio
 let memcardIndex = 0; // 0..5 grid index
 
 function showScreen(targetScreen) {
@@ -342,13 +356,21 @@ function updateSystemClock() {
   const dateEl = document.getElementById('sys-date-disp');
   const now = new Date();
 
-  if (timeEl) timeEl.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  if (timeEl) {
+    if (CLOCK_DISPLAYS[clockDispIndex] === '12-Hour (AM/PM)') {
+      timeEl.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    } else {
+      timeEl.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    }
+  }
   
   if (dateEl) {
     const dd = String(now.getDate()).padStart(2, '0');
     const mm = String(now.getMonth() + 1).padStart(2, '0');
     const yyyy = now.getFullYear();
-    dateEl.innerText = cfgDateFormat === 'DD/MM/YYYY' ? `${dd}/${mm}/${yyyy}` : `${mm}/${dd}/${yyyy}`;
+    if (cfgDateFormat === 'DD/MM/YYYY') dateEl.innerText = `${dd}/${mm}/${yyyy}`;
+    else if (cfgDateFormat === 'YYYY-MM-DD') dateEl.innerText = `${yyyy}-${mm}-${dd}`;
+    else dateEl.innerText = `${mm}/${dd}/${yyyy}`;
   }
 }
 setInterval(updateSystemClock, 1000);
@@ -441,13 +463,29 @@ document.querySelectorAll('.sysconfig-opt').forEach((opt, idx) => {
 function toggleSysConfigOption() {
   playPS2ConfirmSound();
   if (sysConfigIndex === 0) {
-    cfgDateFormat = cfgDateFormat === 'DD/MM/YYYY' ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
+    dateFmtIndex = (dateFmtIndex + 1) % DATE_FORMATS.length;
+    cfgDateFormat = DATE_FORMATS[dateFmtIndex];
     document.getElementById('val-date-format').innerText = cfgDateFormat;
   } else if (sysConfigIndex === 1) {
-    cfgCRT = !cfgCRT;
-    document.body.classList.toggle('crt-overlay', cfgCRT);
-    document.getElementById('val-crt').innerText = cfgCRT ? 'ENABLED' : 'DISABLED';
+    clockDispIndex = (clockDispIndex + 1) % CLOCK_DISPLAYS.length;
+    document.getElementById('val-clock').innerText = CLOCK_DISPLAYS[clockDispIndex];
   } else if (sysConfigIndex === 2) {
+    vcrFilterIndex = (vcrFilterIndex + 1) % VCR_FILTERS.length;
+    const currentVCR = VCR_FILTERS[vcrFilterIndex];
+    document.getElementById('val-vcr').innerText = currentVCR;
+    document.body.classList.toggle('vcr-overlay', currentVCR === 'VCR VHS Tracking');
+    document.body.classList.toggle('crt-overlay', currentVCR !== 'Disabled');
+  } else if (sysConfigIndex === 3) {
+    paletteIndex = (paletteIndex + 1) % CONSOLE_PALETTES.length;
+    const currentPalette = CONSOLE_PALETTES[paletteIndex];
+    document.getElementById('val-palette').innerText = currentPalette;
+    document.body.setAttribute('data-palette', currentPalette);
+  } else if (sysConfigIndex === 4) {
+    bthemeIndex = (bthemeIndex + 1) % BROWSER_THEMES.length;
+    const currentBTheme = BROWSER_THEMES[bthemeIndex];
+    document.getElementById('val-btheme').innerText = currentBTheme;
+    document.body.setAttribute('data-btheme', currentBTheme);
+  } else if (sysConfigIndex === 5) {
     cfgAudio = !cfgAudio;
     document.getElementById('val-audio').innerText = cfgAudio ? 'ENABLED' : 'DISABLED';
   }
@@ -456,7 +494,7 @@ function toggleSysConfigOption() {
 // Memory Card Save Icon Grid Navigation (Image 5)
 const iconCards = document.querySelectorAll('.save-icon-card');
 const iconHeaders = [
-  { header: "My Projects", sub: "Hyper Drift Game / 51 KB" },
+  { header: "My Projects", sub: "RUBIX Game / 64 KB" },
   { header: "Featured Work", sub: "Project Engine / 48 KB" },
   { header: "Systems Hardware", sub: "RISC-V Simulator / 42 KB" },
   { header: "Neural Matrix", sub: "Three.js Shaders / 68 KB" },
