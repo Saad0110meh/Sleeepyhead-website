@@ -177,10 +177,28 @@ function renderSevenStars() {
 
   ssCtx.clearRect(0, 0, sevenStarsCanvas.width, sevenStarsCanvas.height);
   const cx = sevenStarsCanvas.width * 0.4;
+function getThemeColors() {
+  const style = getComputedStyle(document.body);
+  const mainColor = style.getPropertyValue('--ps2-cyan').trim() || '#00f0ff';
+  const glowColor = style.getPropertyValue('--ps2-cyan-glow').trim() || 'rgba(0, 240, 255, 0.6)';
+  const dimColor = style.getPropertyValue('--ps2-cyan-dim').trim() || '#1a566b';
+  return { mainColor, glowColor, dimColor };
+}
+
+function renderSevenStars() {
+  if (!ssCtx || document.getElementById('ps2-main-menu').classList.contains('hidden')) {
+    requestAnimationFrame(renderSevenStars);
+    return;
+  }
+
+  ssCtx.clearRect(0, 0, sevenStarsCanvas.width, sevenStarsCanvas.height);
+  const cx = sevenStarsCanvas.width * 0.5;
   const cy = sevenStarsCanvas.height * 0.5;
 
+  const { mainColor, glowColor } = getThemeColors();
+
   // Draw 3 Orbital Ellipse Rings
-  ssCtx.strokeStyle = 'rgba(0, 240, 255, 0.25)';
+  ssCtx.strokeStyle = glowColor;
   ssCtx.lineWidth = 1.5;
 
   for (let r = 0; r < 3; r++) {
@@ -193,7 +211,7 @@ function renderSevenStars() {
     ssCtx.restore();
   }
 
-  // Draw 7 Orbiting Cyan Orbs
+  // Draw 7 Orbiting Orbs in Active Theme Color Profile
   const numOrbs = 7;
   for (let i = 0; i < numOrbs; i++) {
     const orbA = starAngle + (i * Math.PI * 2 / numOrbs);
@@ -205,9 +223,9 @@ function renderSevenStars() {
     const finalX = cx + (rx * Math.cos(rot) - ry * Math.sin(rot));
     const finalY = cy + (rx * Math.sin(rot) + ry * Math.cos(rot));
 
-    ssCtx.shadowColor = '#00f0ff';
+    ssCtx.shadowColor = mainColor;
     ssCtx.shadowBlur = 15;
-    ssCtx.fillStyle = '#00f0ff';
+    ssCtx.fillStyle = mainColor;
     ssCtx.beginPath();
     ssCtx.arc(finalX, finalY, i === 0 ? 12 : 9, 0, Math.PI * 2);
     ssCtx.fill();
@@ -236,10 +254,12 @@ function renderSpokeDial() {
   const cx = spokeCanvas.width * 0.5;
   const cy = spokeCanvas.height * 0.5;
 
+  const { mainColor, glowColor } = getThemeColors();
+
   // Center Glowing Sphere
-  spokeCtx.shadowColor = '#00f0ff';
+  spokeCtx.shadowColor = mainColor;
   spokeCtx.shadowBlur = 20;
-  spokeCtx.fillStyle = '#00f0ff';
+  spokeCtx.fillStyle = mainColor;
   spokeCtx.beginPath();
   spokeCtx.arc(cx, cy, 24, 0, Math.PI * 2);
   spokeCtx.fill();
@@ -247,7 +267,7 @@ function renderSpokeDial() {
 
   // 12 Radiating Spoke Tubes
   const spokes = 12;
-  spokeCtx.strokeStyle = 'rgba(100, 160, 220, 0.4)';
+  spokeCtx.strokeStyle = glowColor;
   spokeCtx.lineWidth = 6;
 
   for (let i = 0; i < spokes; i++) {
@@ -266,8 +286,8 @@ function renderSpokeDial() {
     const qx = cx + Math.cos(a) * radius;
     const qy = cy + Math.sin(a) * radius;
 
-    spokeCtx.fillStyle = 'rgba(0, 240, 255, 0.15)';
-    spokeCtx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
+    spokeCtx.fillStyle = glowColor;
+    spokeCtx.strokeStyle = mainColor;
     spokeCtx.lineWidth = 1.5;
 
     spokeCtx.fillRect(qx - 14, qy - 14, 28, 28);
@@ -497,30 +517,22 @@ function applyWallpaperTheme(palette) {
   const img = document.getElementById('wallpaper-img');
   if (!vid || !img) return;
 
-  const hasWallpaper = palette !== 'PS2 Classic Blue';
-  document.body.classList.toggle('has-wallpaper', hasWallpaper);
-
   if (palette === 'Frutiger Aero') {
+    document.body.classList.add('has-wallpaper');
     vid.src = 'Themes/Frutiger/frutiger_live.mp4';
     vid.classList.remove('hidden');
     img.classList.add('hidden');
     vid.play().catch(() => {});
   } else if (palette === 'Mecha Sci-Fi') {
+    document.body.classList.add('has-wallpaper');
     vid.src = 'Themes/Mecha/MECHA - YOUTUBE.mp4';
     vid.classList.remove('hidden');
     img.classList.add('hidden');
     vid.play().catch(() => {});
-  } else if (palette === 'Dorfic') {
-    vid.pause();
-    vid.classList.add('hidden');
-    img.style.backgroundImage = "url('Themes/Dorfic/preview.jpg')";
-    img.classList.remove('hidden');
-  } else if (palette === 'Liquid Metal') {
-    vid.pause();
-    vid.classList.add('hidden');
-    img.style.backgroundImage = "url('Themes/Liquid Metal/preview.jpg')";
-    img.classList.remove('hidden');
   } else {
+    // Dorfic, Liquid Metal, Cyberpunk, PS2 Classic Blue:
+    // Pure clean PS2 3D Canvas Orbiting Stars & Spoke Sphere recolored schema!
+    document.body.classList.remove('has-wallpaper');
     vid.pause();
     vid.classList.add('hidden');
     img.classList.add('hidden');

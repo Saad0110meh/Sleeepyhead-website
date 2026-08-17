@@ -17,29 +17,30 @@
   --font-body: 'VT323', 'Share Tech Mono', monospace;
 }
 
-/* PALETTE: Dorfic (Warm Earth & Bronze Tech) */
+/* PALETTE: Dorfic (3 Shades of Orange & Crisp White) */
 body[data-palette="Dorfic"] {
-  --ps2-blue-deep: #170d0b;
-  --ps2-blue-main: #2b1713;
-  --ps2-blue-panel: rgba(43, 23, 19, 0.92);
-  --ps2-cyan: #f4a261;
-  --ps2-cyan-glow: rgba(244, 162, 97, 0.6);
-  --ps2-cyan-dim: #8d4925;
-  --ps2-magenta: #e76f51;
-  --ps2-gold: #e9c46a;
+  --ps2-blue-deep: #170a04;
+  --ps2-blue-main: #2e1408;
+  --ps2-blue-panel: rgba(46, 20, 8, 0.92);
+  --ps2-cyan: #ff7b00;            /* Shade 1: Vibrant Dorfic Orange */
+  --ps2-cyan-glow: rgba(255, 123, 0, 0.65);
+  --ps2-cyan-dim: #9e4300;         /* Shade 2: Burnt Orange */
+  --ps2-magenta: #ff9e00;          /* Shade 3: Warm Amber Orange */
+  --ps2-silver: #ffffff;           /* Crisp White */
+  --ps2-gold: #ffb703;             /* Golden Flame */
 }
 
-/* PALETTE: Liquid Metal (Mercury Chrome & Steel Blue) */
+/* PALETTE: Liquid Metal (Mercury Silver & Steel Blue) */
 body[data-palette="Liquid Metal"] {
-  --ps2-blue-deep: #0d1117;
-  --ps2-blue-main: #161b22;
-  --ps2-blue-panel: rgba(22, 27, 34, 0.92);
-  --ps2-cyan: #38bdf8;
-  --ps2-cyan-glow: rgba(56, 189, 248, 0.6);
-  --ps2-cyan-dim: #1e3a8a;
-  --ps2-magenta: #f43f5e;
-  --ps2-silver: #f1f5f9;
-  --ps2-gold: #fbbf24;
+  --ps2-blue-deep: #090d16;
+  --ps2-blue-main: #111827;
+  --ps2-blue-panel: rgba(17, 24, 39, 0.92);
+  --ps2-cyan: #38bdf8;            /* Liquid Sky Blue */
+  --ps2-cyan-glow: rgba(56, 189, 248, 0.65);
+  --ps2-cyan-dim: #1e3a8a;        /* Deep Steel Blue */
+  --ps2-magenta: #7dd3fc;         /* Mercury Blue */
+  --ps2-silver: #f8fafc;          /* Platinum White */
+  --ps2-gold: #e2e8f0;            /* Silver Chrome */
 }
 
 /* PALETTE: Frutiger Aero (Glossy Y2K Aqua & Cyan) */
@@ -48,9 +49,10 @@ body[data-palette="Frutiger Aero"] {
   --ps2-blue-main: #053f5e;
   --ps2-blue-panel: rgba(5, 63, 94, 0.92);
   --ps2-cyan: #00b4d8;
-  --ps2-cyan-glow: rgba(0, 180, 216, 0.6);
+  --ps2-cyan-glow: rgba(0, 180, 216, 0.65);
   --ps2-cyan-dim: #115e59;
   --ps2-magenta: #00f5d4;
+  --ps2-silver: #e0f2fe;
   --ps2-gold: #ffd166;
 }
 
@@ -63,18 +65,20 @@ body[data-palette="Cyberpunk"] {
   --ps2-cyan-glow: rgba(0, 240, 255, 0.7);
   --ps2-cyan-dim: #5c0099;
   --ps2-magenta: #ff007f;
+  --ps2-silver: #f1f5f9;
   --ps2-gold: #ffe600;
 }
 
-/* PALETTE: Mecha Sci-Fi (Steel Blue & Orange Sci-Fi) */
+/* PALETTE: Mecha Sci-Fi (Steel Blue & Laser Red) */
 body[data-palette="Mecha Sci-Fi"] {
-  --ps2-blue-deep: #0a111a;
-  --ps2-blue-main: #182535;
-  --ps2-blue-panel: rgba(24, 37, 53, 0.92);
+  --ps2-blue-deep: #0f172a;
+  --ps2-blue-main: #1e293b;
+  --ps2-blue-panel: rgba(30, 41, 59, 0.92);
   --ps2-cyan: #35a7ff;
   --ps2-cyan-glow: rgba(53, 167, 255, 0.7);
   --ps2-cyan-dim: #1d4e89;
   --ps2-magenta: #ff5964;
+  --ps2-silver: #f8fafc;
   --ps2-gold: #ffe156;
 }
 
