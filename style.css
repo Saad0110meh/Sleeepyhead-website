@@ -460,31 +460,41 @@ body, html {
 .v-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   font-size: 22px;
-  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
-  padding-bottom: 4px;
+  padding: 6px 0;
 }
 
 .v-key {
   color: var(--ps2-cyan);
   font-weight: bold;
+  white-space: nowrap;
+}
+
+.v-dots {
+  flex: 1;
+  border-bottom: 2px dotted var(--ps2-cyan-dim);
+  margin: 0 14px 6px 14px;
+  opacity: 0.55;
 }
 
 .v-val {
-  color: #ffffff;
+  color: var(--ps2-silver);
+  white-space: nowrap;
+  font-weight: 500;
 }
 
 /* ============================================================
    SCREEN 5: SYSTEM CONFIGURATION (Image 2)
 ============================================================= */
 #ps2-sysconfig-screen {
-  background: radial-gradient(circle at center, #0b1a47 0%, #020718 90%);
+  background: radial-gradient(circle at center, var(--ps2-blue-main) 0%, var(--ps2-blue-deep) 90%);
   flex-direction: column;
 }
 
 .sysconfig-header-bar {
   position: absolute;
-  top: 30px;
+  top: 32px;
   inset-x: 50px;
   display: flex;
   justify-content: space-between;
@@ -498,40 +508,44 @@ body, html {
 .sysconfig-body {
   width: min(92vw, 900px);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 36px;
   align-items: center;
   z-index: 10;
 }
 
 .sysconfig-title {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 26px;
   color: var(--ps2-gold);
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
   letter-spacing: 2px;
 }
 
 .sysconfig-controls {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .sysconfig-opt {
-  padding: 10px 16px;
-  border-radius: 4px;
-  border: 1px solid transparent;
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: 1.5px solid transparent;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  font-size: 24px;
+  align-items: center;
+  font-size: 23px;
   transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .sysconfig-opt.selected {
   border-color: var(--ps2-cyan);
   background: rgba(0, 240, 255, 0.12);
+  box-shadow: inset 0 0 12px var(--ps2-cyan-glow), 0 0 15px var(--ps2-cyan-glow);
+  transform: translateX(-4px);
 }
 
 .sysconfig-opt.selected .opt-label {
@@ -541,7 +555,7 @@ body, html {
 }
 
 .sysconfig-opt .opt-label { color: var(--ps2-silver); }
-.sysconfig-opt .opt-value { color: #ffffff; }
+.sysconfig-opt .opt-value { color: #ffffff; font-weight: bold; }
 
 /* ============================================================
    SCREEN 6: MEMORY CARD SAVE FILE BROWSER (Image 5)
