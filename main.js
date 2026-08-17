@@ -155,8 +155,19 @@ function playSlashSound() {
 }
 
 // ==========================================
-// 3. SEVEN STARS ORBITAL ANIMATION ENGINE (Image 1)
+// 3. THEME COLOR HELPER & CANVASES
 // ==========================================
+function getThemeColors() {
+  const style = getComputedStyle(document.body);
+  const mainColor = style.getPropertyValue('--ps2-cyan').trim() || '#00f0ff';
+  const glowColor = style.getPropertyValue('--ps2-cyan-glow').trim() || 'rgba(0, 240, 255, 0.6)';
+  const dimColor = style.getPropertyValue('--ps2-cyan-dim').trim() || '#1a566b';
+  const goldColor = style.getPropertyValue('--ps2-gold').trim() || '#e2c044';
+  const silverColor = style.getPropertyValue('--ps2-silver').trim() || '#dce6f2';
+  return { mainColor, glowColor, dimColor, goldColor, silverColor };
+}
+
+// 3A. SEVEN STARS ORBITAL ANIMATION ENGINE (Image 1)
 const sevenStarsCanvas = document.getElementById('seven-stars-canvas');
 const ssCtx = sevenStarsCanvas ? sevenStarsCanvas.getContext('2d') : null;
 
@@ -176,63 +187,61 @@ function renderSevenStars() {
   }
 
   ssCtx.clearRect(0, 0, sevenStarsCanvas.width, sevenStarsCanvas.height);
-  const cx = sevenStarsCanvas.width * 0.4;
-function getThemeColors() {
-  const style = getComputedStyle(document.body);
-  const mainColor = style.getPropertyValue('--ps2-cyan').trim() || '#00f0ff';
-  const glowColor = style.getPropertyValue('--ps2-cyan-glow').trim() || 'rgba(0, 240, 255, 0.6)';
-  const dimColor = style.getPropertyValue('--ps2-cyan-dim').trim() || '#1a566b';
-  return { mainColor, glowColor, dimColor };
-}
-
-function renderSevenStars() {
-  if (!ssCtx || document.getElementById('ps2-main-menu').classList.contains('hidden')) {
-    requestAnimationFrame(renderSevenStars);
-    return;
-  }
-
-  ssCtx.clearRect(0, 0, sevenStarsCanvas.width, sevenStarsCanvas.height);
-  const cx = sevenStarsCanvas.width * 0.5;
-  const cy = sevenStarsCanvas.height * 0.5;
+  // Center-left bias matching original PS2 BIOS layout
+  const cx = sevenStarsCanvas.width * 0.38;
+  const cy = sevenStarsCanvas.height * 0.50;
 
   const { mainColor, glowColor } = getThemeColors();
 
-  // Draw 3 Orbital Ellipse Rings
-  ssCtx.strokeStyle = glowColor;
-  ssCtx.lineWidth = 1.5;
+  // Draw 3 Orbital Ellipse Rings with smooth 3D tilt
+  const ringAngles = [-0.35, 0.45, 1.25];
+  const ringRadii = [
+    { rx: 200, ry: 90 },
+    { rx: 230, ry: 105 },
+    { rx: 180, ry: 80 }
+  ];
 
   for (let r = 0; r < 3; r++) {
     ssCtx.save();
     ssCtx.translate(cx, cy);
-    ssCtx.rotate((r * Math.PI / 3) + (starAngle * 0.2));
+    ssCtx.rotate(ringAngles[r] + (starAngle * 0.15));
+    ssCtx.strokeStyle = glowColor;
+    ssCtx.lineWidth = 1.2;
     ssCtx.beginPath();
-    ssCtx.ellipse(0, 0, 160, 80, 0, 0, Math.PI * 2);
+    ssCtx.ellipse(0, 0, ringRadii[r].rx, ringRadii[r].ry, 0, 0, Math.PI * 2);
     ssCtx.stroke();
     ssCtx.restore();
   }
 
-  // Draw 7 Orbiting Orbs in Active Theme Color Profile
+  // Draw 7 Orbiting Luminous Orbs with dynamic theme glow
   const numOrbs = 7;
   for (let i = 0; i < numOrbs; i++) {
     const orbA = starAngle + (i * Math.PI * 2 / numOrbs);
-    const rx = 160 * Math.cos(orbA);
-    const ry = 80 * Math.sin(orbA);
+    const rx = 210 * Math.cos(orbA);
+    const ry = 95 * Math.sin(orbA);
 
     // Apply rotation tilt
-    const rot = Math.PI / 6;
+    const rot = Math.PI / 5;
     const finalX = cx + (rx * Math.cos(rot) - ry * Math.sin(rot));
     const finalY = cy + (rx * Math.sin(rot) + ry * Math.cos(rot));
 
+    // Outer glow
     ssCtx.shadowColor = mainColor;
-    ssCtx.shadowBlur = 15;
+    ssCtx.shadowBlur = 18;
     ssCtx.fillStyle = mainColor;
     ssCtx.beginPath();
-    ssCtx.arc(finalX, finalY, i === 0 ? 12 : 9, 0, Math.PI * 2);
+    ssCtx.arc(finalX, finalY, i === 0 ? 11 : 8, 0, Math.PI * 2);
+    ssCtx.fill();
+
+    // Inner bright core
+    ssCtx.shadowBlur = 0;
+    ssCtx.fillStyle = '#ffffff';
+    ssCtx.beginPath();
+    ssCtx.arc(finalX, finalY, i === 0 ? 4 : 2.5, 0, Math.PI * 2);
     ssCtx.fill();
   }
-  ssCtx.shadowBlur = 0;
 
-  starAngle += 0.015;
+  starAngle += 0.012;
   requestAnimationFrame(renderSevenStars);
 }
 requestAnimationFrame(renderSevenStars);
@@ -256,33 +265,41 @@ function renderSpokeDial() {
 
   const { mainColor, glowColor } = getThemeColors();
 
-  // Center Glowing Sphere
+  // Center Glowing Sphere with subtle breathing pulse
+  const pulse = Math.sin(spokeAngle * 3) * 2;
   spokeCtx.shadowColor = mainColor;
-  spokeCtx.shadowBlur = 20;
+  spokeCtx.shadowBlur = 24;
   spokeCtx.fillStyle = mainColor;
   spokeCtx.beginPath();
-  spokeCtx.arc(cx, cy, 24, 0, Math.PI * 2);
+  spokeCtx.arc(cx, cy, 26 + pulse, 0, Math.PI * 2);
   spokeCtx.fill();
+
+  // Inner core highlight
   spokeCtx.shadowBlur = 0;
+  spokeCtx.fillStyle = '#ffffff';
+  spokeCtx.beginPath();
+  spokeCtx.arc(cx, cy, 8, 0, Math.PI * 2);
+  spokeCtx.fill();
 
   // 12 Radiating Spoke Tubes
   const spokes = 12;
   spokeCtx.strokeStyle = glowColor;
-  spokeCtx.lineWidth = 6;
+  spokeCtx.lineWidth = 5;
+  spokeCtx.lineCap = 'round';
 
   for (let i = 0; i < spokes; i++) {
     const a = (i * Math.PI * 2 / spokes) + spokeAngle;
-    const rOuter = 110;
+    const rOuter = 115;
     spokeCtx.beginPath();
     spokeCtx.moveTo(cx, cy);
     spokeCtx.lineTo(cx + Math.cos(a) * rOuter, cy + Math.sin(a) * rOuter);
     spokeCtx.stroke();
   }
 
-  // Orbiting Translucent Cubes
+  // Orbiting Translucent 3D Cubes
   for (let i = 0; i < 6; i++) {
-    const a = (i * Math.PI * 2 / 6) - (spokeAngle * 0.8);
-    const radius = 90;
+    const a = (i * Math.PI * 2 / 6) - (spokeAngle * 0.75);
+    const radius = 95;
     const qx = cx + Math.cos(a) * radius;
     const qy = cy + Math.sin(a) * radius;
 
@@ -290,8 +307,8 @@ function renderSpokeDial() {
     spokeCtx.strokeStyle = mainColor;
     spokeCtx.lineWidth = 1.5;
 
-    spokeCtx.fillRect(qx - 14, qy - 14, 28, 28);
-    spokeCtx.strokeRect(qx - 14, qy - 14, 28, 28);
+    spokeCtx.fillRect(qx - 13, qy - 13, 26, 26);
+    spokeCtx.strokeRect(qx - 13, qy - 13, 26, 26);
   }
 
   spokeAngle += 0.01;
@@ -314,20 +331,35 @@ function renderVersionConstellation() {
 
   vCtx.clearRect(0, 0, versionCanvas.width, versionCanvas.height);
   const points = [
-    { x: 50, y: 60 },
-    { x: 120, y: 40 },
-    { x: 200, y: 50 },
-    { x: 170, y: 120 },
-    { x: 80, y: 160 },
-    { x: 240, y: 180 }
+    { x: 50, y: 70 },
+    { x: 130, y: 45 },
+    { x: 210, y: 60 },
+    { x: 180, y: 135 },
+    { x: 85, y: 175 },
+    { x: 250, y: 195 }
   ];
 
-  vCtx.fillStyle = '#00f0ff';
-  vCtx.shadowColor = '#00f0ff';
-  vCtx.shadowBlur = 12;
+  const { mainColor, glowColor } = getThemeColors();
+
+  // Connected Constellation Lines
+  vCtx.strokeStyle = glowColor;
+  vCtx.lineWidth = 1.2;
+  vCtx.beginPath();
+  points.forEach((pt, idx) => {
+    const floatY = pt.y + Math.sin(vAngle + idx * 0.8) * 6;
+    if (idx === 0) vCtx.moveTo(pt.x, floatY);
+    else vCtx.lineTo(pt.x, floatY);
+  });
+  vCtx.closePath();
+  vCtx.stroke();
+
+  // Glowing Constellation Stars
+  vCtx.shadowColor = mainColor;
+  vCtx.shadowBlur = 14;
+  vCtx.fillStyle = mainColor;
 
   points.forEach((pt, idx) => {
-    const floatY = pt.y + Math.sin(vAngle + idx) * 6;
+    const floatY = pt.y + Math.sin(vAngle + idx * 0.8) * 6;
     vCtx.beginPath();
     vCtx.arc(pt.x, floatY, 6, 0, Math.PI * 2);
     vCtx.fill();
@@ -1001,22 +1033,45 @@ document.getElementById('modal-x-close').addEventListener('click', closeModal);
 function renderProjects() {
   const listEl = document.getElementById('projects-list');
   const detailEl = document.getElementById('projects-detail');
+  if (!listEl || !detailEl) return;
   
   listEl.innerHTML = '';
   PROJECTS.forEach((proj, idx) => {
     const li = document.createElement('li');
-    li.innerHTML = `<span><strong>[0${idx+1}]</strong> ${proj.title}</span> <span style="font-size:12px;color:var(--ps2-cyan);">${proj.size}</span>`;
-    li.onclick = () => {
+    if (idx === 0) li.classList.add('selected');
+    li.innerHTML = `<span><strong>[0${idx+1}]</strong> ${proj.title}</span> <span style="font-size:14px;color:var(--ps2-cyan);font-weight:bold;">${proj.size}</span>`;
+    
+    const showDetail = () => {
       document.querySelectorAll('#projects-list li').forEach(el => el.classList.remove('selected'));
       li.classList.add('selected');
       playPS2SelectSound();
       detailEl.innerHTML = `
-        <h4 style="color:var(--ps2-gold);margin-top:0;">${proj.title}</h4>
-        <p style="margin:8px 0;">${proj.desc}</p>
-        <p style="color:var(--ps2-cyan);margin:0;"><strong>Tech Stack:</strong> ${proj.tech.join(', ')}</p>
+        <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:15px;margin:0 0 10px 0;letter-spacing:1px;">${proj.title}</h4>
+        <p style="margin:8px 0;line-height:1.5;color:var(--ps2-silver);">${proj.desc}</p>
+        <div style="margin-top:12px;">
+          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:11px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:14px;">${t}</span>`).join('')}
+          </div>
+        </div>
       `;
     };
+
+    li.onclick = showDetail;
     listEl.appendChild(li);
+
+    if (idx === 0) {
+      detailEl.innerHTML = `
+        <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:15px;margin:0 0 10px 0;letter-spacing:1px;">${proj.title}</h4>
+        <p style="margin:8px 0;line-height:1.5;color:var(--ps2-silver);">${proj.desc}</p>
+        <div style="margin-top:12px;">
+          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:11px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:14px;">${t}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
   });
 }
 
@@ -1037,7 +1092,7 @@ function renderAchievements() {
     li.style.color = isUnlocked ? 'var(--ps2-silver)' : '#6c7086';
     li.innerHTML = `
       <span>${isUnlocked ? '★' : '☆'} <strong>${ach.title}</strong>: ${ach.desc}</span>
-      <span style="font-size:12px;">${isUnlocked ? '[UNLOCKED]' : '[LOCKED]'}</span>
+      <span style="font-size:12px;font-weight:bold;color:${isUnlocked ? 'var(--ps2-gold)' : '#6c7086'};">${isUnlocked ? '[UNLOCKED]' : '[LOCKED]'}</span>
     `;
     listEl.appendChild(li);
   });
@@ -1049,6 +1104,27 @@ function unlockAchievement(id) {
     localStorage.setItem('sleepyhead_achievements', JSON.stringify(unlockedAchievements));
   }
 }
+
+// Interactive footer hint button listeners
+const btnHintEnter = document.getElementById('btn-hint-enter');
+if (btnHintEnter) btnHintEnter.addEventListener('click', enterMainMenuOption);
+
+const btnHintVersion = document.getElementById('btn-hint-version');
+if (btnHintVersion) {
+  btnHintVersion.addEventListener('click', () => {
+    showScreen('version');
+    playPS2ConfirmSound();
+  });
+}
+
+document.querySelectorAll('.ps2-footer-bar .btn-hint-item').forEach(btn => {
+  if (btn.innerText.includes('Back')) {
+    btn.addEventListener('click', () => {
+      showScreen('mainMenu');
+      playPS2BackSound();
+    });
+  }
+});
 
 // Apply initial wallpaper theme
 applyWallpaperTheme(CONSOLE_PALETTES[paletteIndex]);
