@@ -310,6 +310,7 @@ requestAnimationFrame(renderVersionConstellation);
 // ==========================================
 const screens = {
   boot: document.getElementById('boot-prompt'),
+  bootVideoWrap: document.getElementById('boot-video-wrap'),
   intro: document.getElementById('ps2-intro-screen'),
   mainMenu: document.getElementById('ps2-main-menu'),
   version: document.getElementById('ps2-version-screen'),
@@ -317,6 +318,8 @@ const screens = {
   memcard: document.getElementById('ps2-memcard-browser'),
   game: document.getElementById('game-wrap')
 };
+
+const bootVideo = document.getElementById('boot-video');
 
 let currentScreen = 'boot';
 let mainMenuIndex = 0; // 0: Browser, 1: System Configuration
@@ -354,8 +357,30 @@ updateSystemClock();
 // Boot sequence handlers
 function handleBootClick() {
   initAudio();
+  if (bootVideo) {
+    showScreen('bootVideoWrap');
+    bootVideo.currentTime = 0;
+    bootVideo.play().catch(err => {
+      console.warn("Boot video playback error/blocked, advancing to intro:", err);
+      transitionFromVideoToIntro();
+    });
+  } else {
+    transitionFromVideoToIntro();
+  }
+}
+
+function transitionFromVideoToIntro() {
+  if (bootVideo) bootVideo.pause();
   showScreen('intro');
   playPS2ConfirmSound();
+}
+
+if (bootVideo) {
+  bootVideo.addEventListener('ended', transitionFromVideoToIntro);
+}
+
+if (screens.bootVideoWrap) {
+  screens.bootVideoWrap.addEventListener('click', transitionFromVideoToIntro);
 }
 
 screens.boot.addEventListener('click', handleBootClick, { once: true });
@@ -486,7 +511,11 @@ window.addEventListener('keydown', (e) => {
     handleBootClick();
     return;
   }
-  if (currentScreen === 'intro' && (k === 'enter' || k === ' ')) {
+  if (currentScreen === 'bootVideoWrap') {
+    transitionFromVideoToIntro();
+    return;
+  }
+  if (currentScreen === 'intro') {
     showScreen('mainMenu');
     playPS2ConfirmSound();
     return;
