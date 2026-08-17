@@ -3,115 +3,302 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>sleepyhead // portfolio</title>
+<title>sleepyhead // ps2 interactive portfolio</title>
 
 <!-- Retro typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="crt-overlay">
 
   <!-- ============================================================
-       LAYER 1: BOOT PROMPT
-       Black screen shown first. Browsers block autoplay w/ sound
-       until a user gesture, so we wait for a click/keypress before
-       touching the <video> element at all.
+       SCREEN 1: BOOT PROMPT
   ============================================================= -->
   <section id="boot-prompt" class="screen">
-    <p class="blink-text">[ Click or Press Any Key to Boot ]</p>
-  </section>
-
-  <!-- ============================================================
-       LAYER 2: PS2 BOOT VIDEO
-       Swap the src below for your own file. Video is muted=false by
-       default -- browsers allow audio here because this element is
-       only played AFTER the user gesture above.
-  ============================================================= -->
-  <section id="boot-video-wrap" class="screen hidden">
-    <video id="boot-video" playsinline>
-      <!-- PLUG IN YOUR ASSET: replace with your PS2 boot mp4 -->
-      <source src="assets/Playstation 2 Startup Intro (PS2).mp4" type="video/mp4" />
-    </video>
-    <p id="skip-intro-hint" class="skip-hint">Press ESC to Skip</p>
-  </section>
-
-  <!-- ============================================================
-       LAYER 3: GAME (Stardew-style room)
-       Canvas is drawn at a fixed internal resolution then scaled
-       via CSS for crisp pixel art (see style.css image-rendering).
-  ============================================================= -->
-  <section id="game-wrap" class="screen hidden">
-    <canvas id="game-canvas"></canvas>
-
-    <!-- Floating "Press E to Interact" prompt, positioned in JS -->
-    <div id="interact-prompt" class="interact-prompt hidden">Press E to Interact</div>
-
-    <!-- Small HUD, purely decorative but useful while testing -->
-    <div id="hud">
-      <span id="hud-fps"></span>
+    <div class="boot-prompt-content">
+      <div class="ps2-logo-text">PlayStation 2</div>
+      <p class="blink-text">[ CLICK OR PRESS ANY KEY TO START ]</p>
     </div>
   </section>
 
   <!-- ============================================================
-       LAYER 4: PS2 MEMORY CARD MODAL SYSTEM
-       One shared shell, content swapped per-panel via data-panel.
-       Only one of [data-panel] children is shown at a time (JS
-       toggles the "active" class based on which object was used).
+       SCREEN 2: BOOT INTRO VIDEO / PILLARS ANIMATION (Image 3)
+  ============================================================= -->
+  <section id="ps2-intro-screen" class="screen hidden">
+    <div class="ps2-pillars-bg">
+      <div class="intro-pillar p1"></div>
+      <div class="intro-pillar p2"></div>
+      <div class="intro-pillar p3"></div>
+      <div class="intro-pillar p4"></div>
+      <div class="intro-pillar p5"></div>
+      <div class="intro-pillar p6"></div>
+    </div>
+    <div class="intro-title-wrap">
+      <h1 class="intro-main-title">SLEEPYHEAD'S INTERACTIVE PORTFOLIO</h1>
+    </div>
+    <div class="skip-intro-hint">PRESS ENTER TO SKIP INTRO</div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 3: PS2 SEVEN STARS MAIN MENU (Image 1)
+  ============================================================= -->
+  <section id="ps2-main-menu" class="screen hidden">
+    <!-- Seven Stars Orbital Orbs Canvas -->
+    <canvas id="seven-stars-canvas" class="orbs-canvas"></canvas>
+
+    <div class="main-menu-options">
+      <div class="menu-item active" data-action="browser" id="menu-opt-browser">
+        <span class="menu-text">Browser</span>
+      </div>
+      <div class="menu-item" data-action="sysconfig" id="menu-opt-sysconfig">
+        <span class="menu-text">System Configuration</span>
+      </div>
+    </div>
+
+    <!-- PS2 Footer Hint Bar (Image 1) -->
+    <footer class="ps2-footer-bar">
+      <div class="footer-left">
+        <span class="btn-hint-item" id="btn-hint-enter"><span class="btn-glyph btn-x">&times;</span> Enter</span>
+        <span class="btn-hint-item" id="btn-hint-version"><span class="btn-glyph btn-triangle">&Delta;</span> Version</span>
+      </div>
+      <div class="footer-keyboard-bar">
+        <span class="key-group"><strong class="highlight-cyan">W A S D / ARROWS</strong> Navigate</span>
+        <span class="key-group"><strong class="highlight-cyan">ENTER / X</strong> Confirm</span>
+        <span class="key-group"><strong class="highlight-cyan">ESC / O / BACKSPACE</strong> Back</span>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 4: VERSION INFORMATION (Image 4)
+  ============================================================= -->
+  <section id="ps2-version-screen" class="screen hidden">
+    <div class="version-container">
+      <h2 class="version-title">Version Information</h2>
+      <div class="version-grid">
+        <div class="version-constellation-col">
+          <canvas id="version-orbs-canvas" width="300" height="260"></canvas>
+        </div>
+        <div class="version-table-col">
+          <div class="v-row"><span class="v-key">Console</span><span class="v-val">Portfolio OS / Diagnosis</span></div>
+          <div class="v-row"><span class="v-key">Dev's Summary</span><span class="v-val">sleepyhead v2.0</span></div>
+          <div class="v-row"><span class="v-key">CD Player</span><span class="v-val">Web Audio API Synthesizer</span></div>
+          <div class="v-row"><span class="v-key">PlayStation® Driver</span><span class="v-val">HTML5 Canvas / WebGL</span></div>
+          <div class="v-row"><span class="v-key">DVD Player</span><span class="v-val">GSAP Motion Matrix</span></div>
+          <div class="v-row"><span class="v-key">Site Controls</span><span class="v-val">Controller / Keyboard / Mouse</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="ps2-footer-bar">
+      <div class="footer-left">
+        <span class="btn-hint-item"><span class="btn-glyph btn-o">O</span> Back</span>
+        <span class="btn-hint-item"><span class="btn-glyph btn-triangle">&Delta;</span> Options</span>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 5: SYSTEM CONFIGURATION (Image 2)
+  ============================================================= -->
+  <section id="ps2-sysconfig-screen" class="screen hidden">
+    <div class="sysconfig-header-bar">
+      <div class="sysconfig-date" id="sys-date-disp">17/08/2026</div>
+      <div class="sysconfig-time" id="sys-time-disp">22:30:15</div>
+    </div>
+
+    <div class="sysconfig-body">
+      <div class="spoke-dial-wrapper">
+        <canvas id="spoke-dial-canvas" width="400" height="300"></canvas>
+      </div>
+      <div class="sysconfig-controls">
+        <h2 class="sysconfig-title">System Configuration</h2>
+        
+        <div class="sysconfig-opt selected" id="opt-date-format" data-cfg="date">
+          <span class="opt-label">Date Format</span>
+          <span class="opt-value" id="val-date-format">DD/MM/YYYY</span>
+        </div>
+        <div class="sysconfig-opt" id="opt-crt" data-cfg="crt">
+          <span class="opt-label">CRT Scanline Filter</span>
+          <span class="opt-value" id="val-crt">ENABLED</span>
+        </div>
+        <div class="sysconfig-opt" id="opt-audio" data-cfg="audio">
+          <span class="opt-label">PS2 Audio Synthesizer</span>
+          <span class="opt-value" id="val-audio">ENABLED</span>
+        </div>
+        <div class="sysconfig-opt" id="opt-theme" data-cfg="theme">
+          <span class="opt-label">Console Palette</span>
+          <span class="opt-value">PS2 Classic Blue</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="ps2-footer-bar">
+      <div class="footer-left">
+        <span class="btn-hint-item"><span class="btn-glyph btn-square">&#9632;</span> Display</span>
+        <span class="btn-hint-item"><span class="btn-glyph btn-x">&times;</span> Enter</span>
+        <span class="btn-hint-item"><span class="btn-glyph btn-o">O</span> Back</span>
+        <span class="btn-hint-item"><span class="btn-glyph btn-triangle">&Delta;</span> Options</span>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 6: MEMORY CARD SAVE FILE BROWSER (Image 5)
+  ============================================================= -->
+  <section id="ps2-memcard-browser" class="screen hidden">
+    <div class="memcard-browser-header">
+      <div class="memcard-top-left">
+        <h1 class="memcard-ps2-logo">PS2</h1>
+        <h2 class="memcard-section-title" id="selected-icon-header">My Projects</h2>
+        <div class="memcard-sub-info" id="selected-icon-subheader">Hyper Drift Game / 51 KB</div>
+      </div>
+      <div class="memcard-top-right">
+        <span class="memcard-slot-label">Memory Card (PS2)/1</span>
+      </div>
+    </div>
+
+    <div class="memcard-icons-grid" id="memcard-grid">
+      <!-- 1. Hyper Drift Game Entry -->
+      <div class="save-icon-card selected" data-icon="game" id="icon-game">
+        <div class="save-icon-halo"></div>
+        <div class="save-icon-box game-box">
+          <div class="save-icon-symbol">&#9889;</div>
+        </div>
+        <span class="save-icon-title">Hyper Drift Game</span>
+      </div>
+
+      <!-- 2. Project Alpha -->
+      <div class="save-icon-card" data-icon="proj1" id="icon-proj1">
+        <div class="save-icon-halo"></div>
+        <div class="save-icon-box proj-box">
+          <div class="save-icon-symbol">&#9881;</div>
+        </div>
+        <span class="save-icon-title">Project Engine</span>
+      </div>
+
+      <!-- 3. Systems Visualizer -->
+      <div class="save-icon-card" data-icon="proj2" id="icon-proj2">
+        <div class="save-icon-halo"></div>
+        <div class="save-icon-box sys-box">
+          <div class="save-icon-symbol">&#128187;</div>
+        </div>
+        <span class="save-icon-title">RISC-V Systems</span>
+      </div>
+
+      <!-- 4. Cyberpunk Matrix -->
+      <div class="save-icon-card" data-icon="proj3" id="icon-proj3">
+        <div class="save-icon-halo"></div>
+        <div class="save-icon-box matrix-box">
+          <div class="save-icon-symbol">&#9733;</div>
+        </div>
+        <span class="save-icon-title">Neural Matrix</span>
+      </div>
+
+      <!-- 5. Bio & Lore -->
+      <div class="save-icon-card" data-icon="bio" id="icon-bio">
+        <div class="save-icon-halo"></div>
+        <div class="save-icon-box bio-box">
+          <div class="save-icon-symbol">&#128100;</div>
+        </div>
+        <span class="save-icon-title">Bio & Skills</span>
+      </div>
+
+      <!-- 6. Achievements / Trophies -->
+      <div class="save-icon-card" data-icon="trophies" id="icon-trophies">
+        <div class="save-icon-halo"></div>
+        <div class="save-icon-box trophy-box">
+          <div class="save-icon-symbol">&#127942;</div>
+        </div>
+        <span class="save-icon-title">Save Trophies</span>
+      </div>
+    </div>
+
+    <footer class="ps2-footer-bar">
+      <div class="footer-left">
+        <span class="btn-hint-item"><span class="btn-glyph btn-x">&times;</span> Enter</span>
+        <span class="btn-hint-item"><span class="btn-glyph btn-o">O</span> Back</span>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 7: HYPER LIGHT DRIFTER CANVAS GAME WORLD
+  ============================================================= -->
+  <section id="game-wrap" class="screen hidden">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Floating "Press E to Interact" prompt -->
+    <div id="interact-prompt" class="interact-prompt hidden">Press E to Access Terminal</div>
+
+    <!-- Retro Action HUD -->
+    <div id="hud">
+      <div class="hud-panel">
+        <div class="hud-title">HYPER DRIFTER // PORTFOLIO WORLD</div>
+        <div class="hud-controls-bar">
+          <span class="key-pill">WASD</span> Move
+          <span class="key-pill">SPACE</span> Dash
+          <span class="key-pill">J</span> Slash
+          <span class="key-pill">E</span> Interact
+        </div>
+      </div>
+      <div class="hud-right">
+        <button id="btn-return-ps2" class="hud-btn">PS2 Menu [ESC]</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 8: PS2 MEMORY CARD MODAL OVERLAY
   ============================================================= -->
   <div id="modal-overlay" class="modal-overlay hidden">
     <div class="memcard-window">
-
-      <!-- Title bar -->
       <div class="memcard-titlebar">
-        <span id="memcard-title">MEMORY CARD</span>
+        <span id="memcard-title">MEMORY CARD [SLOT 1] // DATA FILE</span>
+        <button class="modal-close-btn" id="modal-x-close">&times;</button>
       </div>
 
       <div class="memcard-body">
-
-        <!-- ---------- PROJECTS PANEL (Desk) ---------- -->
+        <!-- PROJECTS PANEL -->
         <div class="memcard-panel" data-panel="projects">
-          <ul class="memcard-list" id="projects-list">
-            <!-- PLUG IN YOUR CONTENT: items are generated from
-                 the PROJECTS array in main.js -->
-          </ul>
-          <div class="memcard-detail" id="projects-detail">
-            <p class="placeholder-text">Select a project to view details.</p>
+          <h3 class="panel-heading">FEATURED PROJECTS</h3>
+          <div class="projects-layout">
+            <ul class="memcard-list" id="projects-list"></ul>
+            <div class="memcard-detail" id="projects-detail">
+              <p class="placeholder-text">Select a project file block to load specifications.</p>
+            </div>
           </div>
         </div>
 
-        <!-- ---------- BIO / SKILLS PANEL (Bookshelf) ---------- -->
+        <!-- BIO PANEL -->
         <div class="memcard-panel" data-panel="bio">
           <div class="bio-columns">
             <div class="bio-portrait">
-              <!-- PLUG IN YOUR ASSET: portrait / avatar image -->
-              <div class="portrait-placeholder">IMG</div>
+              <div class="portrait-avatar">SD</div>
+              <div class="avatar-tag">DRIFTER</div>
             </div>
             <div class="bio-text">
               <h3>sleepyhead</h3>
               <p id="bio-copy">
                 Loaded from BIO_TEXT in main.js — replace with your own bio.
               </p>
-              <h4>Skills</h4>
+              <h4>SYSTEM CAPABILITIES & TECH STACK</h4>
               <ul class="skill-tags" id="skills-list"></ul>
             </div>
           </div>
         </div>
 
-        <!-- ---------- ACHIEVEMENTS PANEL (Trophy Case) ---------- -->
+        <!-- ACHIEVEMENTS PANEL -->
         <div class="memcard-panel" data-panel="achievements">
-          <ul class="memcard-list" id="achievements-list">
-            <!-- Populated dynamically from localStorage in main.js -->
-          </ul>
+          <h3 class="panel-heading">MEMORY CARD SAVES // TROPHIES</h3>
+          <ul class="memcard-list" id="achievements-list"></ul>
         </div>
-
       </div>
 
-      <!-- Button hint bar, PS2-style -->
       <div class="memcard-footer">
         <span class="btn-hint"><span class="btn-x">X</span> Select</span>
-        <span class="btn-hint"><span class="btn-o">O</span> Close</span>
+        <span class="btn-hint"><span class="btn-o">O</span> Close (ESC)</span>
       </div>
     </div>
   </div>

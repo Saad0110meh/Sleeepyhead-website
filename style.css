@@ -1,16 +1,20 @@
 /* ============================================================
-   ROOT / RESET
+   ROOT / DESIGN SYSTEM / PS2 COLOR PALETTE
 ============================================================= */
 :root {
-  --ps2-blue-deep: #050a24;
-  --ps2-blue: #0d1a4b;
-  --ps2-blue-panel: rgba(10, 20, 70, 0.82);
-  --ps2-cyan: #6fe8ff;
-  --ps2-cyan-dim: #2c6f8a;
+  --ps2-blue-deep: #020718;
+  --ps2-blue-main: #0a153c;
+  --ps2-blue-panel: rgba(8, 18, 55, 0.92);
+  --ps2-cyan: #00f0ff;
+  --ps2-cyan-glow: rgba(0, 240, 255, 0.6);
+  --ps2-cyan-dim: #1a566b;
+  --ps2-magenta: #ff0055;
   --ps2-silver: #dce6f2;
-  --ps2-gold: #ffd76b;
-  --font-display: 'Press Start 2P', monospace;
-  --font-body: 'VT323', monospace;
+  --ps2-gold: #e2c044;
+  --ps2-grey-bg: #4a4d53;
+  
+  --font-display: 'Orbitron', 'Press Start 2P', monospace;
+  --font-body: 'VT323', 'Share Tech Mono', monospace;
 }
 
 * { box-sizing: border-box; }
@@ -21,10 +25,32 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #181825;
+  background-color: var(--ps2-blue-deep);
+  font-family: var(--font-body);
+  user-select: none;
 }
 
 .hidden { display: none !important; }
+
+/* CRT Scanline Shader Overlay */
+.crt-overlay::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.28) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.02)
+  );
+  z-index: 999;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
 
 /* Generic full-viewport layer */
 .screen {
@@ -35,18 +61,35 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
+  background: var(--ps2-blue-deep);
 }
 
 /* ============================================================
-   LAYER 1 — BOOT PROMPT
+   SCREEN 1: BOOT PROMPT
 ============================================================= */
+.boot-prompt-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.ps2-logo-text {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 900;
+  color: var(--ps2-silver);
+  letter-spacing: 6px;
+  text-shadow: 0 0 20px rgba(220, 230, 242, 0.5);
+}
+
 .blink-text {
   font-family: var(--font-display);
-  font-size: clamp(10px, 2vw, 16px);
-  color: var(--ps2-silver);
-  animation: blink 1.4s steps(1) infinite;
-  letter-spacing: 1px;
+  font-size: clamp(10px, 1.8vw, 14px);
+  color: var(--ps2-cyan);
+  animation: blink 1.2s steps(1) infinite;
+  letter-spacing: 2px;
 }
 
 @keyframes blink {
@@ -55,53 +98,426 @@ body, html {
 }
 
 /* ============================================================
-   LAYER 2 — BOOT VIDEO
+   SCREEN 2: INTRO PILLARS (Image 3)
 ============================================================= */
-#boot-video-wrap {
+#ps2-intro-screen {
   background: #000;
   flex-direction: column;
+  overflow: hidden;
 }
 
-#boot-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  animation: fadeIn 0.6s ease-in;
-}
-
-.skip-hint {
+.ps2-pillars-bg {
   position: absolute;
-  bottom: 24px;
-  right: 28px;
-  font-family: var(--font-display);
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Crossfade-to-white flash used when the video hands off to the game */
-.flash-white {
-  position: fixed;
   inset: 0;
-  background: #fff;
-  z-index: 9999;
   pointer-events: none;
-  opacity: 0;
 }
-.flash-white.active {
-  animation: flashOut 0.7s ease-out forwards;
+
+.intro-pillar {
+  position: absolute;
+  background: linear-gradient(135deg, rgba(0, 100, 255, 0.45) 0%, rgba(0, 240, 255, 0.1) 100%);
+  box-shadow: 0 0 30px rgba(0, 100, 255, 0.4);
+  transform-style: preserve-3d;
+  animation: pillarFly 8s ease-in-out infinite alternate;
 }
-@keyframes flashOut {
-  0%   { opacity: 1; }
-  100% { opacity: 0; }
+
+.p1 { width: 120px; height: 400px; left: 10%; top: -50px; transform: rotate(-25deg); animation-delay: 0s; }
+.p2 { width: 90px; height: 500px; right: 15%; top: -100px; transform: rotate(15deg); animation-delay: 1.5s; }
+.p3 { width: 140px; height: 350px; left: 35%; bottom: -50px; transform: rotate(45deg); animation-delay: 3s; }
+.p4 { width: 80px; height: 450px; right: 30%; bottom: -80px; transform: rotate(-35deg); animation-delay: 2s; }
+.p5 { width: 110px; height: 300px; left: 55%; top: 20%; transform: rotate(10deg); animation-delay: 4s; }
+.p6 { width: 70px; height: 600px; left: 5%; bottom: -150px; transform: rotate(70deg); animation-delay: 2.5s; }
+
+@keyframes pillarFly {
+  0% { transform: scale(1) translateY(0); opacity: 0.4; }
+  100% { transform: scale(1.15) translateY(-30px); opacity: 0.8; }
+}
+
+.intro-title-wrap {
+  z-index: 10;
+  text-align: center;
+}
+
+.intro-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 3.2vw, 36px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 4px;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 10px var(--ps2-cyan);
+}
+
+.skip-intro-hint {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 1px;
 }
 
 /* ============================================================
-   LAYER 3 — GAME CANVAS
+   SCREEN 3: PS2 SEVEN STARS MAIN MENU (Image 1)
+============================================================= */
+#ps2-main-menu {
+  background: radial-gradient(circle at center, #05102e 0%, #010410 90%);
+  flex-direction: column;
+}
+
+.orbs-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.main-menu-options {
+  position: absolute;
+  right: 15vw;
+  top: 42%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+}
+
+.menu-item {
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+.menu-text {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 700;
+  color: rgba(220, 230, 242, 0.35);
+  letter-spacing: 2px;
+  transition: all 0.25s ease;
+}
+
+.menu-item.active .menu-text {
+  color: var(--ps2-cyan);
+  text-shadow: 0 0 20px var(--ps2-cyan-glow), 0 0 40px var(--ps2-cyan);
+  transform: translateX(-10px);
+}
+
+#menu-opt-sysconfig.active .menu-text {
+  color: var(--ps2-gold);
+  text-shadow: 0 0 20px rgba(226, 192, 68, 0.6);
+}
+
+/* Common Footer Bar matching Image 1, 2, 4, 5 */
+.ps2-footer-bar {
+  position: absolute;
+  bottom: 0;
+  inset-x: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 20;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+}
+
+.footer-left {
+  display: flex;
+  gap: 28px;
+}
+
+.btn-hint-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--ps2-silver);
+}
+
+.btn-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: bold;
+}
+.btn-x { background: rgba(0, 240, 255, 0.2); border: 1px solid var(--ps2-cyan); color: var(--ps2-cyan); }
+.btn-o { background: rgba(255, 0, 85, 0.2); border: 1px solid var(--ps2-magenta); color: var(--ps2-magenta); }
+.btn-triangle { background: rgba(34, 184, 108, 0.2); border: 1px solid #22b86c; color: #22b86c; }
+.btn-square { background: rgba(226, 192, 68, 0.2); border: 1px solid var(--ps2-gold); color: var(--ps2-gold); }
+
+.footer-keyboard-bar {
+  background: rgba(10, 20, 45, 0.75);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 20px;
+  padding: 6px 18px;
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  color: var(--ps2-silver);
+}
+
+.highlight-cyan { color: var(--ps2-cyan); }
+
+/* ============================================================
+   SCREEN 4: VERSION INFORMATION (Image 4)
+============================================================= */
+#ps2-version-screen {
+  background: radial-gradient(circle at center, #061230 0%, #010410 90%);
+}
+
+.version-container {
+  width: min(90vw, 850px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.version-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--ps2-gold);
+  text-align: right;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.version-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.version-table-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.v-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+  padding-bottom: 4px;
+}
+
+.v-key {
+  color: var(--ps2-cyan);
+  font-weight: bold;
+}
+
+.v-val {
+  color: #ffffff;
+}
+
+/* ============================================================
+   SCREEN 5: SYSTEM CONFIGURATION (Image 2)
+============================================================= */
+#ps2-sysconfig-screen {
+  background: radial-gradient(circle at center, #0b1a47 0%, #020718 90%);
+  flex-direction: column;
+}
+
+.sysconfig-header-bar {
+  position: absolute;
+  top: 30px;
+  inset-x: 50px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ps2-silver);
+  letter-spacing: 2px;
+  z-index: 10;
+}
+
+.sysconfig-body {
+  width: min(92vw, 900px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  z-index: 10;
+}
+
+.sysconfig-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--ps2-gold);
+  margin: 0 0 20px 0;
+  letter-spacing: 2px;
+}
+
+.sysconfig-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sysconfig-opt {
+  padding: 10px 16px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  transition: all 0.2s ease;
+}
+
+.sysconfig-opt.selected {
+  border-color: var(--ps2-cyan);
+  background: rgba(0, 240, 255, 0.12);
+}
+
+.sysconfig-opt.selected .opt-label {
+  color: var(--ps2-cyan);
+  font-weight: bold;
+  text-shadow: 0 0 10px var(--ps2-cyan-glow);
+}
+
+.sysconfig-opt .opt-label { color: var(--ps2-silver); }
+.sysconfig-opt .opt-value { color: #ffffff; }
+
+/* ============================================================
+   SCREEN 6: MEMORY CARD SAVE FILE BROWSER (Image 5)
+============================================================= */
+#ps2-memcard-browser {
+  background: linear-gradient(180deg, #6c7078 0%, #3e4147 100%);
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+.memcard-browser-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 10;
+}
+
+.memcard-ps2-logo {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.memcard-section-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: #ffffff;
+  margin: 4px 0 0 0;
+  letter-spacing: 1px;
+}
+
+.memcard-sub-info {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.memcard-slot-label {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--ps2-gold);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* 3x2 Grid of 3D Save Icons */
+.memcard-icons-grid {
+  width: min(90vw, 850px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 30px;
+  margin: auto;
+  z-index: 10;
+}
+
+.save-icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+/* Glowing White Halo Ring on Hover/Select (Image 5 exact match!) */
+.save-icon-halo {
+  position: absolute;
+  top: -12px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 60%, transparent 80%);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+.save-icon-card.selected .save-icon-halo,
+.save-icon-card:hover .save-icon-halo {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.save-icon-card.selected,
+.save-icon-card:hover {
+  transform: translateY(-6px);
+}
+
+.save-icon-box {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #2b396b 0%, #101838 100%);
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.game-box { background: linear-gradient(135deg, #00f0ff 0%, #005588 100%); border-color: #00f0ff; }
+.proj-box { background: linear-gradient(135deg, #ff0055 0%, #880022 100%); border-color: #ff0055; }
+.sys-box { background: linear-gradient(135deg, #ffaa00 0%, #885500 100%); border-color: #ffaa00; }
+
+.save-icon-symbol {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.save-icon-title {
+  font-family: var(--font-body);
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.save-icon-card.selected .save-icon-title {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* ============================================================
+   SCREEN 7: GAME CANVAS WORLD
 ============================================================= */
 #game-wrap {
   display: flex;
@@ -109,218 +525,307 @@ body, html {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #11111b; /* Outer letterbox dark area */
+  background-color: #050614;
 }
 
 #game-canvas {
-  width: 512px;
-  height: 384px;
+  width: 100vw;
+  height: 100vh;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  display: block;
 }
 
 .interact-prompt {
   position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-display);
-  font-size: 10px;
-  color: #000;
+  font-size: 12px;
+  color: #050614;
   background: var(--ps2-gold);
-  padding: 6px 10px;
+  padding: 8px 16px;
   border-radius: 4px;
   white-space: nowrap;
   pointer-events: none;
-  transform: translate(-50%, -100%);
-  box-shadow: 0 2px 0 rgba(0,0,0,0.35);
+  box-shadow: 0 4px 15px rgba(226, 192, 68, 0.4);
   animation: bob 1.1s ease-in-out infinite;
+  z-index: 100;
 }
+
 @keyframes bob {
-  0%, 100% { margin-top: 0px; }
-  50%      { margin-top: -4px; }
+  0%, 100% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -6px); }
 }
 
 #hud {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: rgba(255,255,255,0.4);
+  inset: 12px 16px auto 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.hud-panel {
+  background: rgba(5, 12, 34, 0.8);
+  border: 1px solid var(--ps2-cyan-dim);
+  border-radius: 4px;
+  padding: 8px 14px;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-title {
+  font-family: var(--font-display);
+  font-size: 10px;
+  color: var(--ps2-cyan);
+  letter-spacing: 1px;
+}
+
+.hud-controls-bar {
+  font-size: 16px;
+  color: var(--ps2-silver);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.key-pill {
+  font-family: var(--font-display);
+  font-size: 8px;
+  background: var(--ps2-cyan-dim);
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.hud-right { pointer-events: auto; }
+
+.hud-btn {
+  font-family: var(--font-display);
+  font-size: 9px;
+  background: rgba(255, 0, 85, 0.2);
+  border: 1px solid var(--ps2-magenta);
+  color: var(--ps2-silver);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hud-btn:hover {
+  background: var(--ps2-magenta);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
 }
 
 /* ============================================================
-   LAYER 4 — PS2 MEMORY CARD MODAL
+   SCREEN 8: PS2 MEMORY CARD MODAL
 ============================================================= */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 4, 20, 0.55);
+  background: rgba(2, 6, 23, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 500;
-  animation: overlayIn 0.15s ease-out;
+  animation: overlayIn 0.2s ease-out;
+  backdrop-filter: blur(5px);
 }
+
 @keyframes overlayIn {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 
 .memcard-window {
-  width: min(90vw, 640px);
-  max-height: 82vh;
+  width: min(92vw, 760px);
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   background: var(--ps2-blue-panel);
   border: 2px solid var(--ps2-cyan);
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow:
-    0 0 0 1px rgba(0,0,0,0.6),
-    0 0 30px rgba(111, 232, 255, 0.35),
-    inset 0 0 40px rgba(111, 232, 255, 0.06);
-  backdrop-filter: blur(3px);
-  animation: windowPop 0.18s ease-out;
+    0 0 0 1px rgba(0,0,0,0.8),
+    0 0 40px var(--ps2-cyan-glow),
+    inset 0 0 50px rgba(0, 240, 255, 0.08);
+  animation: windowPop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 @keyframes windowPop {
-  from { transform: scale(0.94); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .memcard-titlebar {
-  padding: 10px 16px;
+  padding: 12px 18px;
   border-bottom: 1px solid var(--ps2-cyan-dim);
   font-family: var(--font-display);
   font-size: 12px;
   letter-spacing: 2px;
   color: var(--ps2-cyan);
-  text-shadow: 0 0 6px rgba(111,232,255,0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-shadow: 0 0 8px var(--ps2-cyan-glow);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--ps2-magenta);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
 }
 
 .memcard-body {
-  padding: 18px 20px;
+  padding: 20px;
   overflow-y: auto;
   flex: 1;
   font-size: 20px;
   line-height: 1.4;
 }
 
+.panel-heading {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--ps2-gold);
+  margin: 0 0 16px 0;
+  letter-spacing: 1px;
+}
+
 .memcard-panel { display: none; }
-.memcard-panel.active { display: block; animation: panelIn 0.15s ease-out; }
+.memcard-panel.active { display: block; animation: panelIn 0.18s ease-out; }
 @keyframes panelIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.projects-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
 }
 
 .memcard-list {
   list-style: none;
-  margin: 0 0 14px 0;
+  margin: 0;
   padding: 0;
 }
+
 .memcard-list li {
-  padding: 8px 12px;
-  margin-bottom: 6px;
-  border: 1px solid transparent;
-  border-radius: 3px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border: 1px solid var(--ps2-cyan-dim);
+  background: rgba(0, 240, 255, 0.04);
+  border-radius: 4px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
+  transition: all 0.2s ease;
 }
+
 .memcard-list li:hover,
 .memcard-list li.selected {
   border-color: var(--ps2-cyan);
-  background: rgba(111, 232, 255, 0.08);
+  background: rgba(0, 240, 255, 0.15);
   color: var(--ps2-cyan);
+  transform: translateX(4px);
 }
-.memcard-list li .lock-icon { opacity: 0.5; font-size: 16px; }
 
 .memcard-detail {
-  border-top: 1px dashed var(--ps2-cyan-dim);
-  padding-top: 12px;
-  min-height: 70px;
+  background: rgba(3, 8, 30, 0.7);
+  border: 1px solid var(--ps2-cyan-dim);
+  border-radius: 6px;
+  padding: 14px;
+  min-height: 140px;
 }
-.placeholder-text { color: rgba(220,230,242,0.5); }
 
 .bio-columns {
   display: flex;
-  gap: 18px;
+  gap: 20px;
   align-items: flex-start;
 }
-.portrait-placeholder {
-  width: 96px;
-  height: 96px;
-  flex: none;
-  border: 2px dashed var(--ps2-cyan-dim);
+
+.portrait-avatar {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--ps2-magenta) 0%, var(--ps2-blue-main) 100%);
+  border: 2px solid var(--ps2-cyan);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 10px;
-  color: var(--ps2-cyan-dim);
-  border-radius: 4px;
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 0 0 10px var(--ps2-cyan);
 }
+
+.avatar-tag {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--ps2-gold);
+  margin-top: 6px;
+}
+
 .bio-text h3 {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ps2-gold);
   margin: 0 0 10px 0;
 }
+
 .bio-text h4 {
   font-family: var(--font-display);
   font-size: 10px;
   color: var(--ps2-cyan);
-  margin: 14px 0 8px 0;
+  margin: 16px 0 8px 0;
 }
+
 .skill-tags {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
+
 .skill-tags li {
-  border: 1px solid var(--ps2-cyan-dim);
-  padding: 3px 8px;
-  border-radius: 3px;
+  border: 1px solid var(--ps2-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--ps2-silver);
+  padding: 4px 10px;
+  border-radius: 4px;
   font-size: 16px;
 }
 
 .memcard-footer {
   display: flex;
   gap: 24px;
-  padding: 10px 16px;
+  padding: 12px 18px;
   border-top: 1px solid var(--ps2-cyan-dim);
   font-family: var(--font-display);
   font-size: 10px;
 }
-.btn-hint { display: flex; align-items: center; gap: 6px; color: rgba(220,230,242,0.75); }
-.btn-x, .btn-o {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  font-size: 9px;
-}
-.btn-x { background: #3a6bd6; color: #fff; }
-.btn-o { background: #d64545; color: #fff; }
 
-/* Scrollbar theming to keep the retro feel */
-.memcard-body::-webkit-scrollbar { width: 8px; }
-.memcard-body::-webkit-scrollbar-thumb {
-  background: var(--ps2-cyan-dim);
-  border-radius: 4px;
+/* Responsive adjustments */
+@media (max-width: 750px) {
+  .sysconfig-body { grid-template-columns: 1fr; }
+  .version-grid { grid-template-columns: 1fr; }
+  .memcard-icons-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-keyboard-bar { display: none; }
 }
 
-/* ============================================================
-   RESPONSIVE TWEAKS
-============================================================= */
-@media (max-width: 600px) {
-  .memcard-body { font-size: 16px; }
-  .bio-columns { flex-direction: column; align-items: center; text-align: center; }
-}
 
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .blink-text, .interact-prompt, .memcard-window, .modal-overlay { animation: none !important; }
-}
