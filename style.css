@@ -66,6 +66,46 @@ body[data-palette="Cyberpunk"] {
   --ps2-gold: #ffe600;
 }
 
+/* PALETTE: Mecha Sci-Fi (Steel Blue & Orange Sci-Fi) */
+body[data-palette="Mecha Sci-Fi"] {
+  --ps2-blue-deep: #0a111a;
+  --ps2-blue-main: #182535;
+  --ps2-blue-panel: rgba(24, 37, 53, 0.92);
+  --ps2-cyan: #35a7ff;
+  --ps2-cyan-glow: rgba(53, 167, 255, 0.7);
+  --ps2-cyan-dim: #1d4e89;
+  --ps2-magenta: #ff5964;
+  --ps2-gold: #ffe156;
+}
+
+/* WALLPAPER ENGINE LIVE BACKGROUND CONTAINER */
+.wallpaper-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wallpaper-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  transition: opacity 0.6s ease;
+}
+
+.wallpaper-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.45;
+  transition: opacity 0.6s ease;
+}
+
 * { box-sizing: border-box; }
 
 body, html {

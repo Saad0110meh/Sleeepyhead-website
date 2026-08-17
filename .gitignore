@@ -1,3 +1,8 @@
 Checkthisout/
 *.zip
 assets/*.zip
+node_modules/
+.next/
+dist/
+package.json
+package-lock.json

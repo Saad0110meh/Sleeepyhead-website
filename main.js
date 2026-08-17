@@ -50,7 +50,7 @@ let clockDispIndex = 0;
 const VCR_FILTERS = ['VCR VHS Tracking', 'CRT Scanlines', 'Disabled'];
 let vcrFilterIndex = 0;
 
-const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Cyberpunk'];
+const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Cyberpunk'];
 let paletteIndex = 0;
 
 const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix', 'VCR Slate'];
@@ -480,6 +480,7 @@ function toggleSysConfigOption() {
     const currentPalette = CONSOLE_PALETTES[paletteIndex];
     document.getElementById('val-palette').innerText = currentPalette;
     document.body.setAttribute('data-palette', currentPalette);
+    applyWallpaperTheme(currentPalette);
   } else if (sysConfigIndex === 4) {
     bthemeIndex = (bthemeIndex + 1) % BROWSER_THEMES.length;
     const currentBTheme = BROWSER_THEMES[bthemeIndex];
@@ -488,6 +489,38 @@ function toggleSysConfigOption() {
   } else if (sysConfigIndex === 5) {
     cfgAudio = !cfgAudio;
     document.getElementById('val-audio').innerText = cfgAudio ? 'ENABLED' : 'DISABLED';
+  }
+}
+
+function applyWallpaperTheme(palette) {
+  const vid = document.getElementById('wallpaper-video');
+  const img = document.getElementById('wallpaper-img');
+  if (!vid || !img) return;
+
+  if (palette === 'Frutiger Aero') {
+    vid.src = 'Themes/Frutiger/frutiger_live.mp4';
+    vid.classList.remove('hidden');
+    img.classList.add('hidden');
+    vid.play().catch(() => {});
+  } else if (palette === 'Mecha Sci-Fi') {
+    vid.src = 'Themes/Mecha/MECHA - YOUTUBE.mp4';
+    vid.classList.remove('hidden');
+    img.classList.add('hidden');
+    vid.play().catch(() => {});
+  } else if (palette === 'Dorfic') {
+    vid.pause();
+    vid.classList.add('hidden');
+    img.style.backgroundImage = "url('Themes/Dorfic/preview.jpg')";
+    img.classList.remove('hidden');
+  } else if (palette === 'Liquid Metal') {
+    vid.pause();
+    vid.classList.add('hidden');
+    img.style.backgroundImage = "url('Themes/Liquid Metal/preview.jpg')";
+    img.classList.remove('hidden');
+  } else {
+    vid.pause();
+    vid.classList.add('hidden');
+    img.classList.add('hidden');
   }
 }
 

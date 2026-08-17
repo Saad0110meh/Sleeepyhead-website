@@ -1,0 +1,28 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "Yeah, that is DORFic  style wallpaper cause why not.",
+	"file" : "scene.json",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0.93333 0.47843 0.01961"
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"tags" : [ "Abstract" ],
+	"title" : "DORFic Wallpaper 1",
+	"type" : "scene",
+	"version" : 1,
+	"visibility" : "public",
+	"workshopid" : "3464327476",
+	"workshopurl" : "steam://url/CommunityFilePage/3464327476"
+}
