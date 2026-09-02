@@ -174,7 +174,7 @@ const PLATFORMS = [
   { name: "Discord", handle: "sleepyhead3960", url: "https://discord.com", icon: "💬", badge: "Chat & Voice" },
   { name: "GitHub", handle: "Saad0110Meh", url: "https://github.com/Saad0110meh", icon: "🐙", badge: "Code Repositories" },
   { name: "Itch.io", handle: "sajidulkarim.itch.io", url: "https://sajidulkarim.itch.io/", icon: "🕹️", badge: "Indie Game Hub" },
-  { name: "Steam", handle: "sleepyhead", url: "https://steamcommunity.com/profiles/76561198447696633/", icon: "🎮", badge: "Gaming Profile" },
+  { name: "Steam", handle: "OUTCAST", url: "https://steamcommunity.com/profiles/76561198447696633/", icon: "🎮", badge: "Gaming Profile" },
   { name: "MyAnimeList", handle: "Shiro_Neko0110", url: "https://myanimelist.net/profile/Shiro_Neko0110", icon: "🍿", badge: "Anime & Manga List" }
 ];
 
