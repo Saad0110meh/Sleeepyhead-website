@@ -1,40 +1,203 @@
 // ==========================================
 // 1. CONFIGURATION & PORTFOLIO DATA
 // ==========================================
+const DEV_INFO = {
+  name: "Sazidul Karim",
+  alias: "sleepyhead",
+  role: "Indie Game Developer & Cybersecurity Researcher",
+  institution: "Islamic University of Technology (IUT)",
+  department: "Department of Computer Science & Engineering (CSE)",
+  status: "B.Sc. in CSE — In Progress (2nd Year, 2nd Semester)",
+  email: "Sajid589karim@gmail.com",
+  discord: "sleepyhead3960",
+  github: "Saad0110Meh",
+  githubUrl: "https://github.com/Saad0110meh",
+  itchUrl: "https://sajidulkarim.itch.io/",
+  steamUrl: "https://steamcommunity.com/profiles/76561198447696633/",
+  malUrl: "https://myanimelist.net/profile/Shiro_Neko0110"
+};
+
 const PROJECTS = [
   {
-    id: "proj1",
-    title: "Hyper Drift Web Engine",
-    desc: "A high-performance HTML5 Canvas 2D game engine with custom particle physics, sprite animation systems, and PS2 retro UI.",
-    tech: ["JavaScript (ES6+)", "HTML5 Canvas", "Web Audio API", "CSS3"],
-    size: "51 KB"
+    id: "a_tariq",
+    title: "a_tariq — Interactive Arabic Learning",
+    category: "Full-Stack EdTech",
+    desc: "An immersive, interactive Arabic learning platform engineered with structured curriculum tracks, interactive vocalization exercises, and gamified mastery paths.",
+    tech: ["React", "Next.js", "TypeScript", "Node.js", "CSS3", "Git"],
+    link: "https://github.com/amir-al-razin/a_tariq",
+    size: "64 KB",
+    tag: "COLLAB"
   },
   {
-    id: "proj2",
-    title: "Low-Level Systems Visualizer",
-    desc: "RISC-V assembly simulator and cache controller hardware visualizer designed for interactive computer architecture education.",
-    tech: ["C++", "CMake", "RISC-V", "Assembly"],
-    size: "42 KB"
+    id: "santiago",
+    title: "Santiago's 9th Requiem",
+    category: "DevOps & Infrastructure",
+    desc: "Automated containerized deployment pipeline, microservices orchestration, and infrastructure experiments designed for seamless continuous integration.",
+    tech: ["Docker", "DevOps", "CI/CD", "Linux", "Git", "GitHub"],
+    link: "https://github.com/Saad0110meh/Santiago-s_neinth_requiem",
+    size: "48 KB",
+    tag: "DEVOPS"
   },
   {
-    id: "proj3",
-    title: "Cyberpunk Neural Matrix",
-    desc: "Real-time AI matrix visualization engine featuring custom shaders and audio-reactive particle nodes.",
-    tech: ["TypeScript", "WebGL", "Three.js"],
-    size: "68 KB"
+    id: "another_tsapp",
+    title: "AnotherTSAPP — Game Engine & App",
+    category: "Game Dev & TypeScript",
+    desc: "Interactive game mechanics prototype and modular TypeScript application exploring custom render loops, entity state machines, and responsive input handling.",
+    tech: ["TypeScript", "Node.js", "HTML5 Canvas", "Game Mechanics", "Git"],
+    link: "https://github.com/abrarnaguib/AnotherTSAPP_TEST",
+    size: "52 KB",
+    tag: "GAME DEV"
+  },
+  {
+    id: "indie_vault",
+    title: "Indie Game Lab & Audio Lab",
+    category: "Indie Dev Odyssey",
+    desc: "Original 2D/3D indie game experiments and prototypes across Godot, Unity, and RPG Maker. Features custom pixel art (Aseprite), 3D assets (Blender), and original synthesized musical scores crafted in FL Studio and Piapro Studio NT2 / Crypton CV1.",
+    tech: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "FL Studio", "Piapro Studio NT2", "Crypton CV1"],
+    link: "https://sajidulkarim.itch.io/",
+    size: "88 KB",
+    tag: "CREATIVE"
+  },
+  {
+    id: "cybersec_ctf",
+    title: "Cybersecurity & CTF Arsenal",
+    category: "Security Operations",
+    desc: "Active participation in Capture The Flag (CTF) security competitions with competitive rankings. Deep packet inspection with Wireshark, web vulnerability testing with Burp Suite, and exploitation toolkits via Kali Linux.",
+    tech: ["Wireshark", "Burp Suite", "Kali Linux", "CTF Challenges", "Network Auditing"],
+    link: "https://github.com/Saad0110Meh",
+    size: "44 KB",
+    tag: "SECURITY"
+  },
+  {
+    id: "lowlevel_hw",
+    title: "Systems, RISC-V & Proteus Labs",
+    category: "Low-Level & Hardware",
+    desc: "Computer architecture and microelectronics laboratory projects involving C/C++, RISC-V assembly simulation, Proteus circuit design, and desktop GUIs constructed with JavaFX & Scene Builder.",
+    tech: ["C", "C++", "Java", "RISC-V", "Proteus", "JavaFX", "Scene Builder", "CMake", "LaTeX"],
+    link: "https://github.com/Saad0110Meh",
+    size: "38 KB",
+    tag: "SYSTEMS"
   }
 ];
 
-const BIO_TEXT = "Greetings! I'm sleepyhead, a Computer Science Engineer crafting high-performance systems, retro game engines, and immersive web experiences.";
-const SKILLS = ["C++", "JavaScript", "HTML5 Canvas", "Web Audio API", "Git", "CMake", "RISC-V", "CSS3"];
+const CAREER_EDUCATION = {
+  experience: [
+    {
+      role: "Paid Game Tester & QA Analyst",
+      company: "Korean Indie Game Testing Platform",
+      period: "Active Role",
+      badge: "GAMESCOM & BIC 2026",
+      desc: "Contracted game quality assurance specialist testing pre-release indie titles, including official showcase games from Gamescom 2026, Busan Indie Connect (BIC) Festival 2026, and upcoming international indie projects. Delivering in-depth bug analysis, gameplay balance telemetry, and user experience feedback."
+    },
+    {
+      role: "Technical Freelance & Software Oddjobs",
+      company: "Independent Contractor",
+      period: "Ongoing",
+      badge: "ODDJOBS",
+      desc: "Executing specialized software engineering tasks, custom scripts, audio mastering configurations, asset preparation, and development support for various client assignments."
+    }
+  ],
+  education: [
+    {
+      degree: "B.Sc. in Computer Science and Engineering",
+      institution: "Islamic University of Technology (IUT)",
+      department: "Department of Computer Science & Engineering (CSE)",
+      result: "In Progress (2nd Year, 2nd Semester)",
+      badge: "CSE UNDERGRAD"
+    },
+    {
+      degree: "Higher Secondary Certificate (HSC)",
+      institution: "St. Joseph Higher Secondary School",
+      department: "Science Division",
+      result: "GPA 5.00 / 5.00",
+      badge: "GPA 5.00"
+    },
+    {
+      degree: "Secondary School Certificate (SSC)",
+      institution: "Willes Little Flower School and College",
+      department: "Science Division",
+      result: "GPA 5.00 / 5.00",
+      badge: "GPA 5.00"
+    }
+  ]
+};
+
+const SKILL_GROUPS = [
+  {
+    category: "Core Languages & Systems",
+    icon: "💻",
+    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "RISC-V", "Assembly", "LaTeX", "CMake"]
+  },
+  {
+    category: "Web & Full-Stack Development",
+    icon: "🌐",
+    skills: ["React", "Next.js", "Node.js", "Spring Boot", "TanStack", "HTML5", "CSS3", "JavaFX", "Scene Builder"]
+  },
+  {
+    category: "Databases & DevOps",
+    icon: "🗄️",
+    skills: ["PostgreSQL", "PSQL", "MySQL", "Docker", "Git", "GitHub", "npm", "pnpm"]
+  },
+  {
+    category: "Game Dev, Audio & Visual Suite",
+    icon: "🎮",
+    skills: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "GIMP", "Adobe Illustrator", "FL Studio", "Piapro Studio NT2", "Crypton CV1"]
+  },
+  {
+    category: "Cybersecurity & Hardware Labs",
+    icon: "🛡️",
+    skills: ["Kali Linux CTF Tools", "Wireshark", "Burp Suite", "CTF Challenges", "Proteus Hardware Projects"]
+  }
+];
+
+const LORE = {
+  bio: "Greetings! I'm Sazidul Karim, a Computer Science & Engineering undergraduate at Islamic University of Technology (IUT). I aspire to be an indie game developer with deep roots in cybersecurity, low-level architecture, retro aesthetics, and audio composition. When I'm not testing upcoming indie games or solving CTF challenges, I'm composing folk tunes, crafting culinary experiments, or spending time with cats.",
+  aspirations: "Aspiring Indie Game Developer & Cybersecurity Practitioner.",
+  favorites: {
+    games: ["Hollow Knight", "Dota 2", "No Man's Sky", "Cyberpunk 2077", "Sekiro: Shadows Die Twice"],
+    anime: [
+      "Monogatari Series",
+      "Orb: On the Movements of the Earth",
+      "The Disastrous Life of Saiki K.",
+      "Food Wars! Shokugeki no Soma",
+      "Neon Genesis Evangelion",
+      "The Wings of Honnêamise",
+      "Mobile Suit Gundam",
+      "Macross",
+      "80s–00s Retro Classics & Mangas"
+    ],
+    movies: ["No Country for Old Men", "Spider-Man: Into the Spider-Verse", "Fallen Angels"],
+    reading: ["Aranyak (Bibhutibhushan Bandyopadhyay)"],
+    music: [
+      "Folk music from diverse global cultures",
+      "Original compositions in FL Studio & Piapro Studio NT2 (Crypton CV1)"
+    ],
+    cooking: "Unique experimental recipes and scratch culinary creations",
+    cars: "Automotive enthusiast & mechanical appreciation",
+    travel: "Exploring new horizons and world landscapes",
+    animal: "🐱 Cats (Supreme Favorites)"
+  }
+};
+
+const PLATFORMS = [
+  { name: "Email", handle: "Sajid589karim@gmail.com", url: "mailto:Sajid589karim@gmail.com", icon: "✉️", badge: "Direct Mail" },
+  { name: "Discord", handle: "sleepyhead3960", url: "https://discord.com", icon: "💬", badge: "Chat & Voice" },
+  { name: "GitHub", handle: "Saad0110Meh", url: "https://github.com/Saad0110meh", icon: "🐙", badge: "Code Repositories" },
+  { name: "Itch.io", handle: "sajidulkarim.itch.io", url: "https://sajidulkarim.itch.io/", icon: "🕹️", badge: "Indie Game Hub" },
+  { name: "Steam", handle: "sleepyhead", url: "https://steamcommunity.com/profiles/76561198447696633/", icon: "🎮", badge: "Gaming Profile" },
+  { name: "MyAnimeList", handle: "Shiro_Neko0110", url: "https://myanimelist.net/profile/Shiro_Neko0110", icon: "🍿", badge: "Anime & Manga List" }
+];
 
 const ACHIEVEMENTS = [
-  { id: "booted", title: "System Booted", desc: "Successfully booted into the PS2 matrix." },
+  { id: "booted", title: "System Booted", desc: "Successfully booted into the PS2 BIOS matrix." },
   { id: "browser_opened", title: "Memory Browser Access", desc: "Entered the PS2 Memory Card Save Browser." },
-  { id: "drifter_dash", title: "Phantasm Dash", desc: "Executed a hard-light phantom dash." },
+  { id: "drifter_dash", title: "Phantasm Dash", desc: "Executed a hard-light phantom dash in the RUBIX world." },
   { id: "sword_slash", title: "Data Blade", desc: "Slashed a corrupt data node with your hard-light sword." },
-  { id: "table", title: "Project Explorer", desc: "Accessed the Main Project Terminal." },
-  { id: "counter", title: "Drifter Lore", desc: "Scanned the Bio & Capabilities Shrine." }
+  { id: "projects_checked", title: "Project Explorer", desc: "Inspected the Featured Projects repository list." },
+  { id: "career_checked", title: "QA & Academic Dossier", desc: "Accessed the Korean QA Game Testing & IUT records." },
+  { id: "skills_checked", title: "Arsenal Specialist", desc: "Scanned the full-stack, systems, and security matrix." },
+  { id: "lore_checked", title: "Drifter Lore & Otaku", desc: "Discovered classic anime, culinary, and cat lore." },
+  { id: "platforms_checked", title: "Signal Connected", desc: "Established contact frequency with external Comm Relays." }
 ];
 
 let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_achievements')) || ["booted"];
@@ -574,12 +737,12 @@ function applyWallpaperTheme(palette) {
 // Memory Card Save Icon Grid Navigation (Image 5)
 const iconCards = document.querySelectorAll('.save-icon-card');
 const iconHeaders = [
-  { header: "My Projects", sub: "RUBIX Game / 64 KB" },
-  { header: "Featured Work", sub: "Project Engine / 48 KB" },
-  { header: "Systems Hardware", sub: "RISC-V Simulator / 42 KB" },
-  { header: "Neural Matrix", sub: "Three.js Shaders / 68 KB" },
-  { header: "Drifter Profile", sub: "Bio & Capabilities / 12 KB" },
-  { header: "Console Saves", sub: "Trophy Storage / 8 KB" }
+  { header: "My Projects", sub: "RUBIX Game Engine / 64 KB" },
+  { header: "Featured Repositories", sub: "a_tariq & Santiago & Games / 54 KB" },
+  { header: "Career & Education", sub: "Game QA & IUT CSE Dossier / 32 KB" },
+  { header: "Technical Arsenal", sub: "Fullstack, GameDev & Sec / 58 KB" },
+  { header: "Drifter Lore & Media", sub: "Anime, Hobbies & Cat Lore / 24 KB" },
+  { header: "Comm Relay & Network", sub: "GitHub, Itch, Steam, MAL & Mail / 18 KB" }
 ];
 
 function updateMemcardSelection(index) {
@@ -593,8 +756,10 @@ function updateMemcardSelection(index) {
   });
 
   const headerInfo = iconHeaders[memcardIndex];
-  document.getElementById('selected-icon-header').innerText = headerInfo.header;
-  document.getElementById('selected-icon-subheader').innerText = headerInfo.sub;
+  if (headerInfo) {
+    document.getElementById('selected-icon-header').innerText = headerInfo.header;
+    document.getElementById('selected-icon-subheader').innerText = headerInfo.sub;
+  }
   playPS2SelectSound();
 }
 
@@ -612,12 +777,8 @@ function enterMemcardOption(index) {
     // Launch Hyper Light Drifter Canvas Game World!
     showScreen('game');
     startCanvasGame();
-  } else if (iconType === 'proj1' || iconType === 'proj2' || iconType === 'proj3') {
-    openModal('projects');
-  } else if (iconType === 'bio') {
-    openModal('bio');
-  } else if (iconType === 'trophies') {
-    openModal('achievements');
+  } else {
+    openModal(iconType);
   }
 }
 
@@ -720,20 +881,34 @@ let dashGhosts = [];
 let particles = [];
 
 const interactiveObjects = [
-  { id: "table", name: "Main Project Obelisk", x: 0, y: 0, w: 60, h: 60, panel: "projects", color: '#00f0ff' },
-  { id: "counter", name: "Drifter Lore Shrine", x: 0, y: 0, w: 60, h: 60, panel: "bio", color: '#e2c044' },
-  { id: "chest", name: "Data Relic Vault", x: 0, y: 0, w: 50, h: 50, panel: "achievements", color: '#ff0055' }
+  { id: "projects_obelisk", name: "Projects Matrix", x: 0, y: 0, w: 55, h: 55, panel: "projects", color: '#00f0ff' },
+  { id: "career_obelisk", name: "Career & QA Dossier", x: 0, y: 0, w: 55, h: 55, panel: "career", color: '#38bdf8' },
+  { id: "skills_obelisk", name: "Tech Arsenal", x: 0, y: 0, w: 55, h: 55, panel: "skills", color: '#00f5d4' },
+  { id: "lore_shrine", name: "Drifter Lore & Media", x: 0, y: 0, w: 55, h: 55, panel: "lore", color: '#e2c044' },
+  { id: "platforms_relay", name: "Comm Relay", x: 0, y: 0, w: 55, h: 55, panel: "platforms", color: '#ff9e00' },
+  { id: "trophy_vault", name: "Trophy Relic Vault", x: 0, y: 0, w: 55, h: 55, panel: "achievements", color: '#ff0055' }
 ];
 
 function updateObjectPositions() {
   const cx = canvas.width / 2;
   const cy = canvas.height / 2;
-  interactiveObjects[0].x = cx - 250;
-  interactiveObjects[0].y = cy - 100;
-  interactiveObjects[1].x = cx + 190;
-  interactiveObjects[1].y = cy - 100;
+  // Left Column
+  interactiveObjects[0].x = cx - 320;
+  interactiveObjects[0].y = cy - 130;
+  interactiveObjects[1].x = cx - 320;
+  interactiveObjects[1].y = cy + 110;
+
+  // Center Column
   interactiveObjects[2].x = cx;
-  interactiveObjects[2].y = cy - 200;
+  interactiveObjects[2].y = cy - 210;
+  interactiveObjects[5].x = cx;
+  interactiveObjects[5].y = cy + 180;
+
+  // Right Column
+  interactiveObjects[3].x = cx + 260;
+  interactiveObjects[3].y = cy - 130;
+  interactiveObjects[4].x = cx + 260;
+  interactiveObjects[4].y = cy + 110;
 }
 
 let activeObject = null;
@@ -1000,8 +1175,11 @@ function handleInteractionInput(e) {
   const key = e.key.toLowerCase();
   if (key === 'e' && activeObject && !isModalOpen) {
     openModal(activeObject.panel);
-    if (activeObject.id === 'table') unlockAchievement('table');
-    if (activeObject.id === 'counter') unlockAchievement('counter');
+    if (activeObject.id === 'projects_obelisk') unlockAchievement('projects_checked');
+    if (activeObject.id === 'career_obelisk') unlockAchievement('career_checked');
+    if (activeObject.id === 'skills_obelisk') unlockAchievement('skills_checked');
+    if (activeObject.id === 'lore_shrine') unlockAchievement('lore_checked');
+    if (activeObject.id === 'platforms_relay') unlockAchievement('platforms_checked');
   }
   if ((key === 'escape' || key === 'o') && isModalOpen) {
     closeModal();
@@ -1013,14 +1191,42 @@ function openModal(panelType) {
   modalOverlay.classList.remove('hidden');
   document.getElementById('interact-prompt').classList.add('hidden');
 
+  const titleEl = document.getElementById('memcard-title');
+  const titles = {
+    projects: "MEMORY CARD [SLOT 1] // FEATURED PROJECTS & CODE REPOS",
+    career: "MEMORY CARD [SLOT 1] // QA EXPERIENCE & ACADEMIC DOSSIER",
+    skills: "MEMORY CARD [SLOT 1] // TECHNICAL ARSENAL & SYSTEMS MATRIX",
+    lore: "MEMORY CARD [SLOT 1] // DRIFTER LORE, OTAKU ARCHIVE & CATS",
+    platforms: "MEMORY CARD [SLOT 1] // EXTERNAL COMM RELAYS & NETWORK",
+    achievements: "MEMORY CARD [SLOT 1] // TROPHY VAULT & UNLOCKS"
+  };
+  if (titleEl && titles[panelType]) {
+    titleEl.innerText = titles[panelType];
+  }
+
   document.querySelectorAll('.memcard-panel').forEach(panel => {
     if (panel.dataset.panel === panelType) panel.classList.add('active');
     else panel.classList.remove('active');
   });
 
-  if (panelType === 'projects') renderProjects();
-  if (panelType === 'bio') renderBio();
-  if (panelType === 'achievements') renderAchievements();
+  if (panelType === 'projects') {
+    renderProjects();
+    unlockAchievement('projects_checked');
+  } else if (panelType === 'career') {
+    renderCareer();
+    unlockAchievement('career_checked');
+  } else if (panelType === 'skills') {
+    renderSkills();
+    unlockAchievement('skills_checked');
+  } else if (panelType === 'lore') {
+    renderLore();
+    unlockAchievement('lore_checked');
+  } else if (panelType === 'platforms') {
+    renderPlatforms();
+    unlockAchievement('platforms_checked');
+  } else if (panelType === 'achievements') {
+    renderAchievements();
+  }
 }
 
 function closeModal() {
@@ -1039,20 +1245,31 @@ function renderProjects() {
   PROJECTS.forEach((proj, idx) => {
     const li = document.createElement('li');
     if (idx === 0) li.classList.add('selected');
-    li.innerHTML = `<span><strong>[0${idx+1}]</strong> ${proj.title}</span> <span style="font-size:14px;color:var(--ps2-cyan);font-weight:bold;">${proj.size}</span>`;
+    li.innerHTML = `
+      <span><strong>[0${idx+1}]</strong> ${proj.title}</span>
+      <span style="font-size:13px;color:var(--ps2-cyan);font-weight:bold;font-family:var(--font-display);">${proj.tag || proj.size}</span>
+    `;
     
     const showDetail = () => {
       document.querySelectorAll('#projects-list li').forEach(el => el.classList.remove('selected'));
       li.classList.add('selected');
       playPS2SelectSound();
       detailEl.innerHTML = `
-        <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:15px;margin:0 0 10px 0;letter-spacing:1px;">${proj.title}</h4>
-        <p style="margin:8px 0;line-height:1.5;color:var(--ps2-silver);">${proj.desc}</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:15px;margin:0;letter-spacing:1px;">${proj.title}</h4>
+          <span style="background:rgba(255,0,85,0.2);border:1px solid var(--ps2-magenta);color:#fff;padding:2px 6px;border-radius:3px;font-size:9px;font-family:var(--font-display);">${proj.category}</span>
+        </div>
+        <p style="margin:8px 0;line-height:1.5;color:var(--ps2-silver);font-size:17px;">${proj.desc}</p>
         <div style="margin-top:12px;">
           <span style="color:var(--ps2-cyan);font-weight:bold;font-size:11px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
           <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
-            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:14px;">${t}</span>`).join('')}
+            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:15px;">${t}</span>`).join('')}
           </div>
+        </div>
+        <div class="project-action-row">
+          <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="ps2-btn-link">
+            <span>&#128279; ACCESS REPO / DEMO</span> &rarr;
+          </a>
         </div>
       `;
     };
@@ -1060,29 +1277,142 @@ function renderProjects() {
     li.onclick = showDetail;
     listEl.appendChild(li);
 
-    if (idx === 0) {
-      detailEl.innerHTML = `
-        <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:15px;margin:0 0 10px 0;letter-spacing:1px;">${proj.title}</h4>
-        <p style="margin:8px 0;line-height:1.5;color:var(--ps2-silver);">${proj.desc}</p>
-        <div style="margin-top:12px;">
-          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:11px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
-            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:14px;">${t}</span>`).join('')}
-          </div>
-        </div>
-      `;
-    }
+    if (idx === 0) showDetail();
   });
 }
 
-function renderBio() {
-  document.getElementById('bio-copy').innerText = BIO_TEXT;
-  const skillsEl = document.getElementById('skills-list');
-  skillsEl.innerHTML = SKILLS.map(skill => `<li>${skill}</li>`).join('');
+function renderCareer() {
+  const container = document.getElementById('career-education-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="dossier-column">
+      <h4>&#127918; INDUSTRY & QA EXPERIENCE</h4>
+      ${CAREER_EDUCATION.experience.map(exp => `
+        <div class="dossier-card">
+          <div class="dossier-header">
+            <span class="dossier-title">${exp.role}</span>
+            <span class="dossier-badge">${exp.badge}</span>
+          </div>
+          <div class="dossier-sub">${exp.company}</div>
+          <div class="dossier-meta">&#128338; ${exp.period}</div>
+          <p class="dossier-desc">${exp.desc}</p>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="dossier-column">
+      <h4>&#127891; ACADEMIC QUALIFICATIONS</h4>
+      ${CAREER_EDUCATION.education.map(edu => `
+        <div class="dossier-card">
+          <div class="dossier-header">
+            <span class="dossier-title">${edu.degree}</span>
+            <span class="dossier-badge gold">${edu.badge}</span>
+          </div>
+          <div class="dossier-sub">${edu.institution}</div>
+          ${edu.department ? `<div class="dossier-meta">${edu.department}</div>` : ''}
+          <div style="color:var(--ps2-gold);font-family:var(--font-display);font-size:11px;margin-top:6px;">
+            RESULT: ${edu.result}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderSkills() {
+  const container = document.getElementById('skills-grid-container');
+  if (!container) return;
+
+  container.innerHTML = SKILL_GROUPS.map(grp => `
+    <div class="skill-cat-card">
+      <div class="skill-cat-header">
+        <span class="skill-cat-icon">${grp.icon}</span>
+        <span>${grp.category}</span>
+      </div>
+      <div class="skill-badges-flow">
+        ${grp.skills.map(s => `<span class="skill-chip">${s}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderLore() {
+  const copyEl = document.getElementById('bio-copy');
+  if (copyEl) copyEl.innerText = LORE.bio;
+
+  const container = document.getElementById('lore-details-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="lore-group">
+      <div class="lore-group-title">&#127918; FAVORITE GAMES</div>
+      <div class="lore-chips">
+        ${LORE.favorites.games.map(g => `<span class="lore-chip">${g}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#127916; ANIME CLASSICS (80s–00s) & FAVORITES</div>
+      <div class="lore-chips">
+        ${LORE.favorites.anime.map(a => `<span class="lore-chip pink">${a}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#127909; MOVIES & CINEMA</div>
+      <div class="lore-chips">
+        ${LORE.favorites.movies.map(m => `<span class="lore-chip">${m}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#128218; LITERATURE & READING</div>
+      <div class="lore-chips">
+        ${LORE.favorites.reading.map(r => `<span class="lore-chip cyan">${r}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#127925; MUSIC & AUDIO SYNTHESIS</div>
+      <div class="lore-chips">
+        ${LORE.favorites.music.map(mu => `<span class="lore-chip">${mu}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#127859; CULINARY & EXPERIMENTAL COOKING</div>
+      <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.cooking}</p>
+    </div>
+
+    <div class="lore-group" style="border-color:var(--ps2-gold);">
+      <div class="lore-group-title" style="color:var(--ps2-gold);">&#128049; SUPREME COMPANION</div>
+      <p style="margin:4px 0 0 0;font-size:17px;color:#ffffff;font-weight:bold;">${LORE.favorites.animal}</p>
+    </div>
+  `;
+}
+
+function renderPlatforms() {
+  const container = document.getElementById('platforms-container');
+  if (!container) return;
+
+  container.innerHTML = PLATFORMS.map(p => `
+    <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="platform-card">
+      <div class="platform-left">
+        <div class="platform-icon-circle">${p.icon}</div>
+        <div class="platform-info">
+          <span class="platform-name">${p.name}</span>
+          <span class="platform-handle">${p.handle}</span>
+        </div>
+      </div>
+      <span class="platform-tag">${p.badge} &rarr;</span>
+    </a>
+  `).join('');
 }
 
 function renderAchievements() {
   const listEl = document.getElementById('achievements-list');
+  if (!listEl) return;
   listEl.innerHTML = '';
   
   ACHIEVEMENTS.forEach(ach => {
