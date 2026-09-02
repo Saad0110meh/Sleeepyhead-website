@@ -40,7 +40,7 @@ const PROJECTS = [
   },
   {
     id: "another_tsapp",
-    title: "AnotherTSAPP — Game Engine & App",
+    title: "AnotherTSAPP — Game Project",
     category: "Game Dev & TypeScript",
     desc: "Interactive game mechanics prototype and modular TypeScript application exploring custom render loops, entity state machines, and responsive input handling.",
     tech: ["TypeScript", "Node.js", "HTML5 Canvas", "Game Mechanics", "Git"],
@@ -50,9 +50,9 @@ const PROJECTS = [
   },
   {
     id: "indie_vault",
-    title: "Indie Game Lab & Audio Lab",
-    category: "Indie Dev Odyssey",
-    desc: "Original 2D/3D indie game experiments and prototypes across Godot, Unity, and RPG Maker. Features custom pixel art (Aseprite), 3D assets (Blender), and original synthesized musical scores crafted in FL Studio and Piapro Studio NT2 / Crypton CV1.",
+    title: "Indie Game Lab & Creative Works",
+    category: "Indie Game Dev",
+    desc: "Original indie game experiments and prototypes across Godot, Unity, and RPG Maker. Features custom pixel art (Aseprite), 3D assets (Blender), and original synthesized musical scores crafted in FL Studio and Piapro Studio NT2 / Crypton CV1.",
     tech: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "FL Studio", "Piapro Studio NT2", "Crypton CV1"],
     link: "https://sajidulkarim.itch.io/",
     size: "88 KB",
@@ -60,23 +60,13 @@ const PROJECTS = [
   },
   {
     id: "cybersec_ctf",
-    title: "Cybersecurity & CTF Arsenal",
-    category: "Security Operations",
+    title: "Cybersecurity & CTF Operations",
+    category: "Security & Networking",
     desc: "Active participation in Capture The Flag (CTF) security competitions with competitive rankings. Deep packet inspection with Wireshark, web vulnerability testing with Burp Suite, and exploitation toolkits via Kali Linux.",
     tech: ["Wireshark", "Burp Suite", "Kali Linux", "CTF Challenges", "Network Auditing"],
     link: "https://github.com/Saad0110Meh",
     size: "44 KB",
     tag: "SECURITY"
-  },
-  {
-    id: "lowlevel_hw",
-    title: "Systems, RISC-V & Proteus Labs",
-    category: "Low-Level & Hardware",
-    desc: "Computer architecture and microelectronics laboratory projects involving C/C++, RISC-V assembly simulation, Proteus circuit design, and desktop GUIs constructed with JavaFX & Scene Builder.",
-    tech: ["C", "C++", "Java", "RISC-V", "Proteus", "JavaFX", "Scene Builder", "CMake", "LaTeX"],
-    link: "https://github.com/Saad0110Meh",
-    size: "38 KB",
-    tag: "SYSTEMS"
   }
 ];
 
@@ -126,12 +116,12 @@ const SKILL_GROUPS = [
   {
     category: "Core Languages & Systems",
     icon: "💻",
-    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "RISC-V", "Assembly", "LaTeX", "CMake"]
+    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "RISC V", "CMake", "LaTeX", "Proteus Projects"]
   },
   {
     category: "Web & Full-Stack Development",
     icon: "🌐",
-    skills: ["React", "Next.js", "Node.js", "Spring Boot", "TanStack", "HTML5", "CSS3", "JavaFX", "Scene Builder"]
+    skills: ["React", "Next.js", "Node.js", "Spring Boot", "TanStack", "HTML", "CSS", "JavaFX", "Scene Builder"]
   },
   {
     category: "Databases & DevOps",
@@ -144,9 +134,9 @@ const SKILL_GROUPS = [
     skills: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "GIMP", "Adobe Illustrator", "FL Studio", "Piapro Studio NT2", "Crypton CV1"]
   },
   {
-    category: "Cybersecurity & Hardware Labs",
+    category: "Cybersecurity & CTF Labs",
     icon: "🛡️",
-    skills: ["Kali Linux CTF Tools", "Wireshark", "Burp Suite", "CTF Challenges", "Proteus Hardware Projects"]
+    skills: ["Kali Linux Tools CTF", "Wireshark", "Burp Suite", "CTF Competitions"]
   }
 ];
 
@@ -1230,11 +1220,23 @@ function openModal(panelType) {
 }
 
 function closeModal() {
+  if (!isModalOpen) return;
   isModalOpen = false;
   modalOverlay.classList.add('hidden');
+  playPS2BackSound();
 }
 
-document.getElementById('modal-x-close').addEventListener('click', closeModal);
+const modalXClose = document.getElementById('modal-x-close');
+if (modalXClose) modalXClose.addEventListener('click', closeModal);
+
+const modalFooterClose = document.getElementById('modal-footer-close');
+if (modalFooterClose) modalFooterClose.addEventListener('click', closeModal);
+
+if (modalOverlay) {
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+}
 
 function renderProjects() {
   const listEl = document.getElementById('projects-list');
@@ -1455,6 +1457,21 @@ document.querySelectorAll('.ps2-footer-bar .btn-hint-item').forEach(btn => {
     });
   }
 });
+
+const btnMemcardEnter = document.getElementById('btn-memcard-enter');
+if (btnMemcardEnter) {
+  btnMemcardEnter.addEventListener('click', () => {
+    enterMemcardOption(memcardIndex);
+  });
+}
+
+const btnMemcardBack = document.getElementById('btn-memcard-back');
+if (btnMemcardBack) {
+  btnMemcardBack.addEventListener('click', () => {
+    showScreen('mainMenu');
+    playPS2BackSound();
+  });
+}
 
 // Apply initial wallpaper theme
 applyWallpaperTheme(CONSOLE_PALETTES[paletteIndex]);

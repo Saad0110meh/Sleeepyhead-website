@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css?v=3.0" />
 </head>
 <body class="crt-overlay">
 
@@ -241,8 +241,8 @@
 
     <footer class="ps2-footer-bar">
       <div class="footer-left">
-        <span class="btn-hint-item"><span class="btn-glyph btn-x">&times;</span> Enter</span>
-        <span class="btn-hint-item"><span class="btn-glyph btn-o">O</span> Back</span>
+        <span class="btn-hint-item" id="btn-memcard-enter"><span class="btn-glyph btn-x">&times;</span> Enter</span>
+        <span class="btn-hint-item" id="btn-memcard-back"><span class="btn-glyph btn-o">O</span> Back</span>
       </div>
     </footer>
   </section>
@@ -336,12 +336,12 @@
       </div>
 
       <div class="memcard-footer">
-        <span class="btn-hint"><span class="btn-x">X</span> Select</span>
-        <span class="btn-hint"><span class="btn-o">O</span> Close (ESC)</span>
+        <span class="btn-hint" id="modal-footer-select"><span class="btn-x">X</span> Select</span>
+        <span class="btn-hint" id="modal-footer-close" style="cursor:pointer;"><span class="btn-o">O</span> Close (ESC)</span>
       </div>
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <script src="main.js?v=3.0"></script>
 </body>
 </html>
