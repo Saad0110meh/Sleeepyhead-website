@@ -91,14 +91,25 @@ body[data-palette="Mecha Sci-Fi"] {
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  background-color: #020718;
+}
+
+.wallpaper-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(3, 10, 32, 0.45) 0%, rgba(1, 4, 18, 0.85) 100%);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .wallpaper-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.85;
+  opacity: 0.38;
   transition: opacity 0.6s ease;
+  filter: contrast(1.05) brightness(0.95);
 }
 
 .wallpaper-img {
@@ -106,19 +117,32 @@ body[data-palette="Mecha Sci-Fi"] {
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.80;
+  opacity: 0.35;
   transition: opacity 0.6s ease;
 }
 
 /* Translucent Screen Overlay when Live Wallpaper is active */
 body.has-wallpaper .screen {
-  background: radial-gradient(circle at center, rgba(5, 16, 46, 0.35) 0%, rgba(1, 4, 16, 0.75) 90%) !important;
+  background: radial-gradient(circle at center, rgba(6, 16, 48, 0.72) 0%, rgba(2, 6, 22, 0.92) 90%) !important;
 }
 
 body.has-wallpaper #ps2-main-menu,
 body.has-wallpaper #ps2-sysconfig-screen,
 body.has-wallpaper #ps2-version-screen {
-  background: radial-gradient(circle at center, rgba(5, 16, 46, 0.3) 0%, rgba(1, 4, 16, 0.75) 90%) !important;
+  background: radial-gradient(circle at center, rgba(6, 16, 48, 0.7) 0%, rgba(2, 6, 22, 0.92) 90%) !important;
+}
+
+body.has-wallpaper #ps2-memcard-browser {
+  background: radial-gradient(circle at center, rgba(10, 22, 58, 0.85) 0%, rgba(3, 8, 28, 0.96) 100%) !important;
+  backdrop-filter: blur(10px);
+}
+
+body.has-wallpaper .save-icon-card .save-icon-box {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+body.has-wallpaper .crt-overlay::before {
+  opacity: 0.45;
 }
 
 * { box-sizing: border-box; }
@@ -528,57 +552,73 @@ body, html {
 
 .sysconfig-header-bar {
   position: absolute;
-  top: 32px;
-  inset-x: 50px;
+  top: 24px;
+  left: 48px;
+  right: 48px;
+  width: calc(100% - 96px);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 17px;
   color: var(--ps2-silver);
   letter-spacing: 2px;
   z-index: 10;
 }
 
+.sysconfig-date, .sysconfig-time {
+  background: rgba(4, 15, 45, 0.85);
+  border: 1px solid var(--ps2-cyan);
+  padding: 6px 16px;
+  border-radius: 4px;
+  color: #ffffff;
+  box-shadow: 0 0 12px var(--ps2-cyan-glow);
+  text-shadow: 0 0 8px var(--ps2-cyan);
+}
+
 .sysconfig-body {
-  width: min(92vw, 900px);
+  width: min(92vw, 860px);
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 36px;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
   align-items: center;
   z-index: 10;
+  margin-top: 10px;
+  margin-bottom: 50px;
 }
 
 .sysconfig-title {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 22px;
   color: var(--ps2-gold);
-  margin: 0 0 24px 0;
+  margin: 0 0 14px 0;
   letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(226, 192, 68, 0.4);
 }
 
 .sysconfig-controls {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .sysconfig-opt {
-  padding: 12px 20px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 5px;
   border: 1.5px solid transparent;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 23px;
+  font-size: 19px;
   transition: all 0.2s ease;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .sysconfig-opt.selected {
   border-color: var(--ps2-cyan);
-  background: rgba(0, 240, 255, 0.12);
-  box-shadow: inset 0 0 12px var(--ps2-cyan-glow), 0 0 15px var(--ps2-cyan-glow);
+  background: rgba(0, 240, 255, 0.16);
+  box-shadow: inset 0 0 10px var(--ps2-cyan-glow), 0 0 14px var(--ps2-cyan-glow);
   transform: translateX(-4px);
 }
 
@@ -1163,16 +1203,46 @@ body, html {
 }
 
 .dossier-meta {
-  color: #94a3b8;
+  color: #38bdf8;
   font-size: 15px;
+  font-weight: bold;
   margin-bottom: 6px;
 }
 
 .dossier-desc {
-  color: var(--ps2-silver);
+  color: #f8fafc;
   font-size: 17px;
   line-height: 1.45;
   margin: 0;
+}
+
+.memcard-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 28px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--ps2-cyan-dim);
+  background: rgba(3, 8, 28, 0.85);
+  font-family: var(--font-display);
+  font-size: 11px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.memcard-footer .btn-hint {
+  color: #ffffff !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.memcard-footer .btn-hint:hover {
+  color: var(--ps2-cyan) !important;
+  text-shadow: 0 0 10px var(--ps2-cyan-glow);
 }
 
 /* Skills Categorized Grid */

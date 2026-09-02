@@ -840,10 +840,13 @@ document.getElementById('btn-return-ps2').addEventListener('click', () => {
 });
 
 // ==========================================
-// 7. HYPER LIGHT DRIFTER GAME ENGINE
+// 7. HYPER LIGHT DRIFTER GAME ENGINE (RUBIX)
 // ==========================================
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
+
+const WORLD_WIDTH = 2600;
+const WORLD_HEIGHT = 2000;
 
 function resizeCanvas() {
   if (!canvas) return;
@@ -853,10 +856,15 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
+const camera = {
+  x: (WORLD_WIDTH - window.innerWidth) / 2,
+  y: (WORLD_HEIGHT - window.innerHeight) / 2
+};
+
 const player = {
-  x: window.innerWidth / 2,
-  y: window.innerHeight / 2,
-  speed: 4,
+  x: WORLD_WIDTH / 2,
+  y: WORLD_HEIGHT / 2,
+  speed: 5.5,
   facingDir: 'down',
   isMoving: false,
   isDashing: false,
@@ -869,41 +877,34 @@ const player = {
 
 let dashGhosts = [];
 let particles = [];
+let ambientParticles = [];
+
+// Initialize ambient cyber particles
+for (let i = 0; i < 90; i++) {
+  ambientParticles.push({
+    x: Math.random() * WORLD_WIDTH,
+    y: Math.random() * WORLD_HEIGHT,
+    size: Math.random() * 2.5 + 1,
+    alpha: Math.random() * 0.7 + 0.3,
+    vy: -(Math.random() * 0.6 + 0.2),
+    vx: (Math.random() - 0.5) * 0.4,
+    color: Math.random() > 0.5 ? '#00f0ff' : '#ff0055'
+  });
+}
 
 const interactiveObjects = [
-  { id: "projects_obelisk", name: "Projects Matrix", x: 0, y: 0, w: 55, h: 55, panel: "projects", color: '#00f0ff' },
-  { id: "career_obelisk", name: "Career & QA Dossier", x: 0, y: 0, w: 55, h: 55, panel: "career", color: '#38bdf8' },
-  { id: "skills_obelisk", name: "Tech Arsenal", x: 0, y: 0, w: 55, h: 55, panel: "skills", color: '#00f5d4' },
-  { id: "lore_shrine", name: "Drifter Lore & Media", x: 0, y: 0, w: 55, h: 55, panel: "lore", color: '#e2c044' },
-  { id: "platforms_relay", name: "Comm Relay", x: 0, y: 0, w: 55, h: 55, panel: "platforms", color: '#ff9e00' },
-  { id: "trophy_vault", name: "Trophy Relic Vault", x: 0, y: 0, w: 55, h: 55, panel: "achievements", color: '#ff0055' }
+  { id: "projects_obelisk", name: "Projects Matrix", x: 650, y: 650, w: 64, h: 64, panel: "projects", color: '#00f0ff', glyph: "💾" },
+  { id: "career_obelisk", name: "Career & QA Dossier", x: 650, y: 1350, w: 64, h: 64, panel: "career", color: '#38bdf8', glyph: "🎮" },
+  { id: "skills_obelisk", name: "Tech Arsenal", x: 1300, y: 450, w: 64, h: 64, panel: "skills", color: '#00f5d4', glyph: "⚡" },
+  { id: "trophy_vault", name: "Trophy Relic Vault", x: 1300, y: 1550, w: 64, h: 64, panel: "achievements", color: '#ff0055', glyph: "🏆" },
+  { id: "lore_shrine", name: "Drifter Lore & Media", x: 1950, y: 650, w: 64, h: 64, panel: "lore", color: '#e2c044', glyph: "🐱" },
+  { id: "platforms_relay", name: "Comm Relay", x: 1950, y: 1350, w: 64, h: 64, panel: "platforms", color: '#ff9e00', glyph: "📡" }
 ];
-
-function updateObjectPositions() {
-  const cx = canvas.width / 2;
-  const cy = canvas.height / 2;
-  // Left Column
-  interactiveObjects[0].x = cx - 320;
-  interactiveObjects[0].y = cy - 130;
-  interactiveObjects[1].x = cx - 320;
-  interactiveObjects[1].y = cy + 110;
-
-  // Center Column
-  interactiveObjects[2].x = cx;
-  interactiveObjects[2].y = cy - 210;
-  interactiveObjects[5].x = cx;
-  interactiveObjects[5].y = cy + 180;
-
-  // Right Column
-  interactiveObjects[3].x = cx + 260;
-  interactiveObjects[3].y = cy - 130;
-  interactiveObjects[4].x = cx + 260;
-  interactiveObjects[4].y = cy + 110;
-}
 
 let activeObject = null;
 let isModalOpen = false;
 let gameLoopStarted = false;
+let pulseTimer = 0;
 
 const keys = {};
 window.addEventListener('keydown', (e) => {
@@ -919,14 +920,33 @@ window.addEventListener('keyup', (e) => {
   keys[e.key.toLowerCase()] = false;
 });
 
+canvas.addEventListener('click', (e) => {
+  if (currentScreen !== 'game' || isModalOpen) return;
+  const rect = canvas.getBoundingClientRect();
+  const clickWorldX = (e.clientX - rect.left) + camera.x;
+  const clickWorldY = (e.clientY - rect.top) + camera.y;
+
+  for (let obj of interactiveObjects) {
+    if (
+      clickWorldX >= obj.x - 20 &&
+      clickWorldX <= obj.x + obj.w + 20 &&
+      clickWorldY >= obj.y - 20 &&
+      clickWorldY <= obj.y + obj.h + 20
+    ) {
+      openModal(obj.panel);
+      break;
+    }
+  }
+});
+
 function triggerDash() {
   if (player.dashCooldown > 0 || player.isDashing) return;
   player.isDashing = true;
-  player.dashTimer = 12;
-  player.dashCooldown = 35;
+  player.dashTimer = 14;
+  player.dashCooldown = 30;
   playDashSound();
   unlockAchievement('drifter_dash');
-  createParticleBurst(player.x, player.y, '#00f0ff', 12);
+  createParticleBurst(player.x, player.y, '#00f0ff', 14);
 }
 
 function triggerSlash() {
@@ -941,33 +961,47 @@ function triggerSlash() {
   else if (player.facingDir === 'left') player.slashAngle = Math.PI;
   else if (player.facingDir === 'up') player.slashAngle = -Math.PI / 2;
 
-  createParticleBurst(player.x, player.y, '#ff0055', 8);
+  createParticleBurst(player.x, player.y, '#ff0055', 10);
 }
 
 function createParticleBurst(x, y, color, count) {
   for (let i = 0; i < count; i++) {
     const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * 4 + 1;
+    const speed = Math.random() * 5 + 1.5;
     particles.push({
       x: x, y: y,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
       size: Math.random() * 4 + 2,
       color: color,
-      life: 20
+      life: 22
     });
   }
+}
+
+function updateCamera() {
+  const targetX = player.x - canvas.width / 2;
+  const targetY = player.y - canvas.height / 2;
+
+  camera.x += (targetX - camera.x) * 0.12;
+  camera.y += (targetY - camera.y) * 0.12;
+
+  const maxX = Math.max(0, WORLD_WIDTH - canvas.width);
+  const maxY = Math.max(0, WORLD_HEIGHT - canvas.height);
+
+  camera.x = Math.max(0, Math.min(maxX, camera.x));
+  camera.y = Math.max(0, Math.min(maxY, camera.y));
 }
 
 function updatePlayer() {
   if (isModalOpen || currentScreen !== 'game') return;
 
-  updateObjectPositions();
+  pulseTimer += 0.04;
   if (player.dashCooldown > 0) player.dashCooldown--;
   
   if (player.isDashing) {
     player.dashTimer--;
-    const dashSpeed = 12;
+    const dashSpeed = 14;
     if (player.facingDir === 'right') player.x += dashSpeed;
     if (player.facingDir === 'left') player.x -= dashSpeed;
     if (player.facingDir === 'up') player.y -= dashSpeed;
@@ -976,7 +1010,7 @@ function updatePlayer() {
     dashGhosts.push({
       x: player.x, y: player.y,
       facingDir: player.facingDir,
-      alpha: 0.7, color: '#00f0ff'
+      alpha: 0.75, color: '#00f0ff'
     });
 
     if (player.dashTimer <= 0) player.isDashing = false;
@@ -1004,9 +1038,11 @@ function updatePlayer() {
     if (player.slashTimer <= 0) player.isSlashing = false;
   }
 
-  const margin = 40;
-  player.x = Math.max(margin, Math.min(canvas.width - margin, player.x));
-  player.y = Math.max(margin, Math.min(canvas.height - margin, player.y));
+  const margin = 50;
+  player.x = Math.max(margin, Math.min(WORLD_WIDTH - margin, player.x));
+  player.y = Math.max(margin, Math.min(WORLD_HEIGHT - margin, player.y));
+
+  updateCamera();
 
   for (let i = dashGhosts.length - 1; i >= 0; i--) {
     dashGhosts[i].alpha -= 0.08;
@@ -1020,6 +1056,15 @@ function updatePlayer() {
     if (particles[i].life <= 0) particles.splice(i, 1);
   }
 
+  // Update ambient particles
+  ambientParticles.forEach(ap => {
+    ap.y += ap.vy;
+    ap.x += ap.vx;
+    if (ap.y < 0) { ap.y = WORLD_HEIGHT; ap.x = Math.random() * WORLD_WIDTH; }
+    if (ap.x < 0) ap.x = WORLD_WIDTH;
+    if (ap.x > WORLD_WIDTH) ap.x = 0;
+  });
+
   checkProximity();
 }
 
@@ -1032,7 +1077,7 @@ function checkProximity() {
     const dy = player.y - (obj.y + obj.h / 2);
     const dist = Math.sqrt(dx * dx + dy * dy);
 
-    if (dist < 75) {
+    if (dist < 90) {
       activeObject = obj;
       break;
     }
@@ -1050,52 +1095,101 @@ function renderGameWorld() {
   if (currentScreen !== 'game') return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = '#060a22';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // Apply Camera Transform
+  ctx.save();
+  ctx.translate(-Math.round(camera.x), -Math.round(camera.y));
 
-  ctx.strokeStyle = 'rgba(0, 240, 255, 0.06)';
+  // Deep space cyber void background
+  ctx.fillStyle = '#04081c';
+  ctx.fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+
+  // Background Grid Floor
+  ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
   ctx.lineWidth = 1;
-  const gridSize = 40;
-  for (let x = 0; x < canvas.width; x += gridSize) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+  const gridSize = 50;
+  for (let x = 0; x <= WORLD_WIDTH; x += gridSize) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, WORLD_HEIGHT); ctx.stroke();
   }
-  for (let y = 0; y < canvas.height; y += gridSize) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+  for (let y = 0; y <= WORLD_HEIGHT; y += gridSize) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(WORLD_WIDTH, y); ctx.stroke();
   }
 
-  interactiveObjects.forEach(obj => {
-    ctx.shadowColor = obj.color;
-    ctx.shadowBlur = 15;
-    ctx.fillStyle = 'rgba(10, 20, 55, 0.9)';
-    ctx.strokeStyle = obj.color;
-    ctx.lineWidth = 2;
-    ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
-    ctx.strokeRect(obj.x, obj.y, obj.w, obj.h);
+  // Center Spawn Pedestal Hologram
+  const cx = WORLD_WIDTH / 2;
+  const cy = WORLD_HEIGHT / 2;
+  ctx.strokeStyle = 'rgba(0, 240, 255, 0.25)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 90, 0, Math.PI * 2);
+  ctx.stroke();
 
-    ctx.fillStyle = obj.color;
-    ctx.beginPath(); ctx.arc(obj.x + obj.w / 2, obj.y + obj.h / 2, 8, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = 'rgba(255, 0, 85, 0.2)';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 130, 0, Math.PI * 2);
+  ctx.stroke();
 
-    ctx.shadowBlur = 0;
-    ctx.font = '10px Orbitron';
-    ctx.fillStyle = obj.color;
-    ctx.textAlign = 'center';
-    ctx.fillText(obj.name, obj.x + obj.w / 2, obj.y - 10);
+  // Arena Perimeter Forcefield
+  ctx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
+  ctx.shadowColor = '#00f0ff';
+  ctx.shadowBlur = 18;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(20, 20, WORLD_WIDTH - 40, WORLD_HEIGHT - 40);
+  ctx.shadowBlur = 0;
+
+  // Ambient particles
+  ambientParticles.forEach(ap => {
+    ctx.fillStyle = ap.color;
+    ctx.globalAlpha = ap.alpha * (0.5 + Math.sin(pulseTimer + ap.x) * 0.3);
+    ctx.fillRect(ap.x, ap.y, ap.size, ap.size);
   });
+  ctx.globalAlpha = 1.0;
 
+  // Interactive Obelisks
+  interactiveObjects.forEach((obj, idx) => {
+    const pulse = Math.sin(pulseTimer * 2 + idx) * 4;
+    const isNearby = (activeObject && activeObject.id === obj.id);
+
+    // Glowing aura base
+    ctx.shadowColor = obj.color;
+    ctx.shadowBlur = isNearby ? 28 : 16;
+    ctx.fillStyle = isNearby ? 'rgba(12, 28, 70, 0.95)' : 'rgba(8, 18, 50, 0.9)';
+    ctx.strokeStyle = obj.color;
+    ctx.lineWidth = isNearby ? 3 : 2;
+
+    ctx.fillRect(obj.x - pulse/2, obj.y - pulse/2, obj.w + pulse, obj.h + pulse);
+    ctx.strokeRect(obj.x - pulse/2, obj.y - pulse/2, obj.w + pulse, obj.h + pulse);
+
+    // Inner glowing core
+    ctx.fillStyle = obj.color;
+    ctx.beginPath();
+    ctx.arc(obj.x + obj.w / 2, obj.y + obj.h / 2, 10 + (isNearby ? 3 : 0), 0, Math.PI * 2);
+    ctx.fill();
+
+    // Text Label above obelisk
+    ctx.shadowBlur = 8;
+    ctx.font = 'bold 12px Orbitron, monospace';
+    ctx.fillStyle = isNearby ? '#ffffff' : obj.color;
+    ctx.textAlign = 'center';
+    ctx.fillText(obj.name, obj.x + obj.w / 2, obj.y - 14);
+  });
+  ctx.shadowBlur = 0;
+
+  // Dash ghosts
   dashGhosts.forEach(ghost => {
     ctx.save();
     ctx.globalAlpha = ghost.alpha;
     ctx.fillStyle = ghost.color;
     ctx.shadowColor = ghost.color;
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = 12;
     ctx.fillRect(ghost.x - 12, ghost.y - 16, 24, 32);
     ctx.restore();
   });
 
+  // Slash particles
   particles.forEach(p => {
     ctx.fillStyle = p.color;
     ctx.shadowColor = p.color;
-    ctx.shadowBlur = 6;
+    ctx.shadowBlur = 8;
     ctx.fillRect(p.x, p.y, p.size, p.size);
   });
   ctx.shadowBlur = 0;
@@ -1104,41 +1198,82 @@ function renderGameWorld() {
   ctx.save();
   ctx.translate(player.x, player.y);
 
+  // Cape / Scarf trailing
   ctx.fillStyle = '#ff0055';
   ctx.shadowColor = '#ff0055';
-  ctx.shadowBlur = 8;
+  ctx.shadowBlur = 10;
   ctx.beginPath();
   if (player.facingDir === 'up') ctx.fillRect(-8, 8, 16, 16);
-  else if (player.facingDir === 'down') ctx.fillRect(-8, -16, 16, 10);
-  else if (player.facingDir === 'left') ctx.fillRect(4, -10, 10, 18);
-  else if (player.facingDir === 'right') ctx.fillRect(-14, -10, 10, 18);
+  else if (player.facingDir === 'down') ctx.fillRect(-8, -18, 16, 10);
+  else if (player.facingDir === 'left') ctx.fillRect(6, -10, 10, 18);
+  else if (player.facingDir === 'right') ctx.fillRect(-16, -10, 10, 18);
 
+  // Body armor
   ctx.fillStyle = '#0a1a3a';
   ctx.strokeStyle = '#00f0ff';
   ctx.lineWidth = 2;
-  ctx.fillRect(-10, -16, 20, 28);
-  ctx.strokeRect(-10, -16, 20, 28);
+  ctx.fillRect(-11, -16, 22, 30);
+  ctx.strokeRect(-11, -16, 22, 30);
 
+  // Visor glow
   ctx.fillStyle = '#00f0ff';
   ctx.shadowColor = '#00f0ff';
-  ctx.shadowBlur = 10;
-  if (player.facingDir === 'down') ctx.fillRect(-6, -12, 12, 4);
-  else if (player.facingDir === 'left') ctx.fillRect(-8, -12, 6, 4);
-  else if (player.facingDir === 'right') ctx.fillRect(2, -12, 6, 4);
-  else if (player.facingDir === 'up') ctx.fillRect(-4, -14, 8, 3);
+  ctx.shadowBlur = 12;
+  if (player.facingDir === 'down') ctx.fillRect(-7, -12, 14, 4);
+  else if (player.facingDir === 'left') ctx.fillRect(-9, -12, 7, 4);
+  else if (player.facingDir === 'right') ctx.fillRect(2, -12, 7, 4);
+  else if (player.facingDir === 'up') ctx.fillRect(-5, -14, 10, 3);
 
+  // Energy core
   ctx.fillStyle = '#e2c044';
-  ctx.beginPath(); ctx.arc(0, -2, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI * 2); ctx.fill();
 
+  // Light Blade Slash Arc
   if (player.isSlashing) {
     ctx.strokeStyle = '#ff0055';
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 5;
     ctx.shadowColor = '#ff0055';
-    ctx.shadowBlur = 15;
+    ctx.shadowBlur = 18;
     ctx.beginPath();
-    ctx.arc(0, 0, 36, player.slashAngle - Math.PI / 3, player.slashAngle + Math.PI / 3);
+    ctx.arc(0, 0, 42, player.slashAngle - Math.PI / 3, player.slashAngle + Math.PI / 3);
     ctx.stroke();
   }
+
+  ctx.restore();
+  ctx.restore(); // Restore Camera Transform
+
+  // Screen Space HUD Overlay (Mini-Map)
+  renderMiniMap();
+}
+
+function renderMiniMap() {
+  const mapW = 140;
+  const mapH = 100;
+  const mapX = canvas.width - mapW - 20;
+  const mapY = 70;
+
+  ctx.save();
+  ctx.fillStyle = 'rgba(2, 6, 23, 0.8)';
+  ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+  ctx.lineWidth = 1;
+  ctx.fillRect(mapX, mapY, mapW, mapH);
+  ctx.strokeRect(mapX, mapY, mapW, mapH);
+
+  // Draw Obelisks on Mini-Map
+  interactiveObjects.forEach(obj => {
+    const mx = mapX + (obj.x / WORLD_WIDTH) * mapW;
+    const my = mapY + (obj.y / WORLD_HEIGHT) * mapH;
+    ctx.fillStyle = obj.color;
+    ctx.fillRect(mx - 2, my - 2, 4, 4);
+  });
+
+  // Draw Player on Mini-Map
+  const px = mapX + (player.x / WORLD_WIDTH) * mapW;
+  const py = mapY + (player.y / WORLD_HEIGHT) * mapH;
+  ctx.fillStyle = '#ff0055';
+  ctx.beginPath();
+  ctx.arc(px, py, 3, 0, Math.PI * 2);
+  ctx.fill();
 
   ctx.restore();
 }
