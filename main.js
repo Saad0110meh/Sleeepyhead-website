@@ -20,30 +20,30 @@ const DEV_INFO = {
 const PROJECTS = [
   {
     id: "a_tariq",
-    title: "a_tariq — Interactive Arabic Learning",
+    title: "a_tariq — Quranic Arabic Learning Platform",
     category: "Full-Stack EdTech",
-    desc: "An immersive, interactive Arabic learning platform engineered with structured curriculum tracks, interactive vocalization exercises, and gamified mastery paths.",
-    tech: ["React", "Next.js", "TypeScript", "Node.js", "CSS3", "Git"],
+    desc: "An interactive, gamified Quranic Arabic learning platform and pedagogical engine adapted from the acclaimed textbook series “Esho Arbi Shikhi” (by Maulana Abu Taher Misbah). Features chunked curriculum modules, vocabulary & grammar rules, contextual Q&A, sequential harakat (vowel-mark) fading to build direct reading fluency, and native RTL Arabic rendering with English and Bengali (Bangla) localization.",
+    tech: ["React", "Next.js", "TypeScript", "Node.js", "CSS3", "RTL Arabic", "Git"],
     link: "https://github.com/amir-al-razin/a_tariq",
     size: "64 KB",
     tag: "COLLAB"
   },
   {
     id: "santiago",
-    title: "Santiago's 9th Requiem",
-    category: "DevOps & Infrastructure",
-    desc: "Automated containerized deployment pipeline, microservices orchestration, and infrastructure experiments designed for seamless continuous integration.",
-    tech: ["Docker", "DevOps", "CI/CD", "Linux", "Git", "GitHub"],
+    title: "IUT Cafeteria (DevSprint 2026)",
+    category: "Distributed Systems & DevOps",
+    desc: "A resilient, distributed, fault-tolerant microservices-based food ordering and kitchen management system built for high-concurrency traffic surges (e.g. Ramadan Iftar rush). Features containerized Student UI & Admin Dashboard, FastAPI identity-provider with JWT & rate limiting, Express/Node.js order-gateway BFF with Redis caching, FastAPI stock-service with PostgreSQL optimistic concurrency control, Express kitchen-queue for lifecycle tracking, and Socket.io real-time notifications.",
+    tech: ["Docker", "FastAPI", "Express", "Node.js", "Redis", "PostgreSQL", "Socket.io", "DevOps"],
     link: "https://github.com/Saad0110meh/Santiago-s_neinth_requiem",
     size: "48 KB",
     tag: "DEVOPS"
   },
   {
     id: "another_tsapp",
-    title: "AnotherTSAPP — Game Project",
-    category: "Game Dev & TypeScript",
-    desc: "Interactive game mechanics prototype and modular TypeScript application exploring custom render loops, entity state machines, and responsive input handling.",
-    tech: ["TypeScript", "Node.js", "HTML5 Canvas", "Game Mechanics", "Git"],
+    title: "Project Tsapp — 3D Snakes & Ladders",
+    category: "3D Game Engine & Minigames",
+    desc: "A 3D adaptation of the classic Snakes and Ladders board game featuring 3D physics-based dice collision and a capybara player token. Packed with built-in arcade minigames: 3D Raycaster Wolfenstein-style FPS dungeon crawler with sprite animation and boss fights, SnakeKnot survival evasion game, Capybara Rhythm lane beatmap game, Spaceship arcade shooter with asteroid physics, and Dice Roulette mini-events.",
+    tech: ["C", "3D Raycaster", "Physics Engine", "Sprite Animation", "Rhythm Engine", "Git"],
     link: "https://github.com/abrarnaguib/AnotherTSAPP_TEST",
     size: "52 KB",
     tag: "GAME DEV"
@@ -51,20 +51,20 @@ const PROJECTS = [
   {
     id: "indie_vault",
     title: "Indie Game Lab & Creative Works",
-    category: "Indie Game Dev",
-    desc: "Original indie game experiments and prototypes across Godot, Unity, and RPG Maker. Features custom pixel art (Aseprite), 3D assets (Blender), and original synthesized musical scores crafted in FL Studio and Piapro Studio NT2 / Crypton CV1.",
+    category: "Indie Game Dev & Audio",
+    desc: "Original indie game experiments, mechanics, and prototypes across Godot, Unity, and RPG Maker. Features custom pixel art and sprite assets created in Aseprite, 3D asset modeling in Blender, and original synthesized musical scores composed in FL Studio and Piapro Studio NT2 / Crypton CV1.",
     tech: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "FL Studio", "Piapro Studio NT2", "Crypton CV1"],
-    link: "https://sajidulkarim.itch.io/",
+    link: null,
     size: "88 KB",
     tag: "CREATIVE"
   },
   {
     id: "cybersec_ctf",
     title: "Cybersecurity & CTF Operations",
-    category: "Security & Networking",
-    desc: "Active participation in Capture The Flag (CTF) security competitions with competitive rankings. Deep packet inspection with Wireshark, web vulnerability testing with Burp Suite, and exploitation toolkits via Kali Linux.",
-    tech: ["Wireshark", "Burp Suite", "Kali Linux", "CTF Challenges", "Network Auditing"],
-    link: "https://github.com/Saad0110Meh",
+    category: "Cybersecurity & CTF",
+    desc: "Active competitive cybersecurity CTF player. Competed in UAP Cyber Siege 2025, Deadsec CTF 2025, Phoenix Summit CTF 2025, CUET StealthFlags 2025, and various national & global CTF challenges with satisfactory rankings. Practical packet inspection in Wireshark, web application vulnerability testing in Burp Suite, and offensive security tooling across Kali Linux.",
+    tech: ["UAP Cyber Siege 2025", "Deadsec CTF 2025", "Phoenix Summit 2025", "CUET StealthFlags 2025", "Wireshark", "Burp Suite", "Kali Linux"],
+    link: null,
     size: "44 KB",
     tag: "SECURITY"
   }
@@ -78,6 +78,13 @@ const CAREER_EDUCATION = {
       period: "Active Role",
       badge: "GAMESCOM & BIC 2026",
       desc: "Contracted game quality assurance specialist testing pre-release indie titles, including official showcase games from Gamescom 2026, Busan Indie Connect (BIC) Festival 2026, and upcoming international indie projects. Delivering in-depth bug analysis, gameplay balance telemetry, and user experience feedback."
+    },
+    {
+      role: "Competitive CTF Security Player",
+      company: "National & Global CTF Circuit",
+      period: "2025 - Present",
+      badge: "CTF COMPETITOR",
+      desc: "Participated in UAP Cyber Siege 2025, Deadsec CTF 2025, Phoenix Summit CTF 2025, CUET StealthFlags 2025, and multiple global CTFs achieving satisfactory rankings. Specialized in web exploitation, packet analysis (Wireshark), proxy auditing (Burp Suite), and Linux reverse engineering."
     },
     {
       role: "Technical Freelance & Software Oddjobs",
@@ -141,10 +148,10 @@ const SKILL_GROUPS = [
 ];
 
 const LORE = {
-  bio: "Greetings! I'm Sazidul Karim, a Computer Science & Engineering undergraduate at Islamic University of Technology (IUT). I aspire to be an indie game developer with deep roots in cybersecurity, low-level architecture, retro aesthetics, and audio composition. When I'm not testing upcoming indie games or solving CTF challenges, I'm composing folk tunes, crafting culinary experiments, or spending time with cats.",
+  bio: "Greetings! I'm Sazidul Karim, a Computer Science & Engineering undergraduate at Islamic University of Technology (IUT). I aspire to be an indie game developer with deep interest in cybersecurity, retro aesthetics, and audio composition. When I'm not testing indie games or solving CTF challenges, I'm composing folk tunes, cooking unique experimental scratch dishes, appreciating cars, traveling, or spending time with cats.",
   aspirations: "Aspiring Indie Game Developer & Cybersecurity Practitioner.",
   favorites: {
-    games: ["Hollow Knight", "Dota 2", "No Man's Sky", "Cyberpunk 2077", "Sekiro: Shadows Die Twice"],
+    games: ["Hollow Knight", "Dota 2", "No Man's Sky", "Cyberpunk 2077", "Sekiro: Shadows Die Twice", "Shadow of the Colossus"],
     anime: [
       "Monogatari Series",
       "Orb: On the Movements of the Earth",
@@ -157,14 +164,14 @@ const LORE = {
       "80s–00s Retro Classics & Mangas"
     ],
     movies: ["No Country for Old Men", "Spider-Man: Into the Spider-Verse", "Fallen Angels"],
-    reading: ["Aranyak (Bibhutibhushan Bandyopadhyay)"],
+    reading: ["Aranyak (Bibhutibhushan Bandyopadhyay)", "Manga Series"],
     music: [
       "Folk music from diverse global cultures",
       "Original compositions in FL Studio & Piapro Studio NT2 (Crypton CV1)"
     ],
-    cooking: "Unique experimental recipes and scratch culinary creations",
-    cars: "Automotive enthusiast & mechanical appreciation",
-    travel: "Exploring new horizons and world landscapes",
+    cooking: "Unique experimental scratch cooking & culinary experiments",
+    cars: "Car enthusiast & mechanical appreciation",
+    travel: "Exploring new places and traveling",
     animal: "🐱 Cats (Supreme Favorites)"
   }
 };
@@ -1403,11 +1410,19 @@ function renderProjects() {
             ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:15px;">${t}</span>`).join('')}
           </div>
         </div>
+        ${proj.link ? `
         <div class="project-action-row">
           <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="ps2-btn-link">
             <span>&#128279; ACCESS REPO / DEMO</span> &rarr;
           </a>
         </div>
+        ` : `
+        <div class="project-action-row">
+          <span style="font-family:var(--font-display);font-size:10px;color:var(--ps2-gold);letter-spacing:1px;background:rgba(226,192,68,0.12);border:1px solid rgba(226,192,68,0.35);padding:4px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:6px;">
+            &#128737;&#65039; COMPETITIVE / CREATIVE ARCHIVE
+          </span>
+        </div>
+        `}
       `;
     };
 
@@ -1490,7 +1505,7 @@ function renderLore() {
     </div>
 
     <div class="lore-group">
-      <div class="lore-group-title">&#127916; ANIME CLASSICS (80s–00s) & FAVORITES</div>
+      <div class="lore-group-title">&#127916; ANIME CLASSICS (80s–00s), FAVORITES & MANGA</div>
       <div class="lore-chips">
         ${LORE.favorites.anime.map(a => `<span class="lore-chip pink">${a}</span>`).join('')}
       </div>
@@ -1520,6 +1535,16 @@ function renderLore() {
     <div class="lore-group">
       <div class="lore-group-title">&#127859; CULINARY & EXPERIMENTAL COOKING</div>
       <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.cooking}</p>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#127950;&#65039; CARS & AUTOMOTIVE</div>
+      <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.cars}</p>
+    </div>
+
+    <div class="lore-group">
+      <div class="lore-group-title">&#9992;&#65039; TRAVEL & EXPLORATION</div>
+      <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.travel}</p>
     </div>
 
     <div class="lore-group" style="border-color:var(--ps2-gold);">
