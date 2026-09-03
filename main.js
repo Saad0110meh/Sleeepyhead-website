@@ -899,6 +899,29 @@ function enterMemcardOption(index) {
 window.addEventListener('keydown', (e) => {
   const k = e.key.toLowerCase();
 
+  // If memory card modal is open, intercept ESC / O / Backspace to close it immediately!
+  if (isModalOpen) {
+    if (k === 'escape' || k === 'o' || k === 'backspace') {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+    // Allow keyboard arrow navigation inside the open Projects list
+    const activeProjectPanel = document.querySelector('.memcard-panel[data-panel="projects"].active');
+    if (activeProjectPanel) {
+      const items = document.querySelectorAll('#projects-list li');
+      let currIdx = Array.from(items).findIndex(el => el.classList.contains('selected'));
+      if ((k === 'w' || k === 'arrowup') && currIdx > 0) {
+        items[currIdx - 1].click();
+        e.preventDefault();
+      } else if ((k === 's' || k === 'arrowdown') && currIdx < items.length - 1) {
+        items[currIdx + 1].click();
+        e.preventDefault();
+      }
+    }
+    return;
+  }
+
   if (currentScreen === 'boot') {
     handleBootClick();
     return;
