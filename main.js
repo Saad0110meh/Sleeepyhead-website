@@ -901,6 +901,22 @@ function applyWallpaperTheme(palette) {
     vid.classList.add('hidden');
     img.classList.add('hidden');
   }
+
+  // Update Lore profile avatar based on theme
+  const avatarEl = document.querySelector('.portrait-avatar');
+  if (avatarEl) {
+    if (palette === 'Vaporwave') {
+      avatarEl.style.backgroundImage = "url('Themes/Vaporwave/User.png')";
+      avatarEl.style.backgroundSize = "cover";
+      avatarEl.style.backgroundPosition = "center";
+      avatarEl.innerText = "";
+    } else {
+      avatarEl.style.backgroundImage = "";
+      avatarEl.style.backgroundSize = "";
+      avatarEl.style.backgroundPosition = "";
+      avatarEl.innerText = "SK";
+    }
+  }
 }
 
 // Memory Card Save Icon Grid Navigation (Image 5)
@@ -2154,6 +2170,21 @@ function renderSkills() {
 }
 
 function renderLore() {
+  const avatarEl = document.querySelector('.portrait-avatar');
+  if (avatarEl) {
+    if (CONSOLE_PALETTES[paletteIndex] === 'Vaporwave') {
+      avatarEl.style.backgroundImage = "url('Themes/Vaporwave/User.png')";
+      avatarEl.style.backgroundSize = "cover";
+      avatarEl.style.backgroundPosition = "center";
+      avatarEl.innerText = "";
+    } else {
+      avatarEl.style.backgroundImage = "";
+      avatarEl.style.backgroundSize = "";
+      avatarEl.style.backgroundPosition = "";
+      avatarEl.innerText = "SK";
+    }
+  }
+
   const copyEl = document.getElementById('bio-copy');
   if (copyEl) copyEl.innerText = LORE.bio;
 

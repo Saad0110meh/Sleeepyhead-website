@@ -1141,26 +1141,30 @@ body, html {
 }
 
 .portrait-avatar {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background: linear-gradient(135deg, var(--ps2-magenta) 0%, var(--ps2-blue-main) 100%);
   border: 2px solid var(--ps2-cyan);
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 28px;
   color: #fff;
   text-shadow: 0 0 10px var(--ps2-cyan);
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .avatar-tag {
   text-align: center;
   font-family: var(--font-display);
-  font-size: 9px;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--ps2-gold);
-  margin-top: 6px;
+  margin-top: 8px;
+  letter-spacing: 1px;
 }
 
 .bio-text h3 {
@@ -2468,6 +2472,23 @@ body[data-palette="Vaporwave"] .highlight-cyan {
 
 body[data-palette="Vaporwave"] .btn-hint-item {
   color: #fdf4ff;
+}
+
+body[data-palette="Vaporwave"] .portrait-avatar {
+  background-image: url('Themes/Vaporwave/User.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border: 2.5px solid #ff71ce !important;
+  box-shadow: 0 0 20px rgba(255, 113, 206, 0.7), 0 8px 24px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 10px !important;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+body[data-palette="Vaporwave"] .avatar-tag {
+  color: #01cdfe !important;
+  text-shadow: 0 0 10px rgba(1, 205, 254, 0.7);
 }
 
 /* ============================================================
