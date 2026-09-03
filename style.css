@@ -2691,10 +2691,16 @@ body[data-palette="Mecha Sci-Fi"] .btn-hint-item {
 ============================================================= */
 
 /* 1. GLASSMORPHIC 3D: Ultra-Modern Frosted Acrylic Glass */
-body[data-btheme="Glassmorphic 3D"] .save-icon-box {
+body[data-btheme="Glassmorphic 3D"] .save-icon-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-box.game-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-box.proj-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-box.sys-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-box.matrix-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-box.bio-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-box.trophy-box {
   backdrop-filter: blur(20px) saturate(190%);
   -webkit-backdrop-filter: blur(20px) saturate(190%);
-  background: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.14) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.55) !important;
   border-radius: 24px !important;
   box-shadow: 
@@ -2702,13 +2708,15 @@ body[data-btheme="Glassmorphic 3D"] .save-icon-box {
     inset 0 1.5px 0 rgba(255, 255, 255, 0.75),
     inset 0 -1.5px 0 rgba(0, 0, 0, 0.25) !important;
   transform: perspective(800px) rotateX(10deg);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease !important;
+  will-change: transform;
 }
 
 body[data-btheme="Glassmorphic 3D"] .save-icon-card:hover .save-icon-box,
 body[data-btheme="Glassmorphic 3D"] .save-icon-card.selected .save-icon-box {
   transform: perspective(800px) rotateX(0deg) translateY(-14px) scale(1.12);
   border-color: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(255, 255, 255, 0.22) !important;
   box-shadow: 
     0 30px 60px rgba(0, 0, 0, 0.6),
     0 0 30px rgba(255, 255, 255, 0.4),
@@ -2716,8 +2724,10 @@ body[data-btheme="Glassmorphic 3D"] .save-icon-card.selected .save-icon-box {
 }
 
 body[data-btheme="Glassmorphic 3D"] .save-icon-halo {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(0, 240, 255, 0.4) 45%, transparent 75%);
-  filter: blur(4px);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 45%, transparent 75%) !important;
+  border-radius: 50% !important;
+  border: none !important;
+  filter: blur(6px);
 }
 
 body[data-btheme="Glassmorphic 3D"] .memcard-browser-header {
@@ -2933,6 +2943,140 @@ body[data-btheme="VCR Slate"] .save-icon-card.selected .save-icon-title {
   font-weight: bold;
   color: #ffffff;
   letter-spacing: 0.5px;
+}
+
+/* Hide Seven Stars canvas in favor of authentic PS2 System Menu Ambience Video */
+#seven-stars-canvas {
+  display: none !important;
+}
+
+/* Game Notification / Reset Banner */
+.game-banner {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(10, 18, 44, 0.95);
+  border: 1.5px solid var(--ps2-cyan);
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 20px var(--ps2-cyan-glow);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 100;
+}
+
+.game-banner.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Emotion Engine Easter Egg Modal Panel */
+.ee-layout {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+@media (max-width: 900px) {
+  .ee-layout {
+    flex-direction: column;
+  }
+}
+
+.ee-chip-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.ee-chip-img {
+  width: 270px;
+  height: 270px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 2px solid var(--ps2-gold);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.9), 0 0 24px rgba(226, 192, 68, 0.45);
+  background: #11141c;
+}
+
+.ee-chip-spec-glow {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--ps2-gold);
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(226, 192, 68, 0.6);
+}
+
+.ee-dossier {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ee-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.ee-desc {
+  font-size: 22px;
+  color: var(--ps2-silver);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.ee-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.ee-fact-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--ps2-cyan-dim);
+  border-radius: 6px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ee-fact-label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--ps2-gold);
+  letter-spacing: 1px;
+}
+
+.ee-fact-val {
+  font-size: 19px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.ee-trivia-box {
+  background: rgba(226, 192, 68, 0.1);
+  border-left: 4px solid var(--ps2-gold);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 20px;
+  color: #f8fafc;
+  line-height: 1.45;
 }
 
 

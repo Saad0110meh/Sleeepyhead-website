@@ -193,7 +193,14 @@ const ACHIEVEMENTS = [
   { id: "career_checked", title: "QA & Academic Dossier", desc: "Accessed the Korean QA Game Testing & IUT records." },
   { id: "skills_checked", title: "Arsenal Specialist", desc: "Scanned the full-stack, systems, and security matrix." },
   { id: "lore_checked", title: "Drifter Lore & Cats", desc: "Discovered anime, culinary, mecha, and supreme cat lore." },
-  { id: "platforms_checked", title: "Signal Connected", desc: "Established contact frequency with external Comm Relays." }
+  { id: "platforms_checked", title: "Signal Connected", desc: "Established contact frequency with external Comm Relays." },
+  { id: "emotion_engine", title: "Emotion Engine [EE] Core", desc: "CLASSIFIED SECRET: Mastered the matrix and unlocked the legendary 128-bit SCEI Emotion Engine CPU hardware relic." }
+];
+
+const CORE_ACHIEVEMENT_IDS = [
+  'booted', 'browser_opened', 'drifter_dash', 'sword_slash',
+  'projects_checked', 'career_checked', 'skills_checked',
+  'lore_checked', 'platforms_checked'
 ];
 
 let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_trophies_v2') || '[]');
@@ -458,6 +465,8 @@ function resizeSevenStars() {
 resizeSevenStars();
 window.addEventListener('resize', resizeSevenStars);
 
+// Orbiting Seven Stars canvas animation (commented out in favor of authentic PS2 System Menu ambience video)
+/*
 let starAngle = 0;
 function renderSevenStars() {
   if (!ssCtx || document.getElementById('ps2-main-menu').classList.contains('hidden')) {
@@ -524,6 +533,7 @@ function renderSevenStars() {
   requestAnimationFrame(renderSevenStars);
 }
 requestAnimationFrame(renderSevenStars);
+*/
 
 // ==========================================
 // 4. SPOKE SPHERE SYSTEM CONFIG DIAL (Image 2)
@@ -880,11 +890,8 @@ function applyWallpaperTheme(palette) {
     playVideoTheme('Themes/Mecha/mecha_live.mp4');
   } else {
     // PS2 Classic Blue:
-    // Pure clean PS2 3D Canvas Orbiting Stars & Spoke Sphere recolored schema!
-    document.body.classList.remove('has-wallpaper');
-    vid.pause();
-    vid.classList.add('hidden');
-    img.classList.add('hidden');
+    // Plays authentic PS2 original system menu ambient video!
+    playVideoTheme('assets/ps2_menu_classic.mp4');
   }
 }
 
@@ -1081,7 +1088,7 @@ for (let i = 0; i < 90; i++) {
   });
 }
 
-const interactiveObjects = [
+let interactiveObjects = [
   { id: "projects_obelisk", name: "Projects Matrix", x: 650, y: 650, w: 64, h: 64, panel: "projects", color: '#00f0ff', glyph: "💾", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
   { id: "career_obelisk", name: "Career & QA Dossier", x: 650, y: 1350, w: 64, h: 64, panel: "career", color: '#38bdf8', glyph: "🎮", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
   { id: "skills_obelisk", name: "Tech Arsenal", x: 1300, y: 450, w: 64, h: 64, panel: "skills", color: '#00f5d4', glyph: "⚡", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
@@ -1094,6 +1101,97 @@ let activeObject = null;
 let isModalOpen = false;
 let gameLoopStarted = false;
 let pulseTimer = 0;
+let easterEggSpawned = false;
+
+function checkEasterEggCondition() {
+  const allCoreUnlocked = CORE_ACHIEVEMENT_IDS.every(id => unlockedAchievements.includes(id));
+  if (allCoreUnlocked && !easterEggSpawned) {
+    spawnEasterEggObelisk();
+  }
+}
+
+function spawnEasterEggObelisk() {
+  if (easterEggSpawned) return;
+  easterEggSpawned = true;
+
+  const eeObj = {
+    id: "emotion_engine_obelisk",
+    name: "Emotion Engine [EE] Core",
+    x: 1268,
+    y: 968,
+    w: 64,
+    h: 64,
+    panel: "emotion_engine",
+    color: '#ffe156',
+    glyph: "⚡",
+    activated: true,
+    hits: 3,
+    maxHits: 3,
+    shakeTimer: 0,
+    shakeIntensity: 0,
+    flashTimer: 0,
+    awakenTimer: 35,
+    isEasterEgg: true
+  };
+
+  if (!interactiveObjects.some(o => o.id === "emotion_engine_obelisk")) {
+    interactiveObjects.push(eeObj);
+  }
+
+  createShockwave(1300, 1000, '#ffe156', 220);
+  createShockwave(1300, 1000, '#ffffff', 140);
+  createParticleBurst(1300, 1000, '#ffe156', 35);
+  showGameBanner("SECRET UNLOCKED: 128-bit Emotion Engine (EE) Relic Awakened at Spawn!");
+}
+
+function resetRubixGame() {
+  // 1. Reset all standard obelisks to dormant (offline)
+  interactiveObjects.forEach(obj => {
+    obj.activated = false;
+    obj.hits = 0;
+    obj.shakeTimer = 0;
+    obj.flashTimer = 0;
+    obj.awakenTimer = 0;
+  });
+
+  // 2. Remove the Easter egg obelisk from the world so it disappears on R
+  interactiveObjects = interactiveObjects.filter(obj => !obj.isEasterEgg);
+  easterEggSpawned = false;
+
+  // 3. Close any open modal
+  closeModal();
+
+  // 4. Reset in-game awakened obelisk trophies
+  const inGameIds = ['sword_slash', 'projects_checked', 'career_checked', 'skills_checked', 'lore_checked', 'platforms_checked', 'emotion_engine'];
+  unlockedAchievements = unlockedAchievements.filter(id => !inGameIds.includes(id));
+  localStorage.setItem('sleepyhead_trophies_v2', JSON.stringify(unlockedAchievements));
+
+  // 5. Reset player position to world spawn center
+  player.x = WORLD_WIDTH / 2;
+  player.y = WORLD_HEIGHT / 2;
+  player.isDashing = false;
+  player.isSlashing = false;
+
+  // 6. Visual and audio burst
+  try {
+    playPS2ConfirmSound();
+  } catch (e) {}
+  createShockwave(player.x, player.y, '#00f0ff', 160);
+  createParticleBurst(player.x, player.y, '#00f0ff', 25);
+
+  // 7. HUD Banner
+  showGameBanner("RUBIX MATRIX RESET: All Data Nodes Re-Locked (Offline). Strike with J to Awaken!");
+}
+
+function showGameBanner(text) {
+  const banner = document.getElementById('game-banner');
+  if (!banner) return;
+  banner.innerText = text;
+  banner.classList.add('show');
+  setTimeout(() => {
+    banner.classList.remove('show');
+  }, 4500);
+}
 
 const keys = {};
 window.addEventListener('keydown', (e) => {
@@ -1102,6 +1200,7 @@ window.addEventListener('keydown', (e) => {
 
   if (e.key === ' ' || e.code === 'Space') triggerDash();
   if (e.key.toLowerCase() === 'j') triggerSlash();
+  if (e.key.toLowerCase() === 'r' && !isModalOpen) resetRubixGame();
   handleInteractionInput(e);
 });
 
@@ -1129,6 +1228,7 @@ canvas.addEventListener('click', (e) => {
         if (obj.id === 'skills_obelisk') unlockAchievement('skills_checked');
         if (obj.id === 'lore_shrine') unlockAchievement('lore_checked');
         if (obj.id === 'platforms_relay') unlockAchievement('platforms_checked');
+        if (obj.id === 'emotion_engine_obelisk') unlockAchievement('emotion_engine');
       }
       break;
     }
@@ -1742,6 +1842,7 @@ function startCanvasGame() {
     gameLoopStarted = true;
     requestAnimationFrame(gameLoop);
   }
+  checkEasterEggCondition();
 }
 
 // ==========================================
@@ -1759,6 +1860,7 @@ function handleInteractionInput(e) {
       if (activeObject.id === 'skills_obelisk') unlockAchievement('skills_checked');
       if (activeObject.id === 'lore_shrine') unlockAchievement('lore_checked');
       if (activeObject.id === 'platforms_relay') unlockAchievement('platforms_checked');
+      if (activeObject.id === 'emotion_engine_obelisk') unlockAchievement('emotion_engine');
     }
   }
   if ((key === 'escape' || key === 'o') && isModalOpen) {
@@ -1779,7 +1881,8 @@ function openModal(panelType) {
     skills: "MEMORY CARD [SLOT 1] // TECHNICAL ARSENAL & SYSTEMS MATRIX",
     lore: "MEMORY CARD [SLOT 1] // DRIFTER LORE, OTAKU ARCHIVE & CATS",
     platforms: "MEMORY CARD [SLOT 1] // EXTERNAL COMM RELAYS & NETWORK",
-    achievements: "MEMORY CARD [SLOT 1] // TROPHY VAULT & UNLOCKS"
+    achievements: "MEMORY CARD [SLOT 1] // TROPHY VAULT & UNLOCKS",
+    emotion_engine: "MEMORY CARD [SLOT 1] // CLASSIFIED HARDWARE: SONY EMOTION ENGINE"
   };
   if (titleEl && titles[panelType]) {
     titleEl.innerText = titles[panelType];
@@ -2018,13 +2121,22 @@ function renderAchievements() {
   
   ACHIEVEMENTS.forEach(ach => {
     const isUnlocked = unlockedAchievements.includes(ach.id);
+    const isSecret = ach.id === 'emotion_engine';
     const li = document.createElement('li');
     li.style.borderColor = isUnlocked ? 'var(--ps2-cyan)' : 'var(--ps2-cyan-dim)';
     li.style.color = isUnlocked ? 'var(--ps2-silver)' : '#6c7086';
-    li.innerHTML = `
-      <span>${isUnlocked ? '★' : '☆'} <strong>${ach.title}</strong>: ${ach.desc}</span>
-      <span style="font-size:16px;font-weight:bold;color:${isUnlocked ? 'var(--ps2-gold)' : '#6c7086'};">${isUnlocked ? '[UNLOCKED]' : '[LOCKED]'}</span>
-    `;
+
+    if (isSecret && !isUnlocked) {
+      li.innerHTML = `
+        <span>🔒 <strong>??? [CLASSIFIED HARDWARE RELIC]</strong>: Unlock all 9 core matrix trophies to awaken the classified hardware core at the center of Rubix world.</span>
+        <span style="font-size:16px;font-weight:bold;color:#6c7086;">[LOCKED]</span>
+      `;
+    } else {
+      li.innerHTML = `
+        <span>${isUnlocked ? '★' : '☆'} <strong>${ach.title}</strong>: ${ach.desc}</span>
+        <span style="font-size:16px;font-weight:bold;color:${isUnlocked ? 'var(--ps2-gold)' : '#6c7086'};">${isUnlocked ? '[UNLOCKED]' : '[LOCKED]'}</span>
+      `;
+    }
     listEl.appendChild(li);
   });
 }
@@ -2037,6 +2149,7 @@ function unlockAchievement(id) {
     if (ach) {
       showTrophyToast(ach);
     }
+    checkEasterEggCondition();
   }
 }
 
@@ -2098,6 +2211,11 @@ if (btnMemcardBack) {
     showScreen('mainMenu');
     playPS2BackSound();
   });
+}
+
+const btnResetRubix = document.getElementById('btn-reset-rubix');
+if (btnResetRubix) {
+  btnResetRubix.addEventListener('click', resetRubixGame);
 }
 
 // Apply initial palette, wallpaper theme, browser theme, and saved zoom scale

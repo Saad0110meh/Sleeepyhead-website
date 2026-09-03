@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@400;600;700;900&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="style.css?v=16.0" />
+<link rel="stylesheet" href="style.css?v=17.0" />
 </head>
 <body class="crt-overlay">
 
@@ -270,12 +270,15 @@
           <span class="key-pill">SPACE</span> Dash
           <span class="key-pill">J</span> Slash
           <span class="key-pill">E</span> Interact
+          <span class="key-pill">R</span> Reset
         </div>
       </div>
       <div class="hud-right">
+        <button id="btn-reset-rubix" class="hud-btn" style="margin-right: 12px;">Reset [R]</button>
         <button id="btn-return-ps2" class="hud-btn">PS2 Menu [ESC]</button>
       </div>
     </div>
+    <div id="game-banner" class="game-banner"></div>
   </section>
 
   <!-- ============================================================
@@ -338,6 +341,44 @@
           <h3 class="panel-heading">MEMORY CARD SAVES // TROPHIES</h3>
           <ul class="memcard-list" id="achievements-list"></ul>
         </div>
+
+        <!-- 7. EMOTION ENGINE EASTER EGG PANEL -->
+        <div class="memcard-panel" data-panel="emotion_engine">
+          <h3 class="panel-heading">CLASSIFIED HARDWARE // SONY EMOTION ENGINE (EE)</h3>
+          <div class="ee-layout">
+            <div class="ee-chip-display">
+              <img src="assets/Sony_EmotionEngine_clean.png" alt="Sony Emotion Engine CXD9615GB" class="ee-chip-img" />
+              <div class="ee-chip-spec-glow">SCEI CXD9615GB 0047HAL</div>
+            </div>
+            <div class="ee-dossier">
+              <h4 class="ee-title">Sony Computer Entertainment // Emotion Engine™</h4>
+              <p class="ee-desc">
+                The revolutionary 128-bit supercomputer microprocessor that powered the PlayStation 2 console matrix.
+              </p>
+              <div class="ee-facts-grid">
+                <div class="ee-fact-card">
+                  <span class="ee-fact-label">CLOCK FREQUENCY</span>
+                  <span class="ee-fact-val">294.912 MHz (128-bit MIPS IV)</span>
+                </div>
+                <div class="ee-fact-card">
+                  <span class="ee-fact-label">VECTOR UNITS</span>
+                  <span class="ee-fact-val">Dual VPU0 & VPU1 (6.2 GFLOPS)</span>
+                </div>
+                <div class="ee-fact-card">
+                  <span class="ee-fact-label">FABRICATION DIE</span>
+                  <span class="ee-fact-val">0.25 & 0.18 &mu;m (10.5M Transistors)</span>
+                </div>
+                <div class="ee-fact-card">
+                  <span class="ee-fact-label">MILITARY EXPORT CONTROL</span>
+                  <span class="ee-fact-val">Regulated as Dual-Use Military Grade in 2000</span>
+                </div>
+              </div>
+              <div class="ee-trivia-box">
+                <strong>💡 HISTORICAL FUN FACT:</strong> Sony dubbed it the <em>"Emotion Engine"</em> because it was designed to calculate character emotional nuances, facial micro-expressions, hair physics, and atmospheric dynamics in real-time instead of relying on static scripts.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="memcard-footer">
@@ -347,6 +388,6 @@
     </div>
   </div>
 
-  <script src="main.js?v=16.0"></script>
+  <script src="main.js?v=17.0"></script>
 </body>
 </html>

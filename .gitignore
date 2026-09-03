@@ -8,3 +8,4 @@ package.json
 package-lock.json
 *.txt
 *.h264
+*online-video-cutter*.mp4
