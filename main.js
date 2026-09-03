@@ -209,7 +209,7 @@ let clockDispIndex = 0;
 const VCR_FILTERS = ['VCR VHS Tracking', 'CRT Scanlines', 'Disabled'];
 let vcrFilterIndex = 0;
 
-const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Cyberpunk'];
+const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave'];
 let paletteIndex = 0;
 
 const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix', 'VCR Slate'];
@@ -851,14 +851,26 @@ function applyWallpaperTheme(palette) {
     vid.play().catch(() => {});
   };
 
+  const playImageTheme = (imgPath) => {
+    document.body.classList.add('has-wallpaper');
+    vid.pause();
+    vid.classList.add('hidden');
+    img.classList.remove('hidden');
+    img.style.backgroundImage = `url('${imgPath}')`;
+  };
+
   if (palette === 'Dorfic') {
     playVideoTheme('Themes/Dorfic/Dorfic.mp4');
   } else if (palette === 'Frutiger Aero') {
     playVideoTheme('Themes/Frutiger/frutiger_live.mp4');
+  } else if (palette === 'Liquid Metal') {
+    playVideoTheme('Themes/Liquid Metal/liquid_metal_live.mp4');
+  } else if (palette === 'Vaporwave') {
+    playImageTheme('Themes/Vaporwave/futuristic_city_digital_art_hd_vaporwave.jpg');
   } else if (palette === 'Mecha Sci-Fi') {
     playVideoTheme('Themes/Mecha/MECHA - YOUTUBE.mp4');
   } else {
-    // PS2 Classic Blue, Liquid Metal, Cyberpunk:
+    // PS2 Classic Blue:
     // Pure clean PS2 3D Canvas Orbiting Stars & Spoke Sphere recolored schema!
     document.body.classList.remove('has-wallpaper');
     vid.pause();

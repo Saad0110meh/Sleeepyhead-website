@@ -34,17 +34,21 @@ body[data-palette="Dorfic"] {
   --font-body: 'Share Tech Mono', monospace;
 }
 
-/* PALETTE: Liquid Metal (Mercury Silver & Steel Blue) */
+/* PALETTE: Liquid Metal (Polished Mercury, Platinum Chrome & Iridescent Liquid Silver) */
 body[data-palette="Liquid Metal"] {
   --ps2-blue-deep: #090d16;
   --ps2-blue-main: #111827;
-  --ps2-blue-panel: rgba(17, 24, 39, 0.92);
-  --ps2-cyan: #38bdf8;            /* Liquid Sky Blue */
-  --ps2-cyan-glow: rgba(56, 189, 248, 0.65);
-  --ps2-cyan-dim: #1e3a8a;        /* Deep Steel Blue */
-  --ps2-magenta: #7dd3fc;         /* Mercury Blue */
-  --ps2-silver: #f8fafc;          /* Platinum White */
-  --ps2-gold: #e2e8f0;            /* Silver Chrome */
+  --ps2-blue-panel: rgba(17, 24, 39, 0.90);
+  --ps2-cyan: #e2e8f0;            /* Polished Liquid Platinum */
+  --ps2-cyan-glow: rgba(226, 232, 240, 0.75);
+  --ps2-cyan-dim: #475569;        /* Gunmetal Titanium */
+  --ps2-magenta: #38bdf8;         /* Electric Mercury Blue */
+  --ps2-silver: #f8fafc;          /* High-Gloss Silver White */
+  --ps2-gold: #94a3b8;            /* Brushed Chrome Steel */
+  --ps2-grey-bg: #1e293b;
+
+  --font-display: 'Rajdhani', 'Orbitron', monospace;
+  --font-body: 'Rajdhani', 'Share Tech Mono', sans-serif;
 }
 
 /* PALETTE: Frutiger Aero (Glossy Y2K Aqua Glass & Modern Aerodynamic) */
@@ -64,17 +68,21 @@ body[data-palette="Frutiger Aero"] {
   --font-body: 'Outfit', 'Rajdhani', sans-serif;
 }
 
-/* PALETTE: Cyberpunk (Neon Pink & Cyber Yellow) */
-body[data-palette="Cyberpunk"] {
-  --ps2-blue-deep: #0f051d;
-  --ps2-blue-main: #240046;
-  --ps2-blue-panel: rgba(36, 0, 70, 0.92);
-  --ps2-cyan: #00f0ff;
-  --ps2-cyan-glow: rgba(0, 240, 255, 0.7);
-  --ps2-cyan-dim: #5c0099;
-  --ps2-magenta: #ff007f;
-  --ps2-silver: #f1f5f9;
-  --ps2-gold: #ffe600;
+/* PALETTE: Vaporwave (Y2K Retro Sunset Neon, Synthwave Magenta & Electric Cyan) */
+body[data-palette="Vaporwave"] {
+  --ps2-blue-deep: #160628;
+  --ps2-blue-main: #2b0c48;
+  --ps2-blue-panel: rgba(35, 10, 60, 0.90);
+  --ps2-cyan: #00f0ff;            /* Electric Neon Cyan */
+  --ps2-cyan-glow: rgba(0, 240, 255, 0.75);
+  --ps2-cyan-dim: #6b1180;        /* Deep Neon Violet */
+  --ps2-magenta: #ff007f;         /* Hot Synthwave Pink */
+  --ps2-silver: #fdf4ff;          /* Sunset Glow White */
+  --ps2-gold: #ffaa00;            /* Sunset Gold / Amber */
+  --ps2-grey-bg: #3b0764;
+
+  --font-display: 'Orbitron', 'Press Start 2P', monospace;
+  --font-body: 'VT323', 'Outfit', monospace;
 }
 
 /* PALETTE: Mecha Sci-Fi (Steel Blue & Laser Red) */
@@ -145,12 +153,20 @@ body[data-palette="Frutiger Aero"] .wallpaper-video {
   opacity: 0.90;
 }
 
+body[data-palette="Liquid Metal"] .wallpaper-video {
+  opacity: 0.88;
+}
+
+body[data-palette="Vaporwave"] .wallpaper-img {
+  opacity: 0.86;
+}
+
 .wallpaper-img {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.75;
+  opacity: 0.85;
   transition: opacity 0.5s ease;
 }
 
@@ -2011,6 +2027,415 @@ body[data-palette="Frutiger Aero"] .lore-group {
   background: rgba(3, 42, 72, 0.82);
   border: 1.5px solid rgba(255, 255, 255, 0.35);
   border-radius: 12px;
+}
+
+/* ============================================================
+   THEME STYLING: LIQUID METAL (Polished Mercury, Platinum Chrome & Iridescent Silver)
+============================================================= */
+body[data-palette="Liquid Metal"] {
+  letter-spacing: 0.3px;
+}
+
+body[data-palette="Liquid Metal"].crt-overlay::before {
+  opacity: 0.18;
+}
+
+/* Liquid Metal Main Menu */
+body[data-palette="Liquid Metal"] .menu-text {
+  color: rgba(226, 232, 240, 0.5);
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Liquid Metal"] .menu-item.active .menu-text {
+  color: #f8fafc;
+  text-shadow: 0 0 20px rgba(248, 250, 252, 0.95), 0 0 35px #38bdf8, 0 2px 4px #000;
+}
+
+body[data-palette="Liquid Metal"] .menu-item::before {
+  color: #e2e8f0;
+}
+
+body[data-palette="Liquid Metal"] .menu-item.active::before {
+  text-shadow: 0 0 14px rgba(226, 232, 240, 0.9);
+}
+
+/* Liquid Metal System Configuration */
+body[data-palette="Liquid Metal"] .sysconfig-date,
+body[data-palette="Liquid Metal"] .sysconfig-time {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  color: #f8fafc;
+  box-shadow: 0 0 14px rgba(226, 232, 240, 0.35);
+  text-shadow: 0 0 8px #cbd5e1;
+}
+
+body[data-palette="Liquid Metal"] .sysconfig-title {
+  color: #f8fafc;
+  text-shadow: 0 0 12px rgba(226, 232, 240, 0.7);
+}
+
+body[data-palette="Liquid Metal"] .sysconfig-opt {
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  font-size: 17px;
+}
+
+body[data-palette="Liquid Metal"] .sysconfig-opt.selected {
+  border-color: #f8fafc;
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.28) 0%, rgba(56, 189, 248, 0.15) 100%);
+  box-shadow: inset 0 0 12px rgba(226, 232, 240, 0.35), 0 0 16px rgba(226, 232, 240, 0.45);
+}
+
+body[data-palette="Liquid Metal"] .sysconfig-opt.selected .opt-label {
+  color: #f8fafc;
+  text-shadow: 0 0 10px rgba(226, 232, 240, 0.85);
+}
+
+/* Liquid Metal Browser & Save Cards */
+body[data-palette="Liquid Metal"] .memcard-browser-header {
+  background: rgba(15, 23, 42, 0.88);
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(226, 232, 240, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+body[data-palette="Liquid Metal"] .memcard-ps2-logo {
+  color: #f8fafc;
+  text-shadow: 0 0 16px rgba(226, 232, 240, 0.9), 0 2px 4px #000;
+}
+
+body[data-palette="Liquid Metal"] .memcard-section-title {
+  color: #e2e8f0;
+}
+
+body[data-palette="Liquid Metal"] .memcard-slot-label {
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+body[data-palette="Liquid Metal"] .save-icon-box {
+  width: 94px;
+  height: 94px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #334155 0%, #0f172a 100%);
+  border: 2.5px solid #e2e8f0;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75), 0 0 18px rgba(226, 232, 240, 0.4);
+}
+
+body[data-palette="Liquid Metal"] .save-icon-halo {
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(248, 250, 252, 0.95) 0%, rgba(56, 189, 248, 0.45) 55%, transparent 75%);
+}
+
+body[data-palette="Liquid Metal"] .save-icon-title {
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+}
+
+body[data-palette="Liquid Metal"] .save-icon-card.selected .save-icon-title {
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(226, 232, 240, 0.95), 0 0 20px rgba(56, 189, 248, 0.6);
+}
+
+/* Liquid Metal Modals & Windows */
+body[data-palette="Liquid Metal"] .memcard-window {
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid #cbd5e1;
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 35px rgba(226, 232, 240, 0.4),
+    inset 0 0 40px rgba(226, 232, 240, 0.08);
+}
+
+body[data-palette="Liquid Metal"] .memcard-titlebar {
+  border-bottom: 1px solid rgba(226, 232, 240, 0.35);
+  color: #f8fafc;
+  font-size: 17px;
+  text-shadow: 0 0 10px rgba(226, 232, 240, 0.7);
+}
+
+body[data-palette="Liquid Metal"] .panel-heading {
+  color: #38bdf8;
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+body[data-palette="Liquid Metal"] .memcard-body {
+  font-size: 23px;
+}
+
+body[data-palette="Liquid Metal"] .memcard-list li {
+  border: 1.5px solid rgba(226, 232, 240, 0.35);
+  background: rgba(30, 41, 59, 0.85);
+  font-size: 23px;
+  padding: 14px 20px;
+  color: #f8fafc;
+}
+
+body[data-palette="Liquid Metal"] .memcard-list li strong {
+  color: #38bdf8;
+}
+
+body[data-palette="Liquid Metal"] .memcard-list li:hover {
+  border-color: #f8fafc;
+  background: rgba(56, 189, 248, 0.2);
+}
+
+body[data-palette="Liquid Metal"] .memcard-list li.selected {
+  border-color: #f8fafc;
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.35) 0%, rgba(56, 189, 248, 0.2) 100%);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(226, 232, 240, 0.5);
+}
+
+body[data-palette="Liquid Metal"] .memcard-list li.selected span {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(226, 232, 240, 0.9);
+}
+
+body[data-palette="Liquid Metal"] .platform-card {
+  background: rgba(23, 32, 51, 0.88);
+  border: 1.5px solid rgba(226, 232, 240, 0.35);
+}
+
+body[data-palette="Liquid Metal"] .platform-card:hover {
+  border-color: #f8fafc;
+  background: rgba(56, 189, 248, 0.22);
+  box-shadow: 0 6px 20px rgba(226, 232, 240, 0.3);
+}
+
+body[data-palette="Liquid Metal"] .platform-icon-circle {
+  background: rgba(226, 232, 240, 0.15);
+  border-color: #e2e8f0;
+}
+
+body[data-palette="Liquid Metal"] .dossier-card,
+body[data-palette="Liquid Metal"] .skill-cat-card,
+body[data-palette="Liquid Metal"] .lore-group {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1.5px solid rgba(226, 232, 240, 0.3);
+}
+
+/* ============================================================
+   THEME STYLING: VAPORWAVE (Y2K Retro Sunset Neon & Synthwave Magenta)
+============================================================= */
+body[data-palette="Vaporwave"] {
+  letter-spacing: 0.4px;
+}
+
+body[data-palette="Vaporwave"].crt-overlay::before {
+  opacity: 0.3;
+  background: linear-gradient(
+    rgba(22, 6, 40, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 127, 0.03),
+    rgba(0, 0, 0, 0.01),
+    rgba(0, 240, 255, 0.02)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Vaporwave Main Menu */
+body[data-palette="Vaporwave"] .menu-text {
+  color: rgba(253, 244, 255, 0.55);
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Vaporwave"] .menu-item.active .menu-text {
+  color: #ff007f;
+  text-shadow: 0 0 20px rgba(255, 0, 127, 0.9), 0 0 35px #00f0ff, 0 2px 4px #000;
+}
+
+body[data-palette="Vaporwave"] .menu-item::before {
+  color: #00f0ff;
+}
+
+body[data-palette="Vaporwave"] .menu-item.active::before {
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.9);
+}
+
+/* Vaporwave System Configuration */
+body[data-palette="Vaporwave"] .sysconfig-date,
+body[data-palette="Vaporwave"] .sysconfig-time {
+  background: rgba(35, 10, 60, 0.92);
+  border: 1.5px solid #ff007f;
+  border-radius: 6px;
+  color: #fdf4ff;
+  box-shadow: 0 0 14px rgba(255, 0, 127, 0.5);
+  text-shadow: 0 0 8px #ff007f;
+}
+
+body[data-palette="Vaporwave"] .sysconfig-title {
+  color: #ffaa00;
+  text-shadow: 0 0 14px rgba(255, 170, 0, 0.7);
+}
+
+body[data-palette="Vaporwave"] .sysconfig-opt {
+  background: rgba(38, 12, 68, 0.85);
+  border: 1px solid rgba(255, 0, 127, 0.3);
+  font-size: 17px;
+}
+
+body[data-palette="Vaporwave"] .sysconfig-opt.selected {
+  border-color: #00f0ff;
+  background: linear-gradient(90deg, rgba(255, 0, 127, 0.35) 0%, rgba(0, 240, 255, 0.25) 100%);
+  box-shadow: inset 0 0 12px rgba(255, 0, 127, 0.4), 0 0 18px rgba(0, 240, 255, 0.5);
+}
+
+body[data-palette="Vaporwave"] .sysconfig-opt.selected .opt-label {
+  color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+}
+
+/* Vaporwave Browser & Save Cards */
+body[data-palette="Vaporwave"] .memcard-browser-header {
+  background: rgba(30, 8, 52, 0.88);
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 0, 127, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 0, 127, 0.2);
+}
+
+body[data-palette="Vaporwave"] .memcard-ps2-logo {
+  color: #ff007f;
+  text-shadow: 0 0 18px rgba(255, 0, 127, 0.9), 0 0 30px #00f0ff, 0 2px 4px #000;
+}
+
+body[data-palette="Vaporwave"] .memcard-section-title {
+  color: #fdf4ff;
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Vaporwave"] .memcard-slot-label {
+  color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+}
+
+body[data-palette="Vaporwave"] .save-icon-box {
+  width: 94px;
+  height: 94px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4a044e 0%, #160628 100%);
+  border: 2px solid #ff007f;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8), 0 0 18px rgba(255, 0, 127, 0.45);
+}
+
+body[data-palette="Vaporwave"] .save-icon-halo {
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(255, 0, 127, 0.95) 0%, rgba(0, 240, 255, 0.4) 55%, transparent 75%);
+}
+
+body[data-palette="Vaporwave"] .save-icon-title {
+  color: #fdf4ff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+}
+
+body[data-palette="Vaporwave"] .save-icon-card.selected .save-icon-title {
+  color: #00f0ff;
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.95), 0 2px 4px #000;
+}
+
+/* Vaporwave Modals & Windows */
+body[data-palette="Vaporwave"] .memcard-window {
+  background: rgba(30, 8, 52, 0.95);
+  border: 2px solid #ff007f;
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 35px rgba(255, 0, 127, 0.5),
+    inset 0 0 40px rgba(0, 240, 255, 0.08);
+}
+
+body[data-palette="Vaporwave"] .memcard-titlebar {
+  border-bottom: 1px solid rgba(255, 0, 127, 0.4);
+  color: #00f0ff;
+  font-size: 17px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+}
+
+body[data-palette="Vaporwave"] .panel-heading {
+  color: #ffaa00;
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.6);
+}
+
+body[data-palette="Vaporwave"] .memcard-body {
+  font-size: 23px;
+}
+
+body[data-palette="Vaporwave"] .memcard-list li {
+  border: 1.5px solid rgba(255, 0, 127, 0.4);
+  background: rgba(45, 10, 75, 0.88);
+  font-size: 23px;
+  padding: 14px 20px;
+  color: #fdf4ff;
+}
+
+body[data-palette="Vaporwave"] .memcard-list li strong {
+  color: #ffaa00;
+}
+
+body[data-palette="Vaporwave"] .memcard-list li:hover {
+  border-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.2);
+}
+
+body[data-palette="Vaporwave"] .memcard-list li.selected {
+  border-color: #00f0ff;
+  background: linear-gradient(90deg, rgba(255, 0, 127, 0.35) 0%, rgba(0, 240, 255, 0.25) 100%);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(244, 63, 94, 0.5);
+}
+
+body[data-palette="Vaporwave"] .memcard-list li.selected span {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.9);
+}
+
+body[data-palette="Vaporwave"] .platform-card {
+  background: rgba(38, 8, 65, 0.9);
+  border: 1.5px solid rgba(255, 0, 127, 0.4);
+}
+
+body[data-palette="Vaporwave"] .platform-card:hover {
+  border-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(255, 0, 127, 0.35);
+}
+
+body[data-palette="Vaporwave"] .platform-icon-circle {
+  background: rgba(255, 0, 127, 0.15);
+  border-color: #00f0ff;
+}
+
+body[data-palette="Vaporwave"] .dossier-card,
+body[data-palette="Vaporwave"] .skill-cat-card,
+body[data-palette="Vaporwave"] .lore-group {
+  background: rgba(45, 10, 75, 0.88);
+  border: 1.5px solid rgba(255, 0, 127, 0.35);
+}
+
+body[data-palette="Vaporwave"] .footer-keyboard-bar {
+  background: rgba(35, 10, 60, 0.9);
+  border: 1px solid rgba(255, 0, 127, 0.45);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.7), 0 0 12px rgba(255, 0, 127, 0.2);
+}
+
+body[data-palette="Vaporwave"] .highlight-cyan {
+  color: #00f0ff;
+}
+
+body[data-palette="Vaporwave"] .btn-hint-item {
+  color: #fdf4ff;
 }
 
 
