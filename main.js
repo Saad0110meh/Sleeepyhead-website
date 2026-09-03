@@ -19,11 +19,11 @@ const DEV_INFO = {
 
 const PROJECTS = [
   {
-    id: "a_tariq",
-    title: "a_tariq — Quranic Arabic Learning Platform",
+    id: "tariq",
+    title: "Tariq — Quranic Arabic Learning Platform",
     category: "Full-Stack EdTech",
-    desc: "An interactive, gamified Quranic Arabic learning platform and pedagogical engine adapted from the acclaimed textbook series “Esho Arbi Shikhi” (by Maulana Abu Taher Misbah). Features chunked curriculum modules, vocabulary & grammar rules, contextual Q&A, sequential harakat (vowel-mark) fading to build direct reading fluency, and native RTL Arabic rendering with English and Bengali (Bangla) localization.",
-    tech: ["React", "Next.js", "TypeScript", "Node.js", "CSS3", "RTL Arabic", "Git"],
+    desc: "An interactive, gamified Quranic Arabic learning platform and pedagogical engine adapted from the acclaimed textbook series “Esho Arbi Shikhi” (by Maulana Abu Taher Misbah). Features chunked curriculum modules, vocabulary & grammar rules, contextual Q&A, sequential harakat (vowel-mark) fading to build direct reading fluency, and curated typography with English and Bengali (Bangla) localization.",
+    tech: ["React", "Next.js", "TypeScript", "Node.js", "CSS3", "TanStack", "Git"],
     link: "https://github.com/amir-al-razin/a_tariq",
     size: "64 KB",
     tag: "COLLAB"
@@ -31,39 +31,39 @@ const PROJECTS = [
   {
     id: "santiago",
     title: "IUT Cafeteria (DevSprint 2026)",
-    category: "Distributed Systems & DevOps",
+    category: "Distributed Systems & Services",
     desc: "A resilient, distributed, fault-tolerant microservices-based food ordering and kitchen management system built for high-concurrency traffic surges (e.g. Ramadan Iftar rush). Features containerized Student UI & Admin Dashboard, FastAPI identity-provider with JWT & rate limiting, Express/Node.js order-gateway BFF with Redis caching, FastAPI stock-service with PostgreSQL optimistic concurrency control, Express kitchen-queue for lifecycle tracking, and Socket.io real-time notifications.",
-    tech: ["Docker", "FastAPI", "Express", "Node.js", "Redis", "PostgreSQL", "Socket.io", "DevOps"],
+    tech: ["Docker", "FastAPI", "Express", "Node.js", "Redis", "PostgreSQL", "Socket.io"],
     link: "https://github.com/Saad0110meh/Santiago-s_neinth_requiem",
     size: "48 KB",
-    tag: "DEVOPS"
+    tag: "SYSTEMS"
   },
   {
     id: "another_tsapp",
     title: "Project Tsapp — 3D Snakes & Ladders",
     category: "3D Game Engine & Minigames",
     desc: "A 3D adaptation of the classic Snakes and Ladders board game featuring 3D physics-based dice collision and a capybara player token. Packed with built-in arcade minigames: 3D Raycaster Wolfenstein-style FPS dungeon crawler with sprite animation and boss fights, SnakeKnot survival evasion game, Capybara Rhythm lane beatmap game, Spaceship arcade shooter with asteroid physics, and Dice Roulette mini-events.",
-    tech: ["C", "3D Raycaster", "Physics Engine", "Sprite Animation", "Rhythm Engine", "Git"],
+    tech: ["C", "CMake", "3D Raycaster", "Physics Engine", "Sprite Animation", "Rhythm Engine", "Git"],
     link: "https://github.com/abrarnaguib/AnotherTSAPP_TEST",
     size: "52 KB",
     tag: "GAME DEV"
   },
   {
     id: "indie_vault",
-    title: "Indie Game Lab & Creative Works",
+    title: "Indie Game Lab",
     category: "Indie Game Dev & Audio",
     desc: "Original indie game experiments, mechanics, and prototypes across Godot, Unity, and RPG Maker. Features custom pixel art and sprite assets created in Aseprite, 3D asset modeling in Blender, and original synthesized musical scores composed in FL Studio and Piapro Studio NT2 / Crypton CV1.",
     tech: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "FL Studio", "Piapro Studio NT2", "Crypton CV1"],
     link: null,
     size: "88 KB",
-    tag: "CREATIVE"
+    tag: "INDIE DEV"
   },
   {
     id: "cybersec_ctf",
     title: "Cybersecurity & CTF Operations",
     category: "Cybersecurity & CTF",
-    desc: "Active competitive cybersecurity CTF player. Competed in UAP Cyber Siege 2025, Deadsec CTF 2025, Phoenix Summit CTF 2025, CUET StealthFlags 2025, and various national & global CTF challenges with satisfactory rankings. Practical packet inspection in Wireshark, web application vulnerability testing in Burp Suite, and offensive security tooling across Kali Linux.",
-    tech: ["UAP Cyber Siege 2025", "Deadsec CTF 2025", "Phoenix Summit 2025", "CUET StealthFlags 2025", "Wireshark", "Burp Suite", "Kali Linux"],
+    desc: "Active competitive cybersecurity CTF player. Competed in UAP Cyber Siege 2025, Deadsec CTF 2025, Phoenix Summit CTF 2025, CUET StealthFlags 2025, and various national & global CTF challenges with satisfactory rankings.",
+    tech: ["UAP Cyber Siege 2025", "Deadsec CTF 2025", "Phoenix Summit 2025", "CUET StealthFlags 2025"],
     link: null,
     size: "44 KB",
     tag: "SECURITY"
@@ -84,11 +84,11 @@ const CAREER_EDUCATION = {
       company: "National & Global CTF Circuit",
       period: "2025 - Present",
       badge: "CTF COMPETITOR",
-      desc: "Participated in UAP Cyber Siege 2025, Deadsec CTF 2025, Phoenix Summit CTF 2025, CUET StealthFlags 2025, and multiple global CTFs achieving satisfactory rankings. Specialized in web exploitation, packet analysis (Wireshark), proxy auditing (Burp Suite), and Linux reverse engineering."
+      desc: "Participated in UAP Cyber Siege 2025, Deadsec CTF 2025, Phoenix Summit CTF 2025, CUET StealthFlags 2025, and multiple national & global CTF challenges achieving satisfactory rankings."
     },
     {
-      role: "Technical Freelance & Software Oddjobs",
-      company: "Independent Contractor",
+      role: "Oddjobs Specialist",
+      company: "Technical Freelance",
       period: "Ongoing",
       badge: "ODDJOBS",
       desc: "Executing specialized software engineering tasks, custom scripts, audio mastering configurations, asset preparation, and development support for various client assignments."
@@ -106,15 +106,15 @@ const CAREER_EDUCATION = {
       degree: "Higher Secondary Certificate (HSC)",
       institution: "St. Joseph Higher Secondary School",
       department: "Science Division",
-      result: "GPA 5.00 / 5.00",
-      badge: "GPA 5.00"
+      result: "Passed",
+      badge: "SCIENCE"
     },
     {
       degree: "Secondary School Certificate (SSC)",
       institution: "Willes Little Flower School and College",
       department: "Science Division",
-      result: "GPA 5.00 / 5.00",
-      badge: "GPA 5.00"
+      result: "Passed",
+      badge: "SCIENCE"
     }
   ]
 };
@@ -123,32 +123,32 @@ const SKILL_GROUPS = [
   {
     category: "Core Languages & Systems",
     icon: "💻",
-    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "RISC V", "CMake", "LaTeX", "Proteus Projects"]
+    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "RISC-V", "CMake", "Proteus", "LaTeX"]
   },
   {
     category: "Web & Full-Stack Development",
     icon: "🌐",
-    skills: ["React", "Next.js", "Node.js", "Spring Boot", "TanStack", "HTML", "CSS", "JavaFX", "Scene Builder"]
+    skills: ["React", "Next.js", "TanStack", "Node.js", "Spring Boot", "HTML5", "CSS3", "JavaFX", "Scene Builder"]
   },
   {
-    category: "Databases & DevOps",
+    category: "Databases & DevOps Tools",
     icon: "🗄️",
-    skills: ["PostgreSQL", "PSQL", "MySQL", "Docker", "Git", "GitHub", "npm", "pnpm"]
+    skills: ["PostgreSQL", "MySQL", "Docker", "Git", "GitHub", "npm", "pnpm"]
   },
   {
-    category: "Game Dev, Audio & Visual Suite",
+    category: "Game Dev, 3D & Audio Suite",
     icon: "🎮",
     skills: ["Godot", "Unity", "RPG Maker", "Blender", "Aseprite", "GIMP", "Adobe Illustrator", "FL Studio", "Piapro Studio NT2", "Crypton CV1"]
   },
   {
-    category: "Cybersecurity & CTF Labs",
+    category: "Cybersecurity & Security Tools",
     icon: "🛡️",
-    skills: ["Kali Linux Tools CTF", "Wireshark", "Burp Suite", "CTF Competitions"]
+    skills: ["Kali Linux Tools", "Wireshark", "Burp Suite", "CTF Competitions"]
   }
 ];
 
 const LORE = {
-  bio: "Greetings! I'm Sazidul Karim, a Computer Science & Engineering undergraduate at Islamic University of Technology (IUT). I aspire to be an indie game developer with deep interest in cybersecurity, retro aesthetics, and audio composition. When I'm not testing indie games or solving CTF challenges, I'm composing folk tunes, cooking unique experimental scratch dishes, appreciating cars, traveling, or spending time with cats.",
+  bio: "HI! I'm Sazidul Karim, a Computer Science & Engineering undergraduate at Islamic University of Technology (IUT). I aspire to be an indie game developer with deep interest in cybersecurity, retro aesthetics, and audio composition. When I'm not testing indie games or solving CTF challenges, I'm listening to folk tunes, cooking unique experimental scratch dishes, appreciating cars, traveling, or spending time with cats.",
   aspirations: "Aspiring Indie Game Developer & Cybersecurity Practitioner.",
   favorites: {
     games: ["Hollow Knight", "Dota 2", "No Man's Sky", "Cyberpunk 2077", "Sekiro: Shadows Die Twice", "Shadow of the Colossus"],
@@ -160,19 +160,18 @@ const LORE = {
       "Neon Genesis Evangelion",
       "The Wings of Honnêamise",
       "Mobile Suit Gundam",
-      "Macross",
-      "80s–00s Retro Classics & Mangas"
+      "Macross"
     ],
     movies: ["No Country for Old Men", "Spider-Man: Into the Spider-Verse", "Fallen Angels"],
-    reading: ["Aranyak (Bibhutibhushan Bandyopadhyay)", "Manga Series"],
+    reading: ["Aranyak (Bibhutibhushan Bandyopadhyay)"],
     music: [
       "Folk music from diverse global cultures",
       "Original compositions in FL Studio & Piapro Studio NT2 (Crypton CV1)"
     ],
     cooking: "Unique experimental scratch cooking & culinary experiments",
-    cars: "Car enthusiast & mechanical appreciation",
+    cars: "Car enthusiast & MECHA appreciation",
     travel: "Exploring new places and traveling",
-    animal: "🐱 Cats (Supreme Favorites)"
+    animal: "🐱 Cats (Supreme Beings)"
   }
 };
 
@@ -180,7 +179,7 @@ const PLATFORMS = [
   { name: "Email", handle: "Sajid589karim@gmail.com", url: "mailto:Sajid589karim@gmail.com", icon: "✉️", badge: "Direct Mail" },
   { name: "Discord", handle: "sleepyhead3960", url: "https://discord.com", icon: "💬", badge: "Chat & Voice" },
   { name: "GitHub", handle: "Saad0110Meh", url: "https://github.com/Saad0110meh", icon: "🐙", badge: "Code Repositories" },
-  { name: "Itch.io", handle: "sajidulkarim.itch.io", url: "https://sajidulkarim.itch.io/", icon: "🕹️", badge: "Indie Game Hub" },
+  { name: "Itch.io", handle: "sajidulkarim", url: "https://sajidulkarim.itch.io/", icon: "🕹️", badge: "Indie Game Hub" },
   { name: "Steam", handle: "OUTCAST", url: "https://steamcommunity.com/profiles/76561198447696633/", icon: "🎮", badge: "Gaming Profile" },
   { name: "MyAnimeList", handle: "Shiro_Neko0110", url: "https://myanimelist.net/profile/Shiro_Neko0110", icon: "🍿", badge: "Anime & Manga List" }
 ];
@@ -193,7 +192,7 @@ const ACHIEVEMENTS = [
   { id: "projects_checked", title: "Project Explorer", desc: "Inspected the Featured Projects repository list." },
   { id: "career_checked", title: "QA & Academic Dossier", desc: "Accessed the Korean QA Game Testing & IUT records." },
   { id: "skills_checked", title: "Arsenal Specialist", desc: "Scanned the full-stack, systems, and security matrix." },
-  { id: "lore_checked", title: "Drifter Lore & Otaku", desc: "Discovered classic anime, culinary, and cat lore." },
+  { id: "lore_checked", title: "Drifter Lore & Cats", desc: "Discovered anime, culinary, mecha, and supreme cat lore." },
   { id: "platforms_checked", title: "Signal Connected", desc: "Established contact frequency with external Comm Relays." }
 ];
 
@@ -216,7 +215,30 @@ let paletteIndex = 0;
 const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix', 'VCR Slate'];
 let bthemeIndex = 0;
 
+const ZOOM_LEVELS = ['100%', '125%', '150%', '175%'];
+let zoomIndex = parseInt(localStorage.getItem('sleepyhead_zoom_idx') || '0', 10);
+if (isNaN(zoomIndex) || zoomIndex < 0 || zoomIndex >= ZOOM_LEVELS.length) zoomIndex = 0;
+
 let cfgAudio = true;
+
+function applyZoomLevel(levelStr) {
+  const scaleMap = { '100%': 1, '125%': 1.25, '150%': 1.5, '175%': 1.75 };
+  const scale = scaleMap[levelStr] || 1;
+  const inverse = 1 / scale;
+  
+  document.documentElement.style.setProperty('--app-zoom-scale', scale);
+  document.documentElement.style.setProperty('--app-zoom-inverse', inverse);
+  
+  document.body.style.zoom = scale;
+  
+  const valZoom = document.getElementById('val-zoom');
+  if (valZoom) valZoom.innerText = levelStr;
+  
+  localStorage.setItem('sleepyhead_zoom_idx', zoomIndex.toString());
+  
+  if (typeof resizeSevenStars === 'function') resizeSevenStars();
+  if (typeof resizeCanvas === 'function') resizeCanvas();
+}
 
 // ==========================================
 // 2. PS2 WEB AUDIO SYNTHESIZER
@@ -784,6 +806,9 @@ function toggleSysConfigOption() {
     document.getElementById('val-btheme').innerText = currentBTheme;
     document.body.setAttribute('data-btheme', currentBTheme);
   } else if (sysConfigIndex === 5) {
+    zoomIndex = (zoomIndex + 1) % ZOOM_LEVELS.length;
+    applyZoomLevel(ZOOM_LEVELS[zoomIndex]);
+  } else if (sysConfigIndex === 6) {
     cfgAudio = !cfgAudio;
     document.getElementById('val-audio').innerText = cfgAudio ? 'ENABLED' : 'DISABLED';
   }
@@ -826,7 +851,7 @@ function applyWallpaperTheme(palette) {
 const iconCards = document.querySelectorAll('.save-icon-card');
 const iconHeaders = [
   { header: "My Projects", sub: "RUBIX Game Engine / 64 KB" },
-  { header: "Featured Repositories", sub: "a_tariq & Santiago & Games / 54 KB" },
+  { header: "Featured Repositories", sub: "Tariq & Santiago & Games / 54 KB" },
   { header: "Career & Education", sub: "Game QA & IUT CSE Dossier / 32 KB" },
   { header: "Technical Arsenal", sub: "Fullstack, GameDev & Sec / 58 KB" },
   { header: "Drifter Lore & Media", sub: "Anime, Hobbies & Cat Lore / 24 KB" },
@@ -1745,7 +1770,7 @@ function renderProjects() {
     if (idx === 0) li.classList.add('selected');
     li.innerHTML = `
       <span><strong>[0${idx+1}]</strong> ${proj.title}</span>
-      <span style="font-size:13px;color:var(--ps2-cyan);font-weight:bold;font-family:var(--font-display);">${proj.tag || proj.size}</span>
+      <span class="project-tag-chip" style="font-size:13px;color:var(--ps2-cyan);font-weight:bold;font-family:var(--font-display);">${proj.tag || proj.size}</span>
     `;
     
     const showDetail = () => {
@@ -1754,14 +1779,14 @@ function renderProjects() {
       playPS2SelectSound();
       detailEl.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:15px;margin:0;letter-spacing:1px;">${proj.title}</h4>
-          <span style="background:rgba(255,0,85,0.2);border:1px solid var(--ps2-magenta);color:#fff;padding:2px 6px;border-radius:3px;font-size:9px;font-family:var(--font-display);">${proj.category}</span>
+          <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:16px;margin:0;letter-spacing:1px;">${proj.title}</h4>
+          <span style="background:rgba(255,0,85,0.2);border:1px solid var(--ps2-magenta);color:#fff;padding:2px 6px;border-radius:3px;font-size:10px;font-family:var(--font-display);">${proj.category}</span>
         </div>
-        <p style="margin:8px 0;line-height:1.5;color:var(--ps2-silver);font-size:17px;">${proj.desc}</p>
+        <p style="margin:8px 0;line-height:1.55;color:var(--ps2-silver);font-size:18px;">${proj.desc}</p>
         <div style="margin-top:12px;">
-          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:11px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
-            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.12);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:2px 8px;border-radius:3px;font-size:15px;">${t}</span>`).join('')}
+          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:12px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.14);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:3px 10px;border-radius:3px;font-size:16px;">${t}</span>`).join('')}
           </div>
         </div>
         ${proj.link ? `
@@ -1770,13 +1795,7 @@ function renderProjects() {
             <span>&#128279; ACCESS REPO / DEMO</span> &rarr;
           </a>
         </div>
-        ` : `
-        <div class="project-action-row">
-          <span style="font-family:var(--font-display);font-size:10px;color:var(--ps2-gold);letter-spacing:1px;background:rgba(226,192,68,0.12);border:1px solid rgba(226,192,68,0.35);padding:4px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:6px;">
-            &#128737;&#65039; COMPETITIVE / CREATIVE ARCHIVE
-          </span>
-        </div>
-        `}
+        ` : ''}
       `;
     };
 
@@ -1817,9 +1836,10 @@ function renderCareer() {
           </div>
           <div class="dossier-sub">${edu.institution}</div>
           ${edu.department ? `<div class="dossier-meta">${edu.department}</div>` : ''}
-          <div style="color:var(--ps2-gold);font-family:var(--font-display);font-size:11px;margin-top:6px;">
-            RESULT: ${edu.result}
-          </div>
+          ${edu.result ? `
+          <div style="color:var(--ps2-gold);font-family:var(--font-display);font-size:12px;margin-top:6px;">
+            STATUS: ${edu.result}
+          </div>` : ''}
         </div>
       `).join('')}
     </div>
@@ -1859,7 +1879,7 @@ function renderLore() {
     </div>
 
     <div class="lore-group">
-      <div class="lore-group-title">&#127916; ANIME CLASSICS (80s–00s), FAVORITES & MANGA</div>
+      <div class="lore-group-title">&#127916; ANIME FAVORITES</div>
       <div class="lore-chips">
         ${LORE.favorites.anime.map(a => `<span class="lore-chip pink">${a}</span>`).join('')}
       </div>
@@ -1888,22 +1908,22 @@ function renderLore() {
 
     <div class="lore-group">
       <div class="lore-group-title">&#127859; CULINARY & EXPERIMENTAL COOKING</div>
-      <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.cooking}</p>
+      <p style="margin:4px 0 0 0;font-size:18px;color:var(--ps2-silver);">${LORE.favorites.cooking}</p>
     </div>
 
     <div class="lore-group">
-      <div class="lore-group-title">&#127950;&#65039; CARS & AUTOMOTIVE</div>
-      <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.cars}</p>
+      <div class="lore-group-title">&#127950;&#65039; CARS & MECHA</div>
+      <p style="margin:4px 0 0 0;font-size:18px;color:var(--ps2-silver);">${LORE.favorites.cars}</p>
     </div>
 
     <div class="lore-group">
       <div class="lore-group-title">&#9992;&#65039; TRAVEL & EXPLORATION</div>
-      <p style="margin:4px 0 0 0;font-size:16px;color:var(--ps2-silver);">${LORE.favorites.travel}</p>
+      <p style="margin:4px 0 0 0;font-size:18px;color:var(--ps2-silver);">${LORE.favorites.travel}</p>
     </div>
 
     <div class="lore-group" style="border-color:var(--ps2-gold);">
-      <div class="lore-group-title" style="color:var(--ps2-gold);">&#128049; SUPREME COMPANION</div>
-      <p style="margin:4px 0 0 0;font-size:17px;color:#ffffff;font-weight:bold;">${LORE.favorites.animal}</p>
+      <div class="lore-group-title" style="color:var(--ps2-gold);">&#128049; SUPREME BEINGS</div>
+      <p style="margin:4px 0 0 0;font-size:19px;color:#ffffff;font-weight:bold;">${LORE.favorites.animal}</p>
     </div>
   `;
 }
@@ -1987,5 +2007,6 @@ if (btnMemcardBack) {
   });
 }
 
-// Apply initial wallpaper theme
-applyWallpaperTheme(CONSOLE_PALETTES[paletteIndex]);
+// Apply initial wallpaper theme and saved zoom scale
+applyWallpaperTheme(CONSOLE_PALETTES[paletteIndex]);
+applyZoomLevel(ZOOM_LEVELS[zoomIndex]);
