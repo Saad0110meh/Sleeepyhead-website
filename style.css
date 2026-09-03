@@ -2734,16 +2734,11 @@ body[data-btheme="Cyber Matrix"] .save-icon-card.selected .save-icon-box {
 }
 
 body[data-btheme="Cyber Matrix"] .save-icon-halo {
-  border-radius: 4px;
-  border: 2px dashed #00ff88;
-  background: transparent;
-  box-shadow: 0 0 20px #00ff88;
-  animation: matrixRotate 8s linear infinite;
-}
-
-@keyframes matrixRotate {
-  from { transform: scale(1.15) rotate(0deg); }
-  to { transform: scale(1.15) rotate(360deg); }
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.8) 0%, rgba(0, 240, 255, 0.35) 50%, transparent 75%);
+  box-shadow: none;
+  animation: none;
 }
 
 body[data-btheme="Cyber Matrix"] .memcard-browser-header {
