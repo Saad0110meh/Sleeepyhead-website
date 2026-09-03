@@ -179,7 +179,7 @@ const PLATFORMS = [
   { name: "Email", handle: "Sajid589karim@gmail.com", url: "mailto:Sajid589karim@gmail.com", icon: "✉️", badge: "Direct Mail" },
   { name: "Discord", handle: "sleepyhead3960", url: "https://discord.com", icon: "💬", badge: "Chat & Voice" },
   { name: "GitHub", handle: "Saad0110Meh", url: "https://github.com/Saad0110meh", icon: "🐙", badge: "Code Repositories" },
-  { name: "Itch.io", handle: "sajidulkarim", url: "https://sajidulkarim.itch.io/", icon: "🕹️", badge: "Indie Game Hub" },
+  { name: "Itch.io", handle: "sajidulkarim", url: "https://sajidulkarim.itch.io/", icon: "🕹️", badge: "Itch.io" },
   { name: "Steam", handle: "OUTCAST", url: "https://steamcommunity.com/profiles/76561198447696633/", icon: "🎮", badge: "Gaming Profile" },
   { name: "MyAnimeList", handle: "Shiro_Neko0110", url: "https://myanimelist.net/profile/Shiro_Neko0110", icon: "🍿", badge: "Anime & Manga List" }
 ];
@@ -196,7 +196,7 @@ const ACHIEVEMENTS = [
   { id: "platforms_checked", title: "Signal Connected", desc: "Established contact frequency with external Comm Relays." }
 ];
 
-let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_achievements')) || ["booted"];
+let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_trophies_v2') || '[]');
 
 // Config state
 const DATE_FORMATS = ['DD/MM/YYYY', 'YYYY-MM-DD', 'MM/DD/YYYY'];
@@ -680,6 +680,10 @@ function showScreen(targetScreen) {
   });
   currentScreen = targetScreen;
 
+  if (targetScreen === 'memcard') {
+    unlockAchievement('browser_opened');
+  }
+
   // GPU & CPU Optimization: Pause video during canvas game to ensure 100% smooth 60 FPS gameplay!
   const vid = document.getElementById('wallpaper-video');
   if (vid) {
@@ -720,6 +724,7 @@ updateSystemClock();
 // Boot sequence handlers
 function handleBootClick() {
   initAudio();
+  unlockAchievement('booted');
   if (bootVideo) {
     showScreen('bootVideoWrap');
     bootVideo.currentTime = 0;
@@ -1119,6 +1124,11 @@ canvas.addEventListener('click', (e) => {
     ) {
       if (obj.activated) {
         openModal(obj.panel);
+        if (obj.id === 'projects_obelisk') unlockAchievement('projects_checked');
+        if (obj.id === 'career_obelisk') unlockAchievement('career_checked');
+        if (obj.id === 'skills_obelisk') unlockAchievement('skills_checked');
+        if (obj.id === 'lore_shrine') unlockAchievement('lore_checked');
+        if (obj.id === 'platforms_relay') unlockAchievement('platforms_checked');
       }
       break;
     }
@@ -1782,19 +1792,14 @@ function openModal(panelType) {
 
   if (panelType === 'projects') {
     renderProjects();
-    unlockAchievement('projects_checked');
   } else if (panelType === 'career') {
     renderCareer();
-    unlockAchievement('career_checked');
   } else if (panelType === 'skills') {
     renderSkills();
-    unlockAchievement('skills_checked');
   } else if (panelType === 'lore') {
     renderLore();
-    unlockAchievement('lore_checked');
   } else if (panelType === 'platforms') {
     renderPlatforms();
-    unlockAchievement('platforms_checked');
   } else if (panelType === 'achievements') {
     renderAchievements();
   }
@@ -2027,8 +2032,36 @@ function renderAchievements() {
 function unlockAchievement(id) {
   if (!unlockedAchievements.includes(id)) {
     unlockedAchievements.push(id);
-    localStorage.setItem('sleepyhead_achievements', JSON.stringify(unlockedAchievements));
+    localStorage.setItem('sleepyhead_trophies_v2', JSON.stringify(unlockedAchievements));
+    const ach = ACHIEVEMENTS.find(a => a.id === id);
+    if (ach) {
+      showTrophyToast(ach);
+    }
   }
+}
+
+function showTrophyToast(ach) {
+  let toast = document.getElementById('trophy-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'trophy-toast';
+    toast.className = 'trophy-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `
+    <div class="trophy-toast-icon">🏆</div>
+    <div class="trophy-toast-content">
+      <div class="trophy-toast-header">TROPHY UNLOCKED!</div>
+      <div class="trophy-toast-title">${ach.title}</div>
+    </div>
+  `;
+  toast.classList.add('show');
+  try {
+    playPS2ConfirmSound();
+  } catch (e) {}
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
 }
 
 // Interactive footer hint button listeners
