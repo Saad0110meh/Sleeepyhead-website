@@ -362,10 +362,67 @@ body, html {
 
 .intro-pillar {
   position: absolute;
-  background: linear-gradient(135deg, rgba(0, 100, 255, 0.45) 0%, rgba(0, 240, 255, 0.1) 100%);
-  box-shadow: 0 0 30px rgba(0, 100, 255, 0.4);
+  background: linear-gradient(135deg, rgba(0, 90, 255, 0.5) 0%, rgba(0, 240, 255, 0.15) 100%);
+  box-shadow: 0 0 35px rgba(0, 100, 255, 0.45);
+  border: 1px solid rgba(0, 240, 255, 0.35);
   transform-style: preserve-3d;
   animation: pillarFly 8s ease-in-out infinite alternate;
+}
+
+/* Theme Floating Pillars & Title Accents */
+body[data-palette="Dorfic"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.55) 0%, rgba(180, 83, 9, 0.22) 100%);
+  box-shadow: 0 0 40px rgba(234, 179, 8, 0.5);
+  border: 1px solid rgba(250, 204, 21, 0.45);
+}
+
+body[data-palette="Dorfic"] .intro-main-title {
+  color: #fffbeb;
+  text-shadow: 0 0 25px rgba(254, 240, 138, 0.95), 0 0 14px #eab308;
+}
+
+body[data-palette="Liquid Metal"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(241, 245, 249, 0.6) 0%, rgba(100, 116, 139, 0.25) 100%);
+  box-shadow: 0 0 40px rgba(226, 232, 240, 0.55);
+  border: 1px solid rgba(248, 250, 252, 0.5);
+}
+
+body[data-palette="Liquid Metal"] .intro-main-title {
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.95), 0 0 15px rgba(148, 163, 184, 0.85);
+}
+
+body[data-palette="Frutiger Aero"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.55) 0%, rgba(16, 185, 129, 0.25) 100%);
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+}
+
+body[data-palette="Frutiger Aero"] .intro-main-title {
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 15px #00d4ff;
+}
+
+body[data-palette="Mecha Sci-Fi"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.58) 0%, rgba(185, 28, 28, 0.25) 100%);
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.55);
+  border: 1px solid rgba(248, 113, 113, 0.5);
+}
+
+body[data-palette="Mecha Sci-Fi"] .intro-main-title {
+  color: #fef2f2;
+  text-shadow: 0 0 25px rgba(254, 202, 202, 0.95), 0 0 15px #ef4444;
+}
+
+body[data-palette="Vaporwave"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(255, 113, 206, 0.58) 0%, rgba(185, 103, 255, 0.25) 100%);
+  box-shadow: 0 0 40px rgba(255, 113, 206, 0.55);
+  border: 1px solid rgba(255, 113, 206, 0.5);
+}
+
+body[data-palette="Vaporwave"] .intro-main-title {
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.95), 0 0 15px #ff71ce;
 }
 
 .p1 { width: 120px; height: 400px; left: 10%; top: -50px; transform: rotate(-25deg); animation-delay: 0s; }
