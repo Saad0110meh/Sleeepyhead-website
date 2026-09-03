@@ -1648,9 +1648,7 @@ body[data-palette="Frutiger Aero"] {
 }
 
 body[data-palette="Frutiger Aero"].crt-overlay::before {
-  opacity: 0.12;
-  mix-blend-mode: overlay;
-  background-size: 100% 4px, 8px 100%;
+  display: none !important;
 }
 
 /* Frutiger Aero Main Menu */
