@@ -635,6 +635,16 @@ function showScreen(targetScreen) {
     }
   });
   currentScreen = targetScreen;
+
+  // GPU & CPU Optimization: Pause video during canvas game to ensure 100% smooth 60 FPS gameplay!
+  const vid = document.getElementById('wallpaper-video');
+  if (vid) {
+    if (targetScreen === 'game') {
+      vid.pause();
+    } else if (document.body.classList.contains('has-wallpaper')) {
+      vid.play().catch(() => {});
+    }
+  }
 }
 
 // System clock update
@@ -1626,8 +1636,10 @@ function renderMiniMap() {
 }
 
 function gameLoop() {
-  updatePlayer();
-  renderGameWorld();
+  if (currentScreen === 'game') {
+    updatePlayer();
+    renderGameWorld();
+  }
   requestAnimationFrame(gameLoop);
 }
 
