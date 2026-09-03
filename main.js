@@ -314,6 +314,81 @@ function playSlashSound() {
   } catch(e) {}
 }
 
+function playObeliskHitSound(hitNumber = 1) {
+  if (!audioCtx || !cfgAudio) return;
+  try {
+    const t = audioCtx.currentTime;
+    // Resonant metallic cyber-blade impact
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = 'sawtooth';
+    const baseFreq = hitNumber === 1 ? 260 : (hitNumber === 2 ? 380 : 520);
+    osc1.frequency.setValueAtTime(baseFreq * 1.8, t);
+    osc1.frequency.exponentialRampToValueAtTime(baseFreq * 0.4, t + 0.15);
+
+    gain1.gain.setValueAtTime(0.18, t);
+    gain1.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.start(t);
+    osc1.stop(t + 0.15);
+
+    // High frequency electric transient ping
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = 'square';
+    osc2.frequency.setValueAtTime(800 + hitNumber * 220, t);
+    osc2.frequency.exponentialRampToValueAtTime(140, t + 0.08);
+
+    gain2.gain.setValueAtTime(0.12, t);
+    gain2.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.start(t);
+    osc2.stop(t + 0.08);
+  } catch(e) {}
+}
+
+function playObeliskAwakenSound() {
+  if (!audioCtx || !cfgAudio) return;
+  try {
+    const t = audioCtx.currentTime;
+    // Majestic ascending cyber arpeggio chord sequence
+    const notes = [440, 554.37, 659.25, 880, 1108.73, 1318.51];
+    notes.forEach((freq, i) => {
+      const noteTime = t + i * 0.055;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+      osc.frequency.setValueAtTime(freq, noteTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.02, noteTime + 0.4);
+
+      gain.gain.setValueAtTime(0.12, noteTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, noteTime + 0.45);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(noteTime);
+      osc.stop(noteTime + 0.45);
+    });
+
+    // Deep sub-bass energy blast
+    const subOsc = audioCtx.createOscillator();
+    const subGain = audioCtx.createGain();
+    subOsc.type = 'sine';
+    subOsc.frequency.setValueAtTime(140, t);
+    subOsc.frequency.exponentialRampToValueAtTime(45, t + 0.6);
+    subGain.gain.setValueAtTime(0.25, t);
+    subGain.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+    subOsc.connect(subGain);
+    subGain.connect(audioCtx.destination);
+    subOsc.start(t);
+    subOsc.stop(t + 0.6);
+  } catch(e) {}
+}
+
 // ==========================================
 // 3. THEME COLOR HELPER & CANVASES
 // ==========================================
@@ -885,6 +960,8 @@ const player = {
 let dashGhosts = [];
 let particles = [];
 let ambientParticles = [];
+let shockwaves = [];
+let cameraShake = 0;
 
 // Initialize ambient cyber particles
 for (let i = 0; i < 90; i++) {
@@ -900,12 +977,12 @@ for (let i = 0; i < 90; i++) {
 }
 
 const interactiveObjects = [
-  { id: "projects_obelisk", name: "Projects Matrix", x: 650, y: 650, w: 64, h: 64, panel: "projects", color: '#00f0ff', glyph: "💾" },
-  { id: "career_obelisk", name: "Career & QA Dossier", x: 650, y: 1350, w: 64, h: 64, panel: "career", color: '#38bdf8', glyph: "🎮" },
-  { id: "skills_obelisk", name: "Tech Arsenal", x: 1300, y: 450, w: 64, h: 64, panel: "skills", color: '#00f5d4', glyph: "⚡" },
-  { id: "trophy_vault", name: "Trophy Relic Vault", x: 1300, y: 1550, w: 64, h: 64, panel: "achievements", color: '#ff0055', glyph: "🏆" },
-  { id: "lore_shrine", name: "Drifter Lore & Media", x: 1950, y: 650, w: 64, h: 64, panel: "lore", color: '#e2c044', glyph: "🐱" },
-  { id: "platforms_relay", name: "Comm Relay", x: 1950, y: 1350, w: 64, h: 64, panel: "platforms", color: '#ff9e00', glyph: "📡" }
+  { id: "projects_obelisk", name: "Projects Matrix", x: 650, y: 650, w: 64, h: 64, panel: "projects", color: '#00f0ff', glyph: "💾", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
+  { id: "career_obelisk", name: "Career & QA Dossier", x: 650, y: 1350, w: 64, h: 64, panel: "career", color: '#38bdf8', glyph: "🎮", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
+  { id: "skills_obelisk", name: "Tech Arsenal", x: 1300, y: 450, w: 64, h: 64, panel: "skills", color: '#00f5d4', glyph: "⚡", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
+  { id: "trophy_vault", name: "Trophy Relic Vault", x: 1300, y: 1550, w: 64, h: 64, panel: "achievements", color: '#ff0055', glyph: "🏆", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
+  { id: "lore_shrine", name: "Drifter Lore & Media", x: 1950, y: 650, w: 64, h: 64, panel: "lore", color: '#e2c044', glyph: "🐱", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 },
+  { id: "platforms_relay", name: "Comm Relay", x: 1950, y: 1350, w: 64, h: 64, panel: "platforms", color: '#ff9e00', glyph: "📡", activated: false, hits: 0, maxHits: 3, shakeTimer: 0, shakeIntensity: 0, flashTimer: 0, awakenTimer: 0 }
 ];
 
 let activeObject = null;
@@ -940,7 +1017,9 @@ canvas.addEventListener('click', (e) => {
       clickWorldY >= obj.y - 20 &&
       clickWorldY <= obj.y + obj.h + 20
     ) {
-      openModal(obj.panel);
+      if (obj.activated) {
+        openModal(obj.panel);
+      }
       break;
     }
   }
@@ -961,7 +1040,6 @@ function triggerSlash() {
   player.isSlashing = true;
   player.slashTimer = 15;
   playSlashSound();
-  unlockAchievement('sword_slash');
 
   if (player.facingDir === 'right') player.slashAngle = 0;
   else if (player.facingDir === 'down') player.slashAngle = Math.PI / 2;
@@ -969,6 +1047,104 @@ function triggerSlash() {
   else if (player.facingDir === 'up') player.slashAngle = -Math.PI / 2;
 
   createParticleBurst(player.x, player.y, '#ff0055', 10);
+  checkSlashHits();
+}
+
+function checkSlashHits() {
+  const strikeX = player.x + Math.cos(player.slashAngle) * 35;
+  const strikeY = player.y + Math.sin(player.slashAngle) * 35;
+
+  for (let obj of interactiveObjects) {
+    const cx = obj.x + obj.w / 2;
+    const cy = obj.y + obj.h / 2;
+
+    const nearX = Math.max(obj.x, Math.min(player.x, obj.x + obj.w));
+    const nearY = Math.max(obj.y, Math.min(player.y, obj.y + obj.h));
+    const distToEdge = Math.hypot(player.x - nearX, player.y - nearY);
+    const distToStrike = Math.hypot(strikeX - cx, strikeY - cy);
+    const distToCenter = Math.hypot(player.x - cx, player.y - cy);
+
+    const angleToObj = Math.atan2(cy - player.y, cx - player.x);
+    let angleDiff = Math.abs(player.slashAngle - angleToObj);
+    while (angleDiff > Math.PI) angleDiff = Math.abs(angleDiff - Math.PI * 2);
+
+    const isHit = (distToStrike < 60) || (distToEdge < 48) || (distToCenter < 95 && angleDiff < Math.PI * 0.65);
+
+    if (isHit) {
+      hitObelisk(obj);
+      break;
+    }
+  }
+}
+
+function hitObelisk(obj) {
+  const cx = obj.x + obj.w / 2;
+  const cy = obj.y + obj.h / 2;
+  const hitImpactX = (player.x + cx) / 2;
+  const hitImpactY = (player.y + cy) / 2;
+
+  unlockAchievement('sword_slash');
+
+  if (!obj.activated) {
+    obj.hits++;
+    obj.shakeTimer = 20;
+    obj.shakeIntensity = 10;
+    obj.flashTimer = 8;
+    cameraShake = Math.max(cameraShake, 6);
+
+    playObeliskHitSound(obj.hits);
+    createSparkBurst(hitImpactX, hitImpactY, ['#ffffff', '#cbd5e1', obj.color], 14);
+
+    if (obj.hits >= obj.maxHits) {
+      obj.activated = true;
+      obj.awakenTimer = 35;
+      cameraShake = 16;
+      playObeliskAwakenSound();
+
+      createShockwave(cx, cy, obj.color, 120);
+      createShockwave(cx, cy, '#ffffff', 75);
+      createParticleBurst(cx, cy, obj.color, 36);
+      createParticleBurst(cx, cy, '#ffffff', 18);
+    }
+  } else {
+    // Tactile reaction when striking an active obelisk
+    obj.shakeTimer = 10;
+    obj.shakeIntensity = 5;
+    obj.flashTimer = 4;
+    cameraShake = Math.max(cameraShake, 3);
+    playObeliskHitSound(3);
+    createSparkBurst(hitImpactX, hitImpactY, [obj.color, '#ffffff'], 10);
+    createShockwave(cx, cy, obj.color, 50);
+  }
+}
+
+function createSparkBurst(x, y, colors, count = 12) {
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 6 + 2;
+    const col = Array.isArray(colors) ? colors[Math.floor(Math.random() * colors.length)] : colors;
+    particles.push({
+      x: x,
+      y: y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      size: Math.random() * 3.5 + 1.5,
+      color: col,
+      life: Math.floor(Math.random() * 12 + 14)
+    });
+  }
+}
+
+function createShockwave(x, y, color, maxRadius = 90) {
+  shockwaves.push({
+    x: x,
+    y: y,
+    color: color,
+    radius: 6,
+    maxRadius: maxRadius,
+    alpha: 1.0,
+    speed: 4.5
+  });
 }
 
 function createParticleBurst(x, y, color, count) {
@@ -992,6 +1168,13 @@ function updateCamera() {
 
   camera.x += (targetX - camera.x) * 0.12;
   camera.y += (targetY - camera.y) * 0.12;
+
+  if (cameraShake > 0) {
+    camera.x += (Math.random() - 0.5) * cameraShake * 2;
+    camera.y += (Math.random() - 0.5) * cameraShake * 2;
+    cameraShake *= 0.88;
+    if (cameraShake < 0.2) cameraShake = 0;
+  }
 
   const maxX = Math.max(0, WORLD_WIDTH - canvas.width);
   const maxY = Math.max(0, WORLD_HEIGHT - canvas.height);
@@ -1051,6 +1234,23 @@ function updatePlayer() {
 
   updateCamera();
 
+  // Update object timers
+  interactiveObjects.forEach(obj => {
+    if (obj.shakeTimer > 0) obj.shakeTimer--;
+    if (obj.flashTimer > 0) obj.flashTimer--;
+    if (obj.awakenTimer > 0) obj.awakenTimer--;
+  });
+
+  // Update shockwaves
+  for (let i = shockwaves.length - 1; i >= 0; i--) {
+    const sw = shockwaves[i];
+    sw.radius += sw.speed;
+    sw.alpha -= 0.035;
+    if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
+      shockwaves.splice(i, 1);
+    }
+  }
+
   for (let i = dashGhosts.length - 1; i >= 0; i--) {
     dashGhosts[i].alpha -= 0.08;
     if (dashGhosts[i].alpha <= 0) dashGhosts.splice(i, 1);
@@ -1092,7 +1292,19 @@ function checkProximity() {
 
   if (activeObject && !isModalOpen) {
     interactPrompt.classList.remove('hidden');
-    interactPrompt.innerText = `Press E for ${activeObject.name}`;
+    if (activeObject.activated) {
+      interactPrompt.innerText = `Press E for ${activeObject.name}`;
+      interactPrompt.style.background = 'var(--ps2-gold)';
+      interactPrompt.style.color = '#050614';
+      interactPrompt.style.border = 'none';
+      interactPrompt.style.boxShadow = '0 4px 15px rgba(226, 192, 68, 0.4)';
+    } else {
+      interactPrompt.innerText = `⚔️ Strike with Slash [J] to Awaken (${activeObject.hits}/${activeObject.maxHits})`;
+      interactPrompt.style.background = 'rgba(15, 23, 42, 0.95)';
+      interactPrompt.style.color = 'var(--ps2-cyan)';
+      interactPrompt.style.border = '1px solid var(--ps2-cyan-dim)';
+      interactPrompt.style.boxShadow = '0 4px 15px rgba(0, 240, 255, 0.3)';
+    }
   } else {
     interactPrompt.classList.add('hidden');
   }
@@ -1143,6 +1355,20 @@ function renderGameWorld() {
   ctx.strokeRect(20, 20, WORLD_WIDTH - 40, WORLD_HEIGHT - 40);
   ctx.shadowBlur = 0;
 
+  // Shockwaves
+  shockwaves.forEach(sw => {
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, sw.alpha);
+    ctx.strokeStyle = sw.color;
+    ctx.shadowColor = sw.color;
+    ctx.shadowBlur = 14;
+    ctx.lineWidth = 3 * sw.alpha;
+    ctx.beginPath();
+    ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  });
+
   // Ambient particles
   ambientParticles.forEach(ap => {
     ctx.fillStyle = ap.color;
@@ -1153,31 +1379,149 @@ function renderGameWorld() {
 
   // Interactive Obelisks
   interactiveObjects.forEach((obj, idx) => {
-    const pulse = Math.sin(pulseTimer * 2 + idx) * 4;
+    // Shake calculation
+    let shakeX = 0, shakeY = 0;
+    if (obj.shakeTimer > 0) {
+      const shakeMag = (obj.shakeIntensity || 8) * (obj.shakeTimer / 20);
+      shakeX = (Math.random() - 0.5) * shakeMag * 2;
+      shakeY = (Math.random() - 0.5) * shakeMag * 2;
+    }
+
+    const ox = obj.x + shakeX;
+    const oy = obj.y + shakeY;
+    const ocx = ox + obj.w / 2;
+    const ocy = oy + obj.h / 2;
     const isNearby = (activeObject && activeObject.id === obj.id);
 
-    // Glowing aura base
-    ctx.shadowColor = obj.color;
-    ctx.shadowBlur = isNearby ? 28 : 16;
-    ctx.fillStyle = isNearby ? 'rgba(12, 28, 70, 0.95)' : 'rgba(8, 18, 50, 0.9)';
-    ctx.strokeStyle = obj.color;
-    ctx.lineWidth = isNearby ? 3 : 2;
+    if (!obj.activated) {
+      // ==========================================
+      // INACTIVE / DORMANT OBELISK (GREY MONOLITH)
+      // ==========================================
+      ctx.save();
+      ctx.fillStyle = obj.flashTimer > 0 ? 'rgba(230, 240, 255, 0.85)' : (isNearby ? '#22283a' : '#171a24');
+      ctx.strokeStyle = obj.flashTimer > 0 ? '#ffffff' : (isNearby ? '#64748b' : '#334155');
+      ctx.lineWidth = isNearby ? 2.5 : 2;
+      ctx.shadowColor = isNearby ? 'rgba(100, 116, 139, 0.5)' : '#000000';
+      ctx.shadowBlur = isNearby ? 10 : 4;
 
-    ctx.fillRect(obj.x - pulse/2, obj.y - pulse/2, obj.w + pulse, obj.h + pulse);
-    ctx.strokeRect(obj.x - pulse/2, obj.y - pulse/2, obj.w + pulse, obj.h + pulse);
+      ctx.fillRect(ox, oy, obj.w, obj.h);
+      ctx.strokeRect(ox, oy, obj.w, obj.h);
 
-    // Inner glowing core
-    ctx.fillStyle = obj.color;
-    ctx.beginPath();
-    ctx.arc(obj.x + obj.w / 2, obj.y + obj.h / 2, 10 + (isNearby ? 3 : 0), 0, Math.PI * 2);
-    ctx.fill();
+      // Inner dormant core
+      ctx.fillStyle = isNearby ? '#334155' : '#232936';
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(ocx, ocy, 11, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
 
-    // Text Label above obelisk
-    ctx.shadowBlur = 8;
-    ctx.font = 'bold 12px Orbitron, monospace';
-    ctx.fillStyle = isNearby ? '#ffffff' : obj.color;
-    ctx.textAlign = 'center';
-    ctx.fillText(obj.name, obj.x + obj.w / 2, obj.y - 14);
+      // Dormant glyph (faint grey)
+      ctx.shadowBlur = 0;
+      ctx.font = '14px Orbitron, sans-serif';
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.45)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(obj.glyph, ocx, ocy);
+
+      // Energy fissure cracks if damaged (hits 1 or 2)
+      if (obj.hits > 0) {
+        ctx.strokeStyle = obj.color;
+        ctx.shadowColor = obj.color;
+        ctx.shadowBlur = 8;
+        ctx.lineWidth = 1.5;
+
+        // Fissure 1 (from center to top-right)
+        ctx.beginPath();
+        ctx.moveTo(ocx + 8, ocy - 6);
+        ctx.lineTo(ocx + 18, ocy - 14);
+        ctx.lineTo(ox + obj.w - 6, oy + 8);
+        ctx.stroke();
+
+        // Fissure 2 (if 2 hits, spreads to bottom-left)
+        if (obj.hits >= 2) {
+          ctx.beginPath();
+          ctx.moveTo(ocx - 8, ocy + 6);
+          ctx.lineTo(ocx - 16, ocy + 16);
+          ctx.lineTo(ox + 8, oy + obj.h - 6);
+          ctx.stroke();
+
+          // Second branch
+          ctx.beginPath();
+          ctx.moveTo(ocx + 4, ocy + 8);
+          ctx.lineTo(ocx + 12, ocy + 22);
+          ctx.stroke();
+        }
+
+        // Charge Pips at bottom of obelisk
+        const pipY = oy + obj.h - 8;
+        for (let p = 0; p < obj.maxHits; p++) {
+          const pipX = ocx + (p - (obj.maxHits - 1) / 2) * 12;
+          ctx.beginPath();
+          ctx.arc(pipX, pipY, 2.5, 0, Math.PI * 2);
+          if (p < obj.hits) {
+            ctx.fillStyle = obj.color;
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = '#334155';
+            ctx.shadowBlur = 0;
+          }
+          ctx.fill();
+        }
+      }
+
+      ctx.restore();
+      // NO text rendered above dormant obelisk!
+
+    } else {
+      // ==========================================
+      // ACTIVE / AWAKENED OBELISK (NEON & FLOATING TEXT)
+      // ==========================================
+      const pulse = Math.sin(pulseTimer * 2.5 + idx) * 4;
+      const awakenBloom = obj.awakenTimer > 0 ? (obj.awakenTimer / 35) * 20 : 0;
+
+      // Glowing aura base
+      ctx.save();
+      ctx.shadowColor = obj.color;
+      ctx.shadowBlur = (isNearby ? 28 : 16) + awakenBloom;
+      ctx.fillStyle = isNearby ? 'rgba(12, 28, 70, 0.95)' : 'rgba(8, 18, 50, 0.9)';
+      ctx.strokeStyle = obj.color;
+      ctx.lineWidth = isNearby ? 3 : 2;
+
+      ctx.fillRect(ox - pulse/2 - awakenBloom/4, oy - pulse/2 - awakenBloom/4, obj.w + pulse + awakenBloom/2, obj.h + pulse + awakenBloom/2);
+      ctx.strokeRect(ox - pulse/2 - awakenBloom/4, oy - pulse/2 - awakenBloom/4, obj.w + pulse + awakenBloom/2, obj.h + pulse + awakenBloom/2);
+
+      // Inner glowing core
+      ctx.fillStyle = obj.color;
+      ctx.beginPath();
+      ctx.arc(ocx, ocy, 11 + (isNearby ? 3 : 0) + Math.sin(pulseTimer * 3 + idx) * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Center glowing glyph
+      ctx.shadowBlur = 10;
+      ctx.font = '14px Orbitron, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(obj.glyph, ocx, ocy);
+
+      // Floating, twitching, and blinking Text Label above obelisk
+      const floatY = Math.sin(pulseTimer * 3 + idx) * 3;
+      const isTwitching = Math.sin(pulseTimer * 14 + idx * 7) > 0.86;
+      const twitchX = isTwitching ? (Math.sin(pulseTimer * 25) * 2.5) : 0;
+      const twitchY = isTwitching ? (Math.cos(pulseTimer * 30) * 1.8) : 0;
+      const blinkAlpha = 0.85 + Math.sin(pulseTimer * 4 + idx) * 0.15;
+
+      ctx.globalAlpha = blinkAlpha;
+      ctx.shadowColor = obj.color;
+      ctx.shadowBlur = isNearby ? 16 : 8;
+      ctx.font = 'bold 12px Orbitron, monospace';
+      ctx.fillStyle = isNearby ? '#ffffff' : obj.color;
+      ctx.textAlign = 'center';
+      ctx.fillText(obj.name, ocx + twitchX, oy - 14 + floatY + twitchY);
+
+      ctx.restore();
+    }
   });
   ctx.shadowBlur = 0;
 
@@ -1270,8 +1614,14 @@ function renderMiniMap() {
   interactiveObjects.forEach(obj => {
     const mx = mapX + (obj.x / WORLD_WIDTH) * mapW;
     const my = mapY + (obj.y / WORLD_HEIGHT) * mapH;
-    ctx.fillStyle = obj.color;
+    ctx.fillStyle = obj.activated ? obj.color : '#475569';
     ctx.fillRect(mx - 2, my - 2, 4, 4);
+    if (obj.activated) {
+      ctx.shadowColor = obj.color;
+      ctx.shadowBlur = 4;
+      ctx.fillRect(mx - 2, my - 2, 4, 4);
+      ctx.shadowBlur = 0;
+    }
   });
 
   // Draw Player on Mini-Map
@@ -1306,12 +1656,14 @@ const modalOverlay = document.getElementById('modal-overlay');
 function handleInteractionInput(e) {
   const key = e.key.toLowerCase();
   if (key === 'e' && activeObject && !isModalOpen) {
-    openModal(activeObject.panel);
-    if (activeObject.id === 'projects_obelisk') unlockAchievement('projects_checked');
-    if (activeObject.id === 'career_obelisk') unlockAchievement('career_checked');
-    if (activeObject.id === 'skills_obelisk') unlockAchievement('skills_checked');
-    if (activeObject.id === 'lore_shrine') unlockAchievement('lore_checked');
-    if (activeObject.id === 'platforms_relay') unlockAchievement('platforms_checked');
+    if (activeObject.activated) {
+      openModal(activeObject.panel);
+      if (activeObject.id === 'projects_obelisk') unlockAchievement('projects_checked');
+      if (activeObject.id === 'career_obelisk') unlockAchievement('career_checked');
+      if (activeObject.id === 'skills_obelisk') unlockAchievement('skills_checked');
+      if (activeObject.id === 'lore_shrine') unlockAchievement('lore_checked');
+      if (activeObject.id === 'platforms_relay') unlockAchievement('platforms_checked');
+    }
   }
   if ((key === 'escape' || key === 'o') && isModalOpen) {
     closeModal();
