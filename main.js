@@ -216,7 +216,27 @@ let clockDispIndex = 0;
 const VCR_FILTERS = ['VCR VHS Tracking', 'CRT Scanlines', 'Disabled'];
 let vcrFilterIndex = 0;
 
-const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave'];
+const BASE_CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave'];
+let CONSOLE_PALETTES = [...BASE_CONSOLE_PALETTES];
+
+function updateAvailablePalettes() {
+  const isYukoUnlocked = localStorage.getItem('sleepyhead_yuko_unlocked') === 'true' ||
+    CORE_ACHIEVEMENT_IDS.every(id => unlockedAchievements.includes(id));
+
+  if (isYukoUnlocked) {
+    try { localStorage.setItem('sleepyhead_yuko_unlocked', 'true'); } catch(e) {}
+    if (!CONSOLE_PALETTES.includes('Ichihara Yuko')) {
+      CONSOLE_PALETTES.push('Ichihara Yuko');
+    }
+  } else {
+    CONSOLE_PALETTES = [...BASE_CONSOLE_PALETTES];
+    if (paletteIndex >= CONSOLE_PALETTES.length) {
+      paletteIndex = 0;
+    }
+  }
+}
+updateAvailablePalettes();
+
 let paletteIndex = parseInt(localStorage.getItem('sleepyhead_palette_idx') || '0', 10);
 if (isNaN(paletteIndex) || paletteIndex < 0 || paletteIndex >= CONSOLE_PALETTES.length) paletteIndex = 0;
 
@@ -837,6 +857,7 @@ function toggleSysConfigOption() {
     document.body.classList.toggle('vcr-overlay', currentVCR === 'VCR VHS Tracking');
     document.body.classList.toggle('crt-overlay', currentVCR !== 'Disabled');
   } else if (sysConfigIndex === 3) {
+    updateAvailablePalettes();
     paletteIndex = (paletteIndex + 1) % CONSOLE_PALETTES.length;
     const currentPalette = CONSOLE_PALETTES[paletteIndex];
     document.getElementById('val-palette').innerText = currentPalette;
@@ -865,8 +886,8 @@ function applyWallpaperTheme(palette) {
 
   const playVideoTheme = (srcPath) => {
     document.body.classList.add('has-wallpaper');
-    vid.classList.remove('hidden');
     img.classList.add('hidden');
+    vid.classList.remove('hidden');
     // Prevent restarting/reloading the video if already playing the exact source
     if (!vid.src.endsWith(srcPath)) {
       vid.src = srcPath;
@@ -893,6 +914,8 @@ function applyWallpaperTheme(palette) {
     playImageTheme('Themes/Vaporwave/futuristic_city_digital_art_hd_vaporwave.jpg');
   } else if (palette === 'Mecha Sci-Fi') {
     playVideoTheme('Themes/Mecha/mecha_live.mp4');
+  } else if (palette === 'Ichihara Yuko') {
+    playVideoTheme('Themes/Yuko/Yuko.mp4');
   } else {
     // PS2 Classic Blue:
     // Pure clean PS2 BIOS with manual 3D orbital stars canvas animation
@@ -1310,7 +1333,7 @@ function checkSlashHits() {
     let angleDiff = Math.abs(player.slashAngle - angleToObj);
     while (angleDiff > Math.PI) angleDiff = Math.abs(angleDiff - Math.PI * 2);
 
-    const isHit = (distToStrike < 80) || (distToEdge < 65) || (distToCenter < 115 && angleDiff < Math.PI * 0.7);
+    const isHit = (distToStrike < 72) || (distToEdge < 58) || (distToCenter < 105 && angleDiff < Math.PI * 0.68);
 
     if (isHit) {
       hitObelisk(obj);
@@ -1834,15 +1857,13 @@ function renderSlashEffect(ctx, player) {
   const sweepFactor = Math.min(1, Math.pow(progress * 2.6 + 0.3, 0.65));
   const activeEndAngle = startAngle + (endAngle - startAngle) * sweepFactor;
 
-  // Wide crescent dimensions (Hollow Knight / Hyper Light Drifter style):
-  // Starts wide (32px thickness, 78px outer radius) on the left,
-  // tapers to a needle point (1px thickness, 52px radius) on the right.
-  const startRadius = 78;
-  const endRadius = 52;
-  const startThickness = 32;
+  // Wide crescent dimensions: 10% smaller and closer to player
+  const startRadius = 68;
+  const endRadius = 45;
+  const startThickness = 27;
   const endThickness = 1.0;
 
-  const steps = 40;
+  const steps = 36;
   const outerPoints = [];
   const innerPoints = [];
 
@@ -1856,27 +1877,27 @@ function renderSlashEffect(ctx, player) {
     const thickness = startThickness * Math.pow(1 - t, 1.2) + endThickness;
 
     const rOut = rBase + thickness * 0.52;
-    const rIn = Math.max(14, rBase - thickness * 0.48);
+    const rIn = Math.max(12, rBase - thickness * 0.48);
 
     outerPoints.push({ x: Math.cos(angle) * rOut, y: Math.sin(angle) * rOut });
     innerPoints.push({ x: Math.cos(angle) * rIn, y: Math.sin(angle) * rIn });
   }
 
-  // MONOCOLOR GRADIENT CRESCENT (Hollow Knight / Hyper Light Drifter)
+  // MONOCOLOR GRADIENT CRESCENT - RED HARD-LIGHT BLADE
   ctx.save();
   ctx.globalAlpha = alpha * 0.96;
-  ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+  ctx.shadowColor = 'rgba(255, 0, 85, 0.9)';
   ctx.shadowBlur = 18;
 
-  // Monochromatic gradient: solid luminous white at leading edge fading into softer white
+  // Monochromatic gradient in intense hard-light red / crimson
   const grad = ctx.createLinearGradient(
     outerPoints[0].x, outerPoints[0].y,
     outerPoints[outerPoints.length - 1].x, outerPoints[outerPoints.length - 1].y
   );
-  grad.addColorStop(0, 'rgba(255, 255, 255, 0.98)');
-  grad.addColorStop(0.35, 'rgba(240, 248, 255, 0.88)');
-  grad.addColorStop(0.75, 'rgba(225, 240, 255, 0.72)');
-  grad.addColorStop(1, 'rgba(255, 255, 255, 0.98)');
+  grad.addColorStop(0, 'rgba(255, 0, 85, 0.98)');
+  grad.addColorStop(0.35, 'rgba(255, 30, 95, 0.88)');
+  grad.addColorStop(0.75, 'rgba(255, 60, 120, 0.72)');
+  grad.addColorStop(1, 'rgba(255, 0, 85, 0.98)');
 
   ctx.fillStyle = grad;
   ctx.beginPath();
@@ -1890,9 +1911,9 @@ function renderSlashEffect(ctx, player) {
   ctx.closePath();
   ctx.fill();
 
-  // Solid sharp cutting rim on the outer edge (Hollow Knight signature nail rim)
-  ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = Math.max(1.5, 3.2 * (1 - progress * 0.5));
+  // Solid sharp cutting rim on the outer edge in brilliant laser crimson
+  ctx.strokeStyle = '#ff0055';
+  ctx.lineWidth = Math.max(1.5, 3.0 * (1 - progress * 0.5));
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   ctx.beginPath();
@@ -2280,6 +2301,7 @@ function unlockAchievement(id) {
       showTrophyToast(ach);
     }
     checkEasterEggCondition();
+    updateAvailablePalettes();
   }
 }
 

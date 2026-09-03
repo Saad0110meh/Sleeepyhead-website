@@ -102,6 +102,23 @@ body[data-palette="Mecha Sci-Fi"] {
   --font-body: 'Share Tech Mono', 'Rajdhani', monospace;
 }
 
+/* PALETTE: Ichihara Yuko (The Dimensional Witch: Velvet Crimson, Obsidian Violet, Smoke & Butterfly Gold) */
+body[data-palette="Ichihara Yuko"] {
+  --ps2-blue-deep: #0a0312;
+  --ps2-blue-main: #180826;
+  --ps2-blue-panel: rgba(26, 9, 38, 0.92);
+  --ps2-cyan: #e11d48;            /* Smoking Crimson Rose */
+  --ps2-cyan-glow: rgba(225, 29, 72, 0.75);
+  --ps2-cyan-dim: #581c87;        /* Mystic Smoke Violet */
+  --ps2-magenta: #c084fc;         /* Ethereal Butterfly Lilac */
+  --ps2-silver: #fdf2f8;          /* Moonlit Silk White */
+  --ps2-gold: #f59e0b;            /* Antique Kiseru Gold */
+  --ps2-grey-bg: #2e1065;
+
+  --font-display: 'Outfit', 'Rajdhani', sans-serif;
+  --font-body: 'Outfit', 'Rajdhani', sans-serif;
+}
+
 /* WALLPAPER LIVE BACKGROUND CONTAINER */
 .wallpaper-bg {
   position: fixed;
@@ -423,6 +440,17 @@ body[data-palette="Vaporwave"] .intro-pillar {
 body[data-palette="Vaporwave"] .intro-main-title {
   color: #ffffff;
   text-shadow: 0 0 25px rgba(255, 255, 255, 0.95), 0 0 15px #ff71ce;
+}
+
+body[data-palette="Ichihara Yuko"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.58) 0%, rgba(88, 28, 135, 0.25) 100%);
+  box-shadow: 0 0 40px rgba(225, 29, 72, 0.55);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+body[data-palette="Ichihara Yuko"] .intro-main-title {
+  color: #fdf2f8;
+  text-shadow: 0 0 25px rgba(245, 158, 11, 0.95), 0 0 15px #e11d48;
 }
 
 .p1 { width: 120px; height: 400px; left: 10%; top: -50px; transform: rotate(-25deg); animation-delay: 0s; }
@@ -2762,6 +2790,219 @@ body[data-palette="Mecha Sci-Fi"] .highlight-cyan {
 
 body[data-palette="Mecha Sci-Fi"] .btn-hint-item {
   color: #f8fafc;
+}
+
+/* ============================================================
+   THEME STYLING: ICHIHARA YUKO (The Dimensional Witch: Velvet Crimson, Obsidian Violet & Butterfly Gold)
+============================================================= */
+body[data-palette="Ichihara Yuko"] {
+  letter-spacing: 0.3px;
+}
+
+body[data-palette="Ichihara Yuko"].crt-overlay::before {
+  opacity: 0.22;
+  background: linear-gradient(
+    rgba(14, 4, 22, 0) 50%, 
+    rgba(0, 0, 0, 0.45) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(225, 29, 72, 0.03),
+    rgba(0, 0, 0, 0.01),
+    rgba(192, 132, 252, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Yuko Main Menu */
+body[data-palette="Ichihara Yuko"] .menu-text {
+  color: rgba(253, 242, 248, 0.55);
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Ichihara Yuko"] .menu-item.active .menu-text {
+  color: #fb7185;
+  text-shadow: 0 0 20px rgba(225, 29, 72, 0.95), 0 0 35px #f59e0b, 0 2px 4px #000;
+  font-weight: 800;
+}
+
+body[data-palette="Ichihara Yuko"] .menu-item::before {
+  color: #f59e0b;
+}
+
+body[data-palette="Ichihara Yuko"] .menu-item.active::before {
+  text-shadow: 0 0 14px rgba(245, 158, 11, 0.95);
+}
+
+/* Yuko System Configuration */
+body[data-palette="Ichihara Yuko"] .sysconfig-date,
+body[data-palette="Ichihara Yuko"] .sysconfig-time {
+  background: rgba(26, 9, 38, 0.94);
+  border: 1.5px solid #e11d48;
+  border-radius: 4px;
+  color: #fdf2f8;
+  box-shadow: 0 0 16px rgba(225, 29, 72, 0.45);
+  text-shadow: 0 0 8px #e11d48;
+}
+
+body[data-palette="Ichihara Yuko"] .sysconfig-title {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+}
+
+body[data-palette="Ichihara Yuko"] .sysconfig-opt {
+  background: rgba(26, 9, 38, 0.85);
+  border: 1px solid rgba(225, 29, 72, 0.3);
+  font-size: 17px;
+}
+
+body[data-palette="Ichihara Yuko"] .sysconfig-opt.selected {
+  border-color: #e11d48;
+  background: linear-gradient(90deg, rgba(225, 29, 72, 0.32) 0%, rgba(192, 132, 252, 0.2) 100%);
+  box-shadow: inset 0 0 12px rgba(225, 29, 72, 0.35), 0 0 18px rgba(225, 29, 72, 0.45);
+}
+
+body[data-palette="Ichihara Yuko"] .sysconfig-opt.selected .opt-label {
+  color: #fb7185;
+  text-shadow: 0 0 10px rgba(225, 29, 72, 0.85);
+}
+
+/* Yuko Browser & Save Cards */
+body[data-palette="Ichihara Yuko"] .memcard-browser-header {
+  background: rgba(20, 6, 30, 0.9);
+  padding: 16px 24px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(225, 29, 72, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-ps2-logo {
+  color: #fb7185;
+  text-shadow: 0 0 16px rgba(225, 29, 72, 0.9), 0 2px 4px #000;
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-section-title {
+  color: #fdf2f8;
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-slot-label {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.75);
+}
+
+body[data-palette="Ichihara Yuko"] .save-icon-box {
+  background: rgba(26, 9, 38, 0.88);
+  border-color: rgba(225, 29, 72, 0.4);
+}
+
+body[data-palette="Ichihara Yuko"] .save-icon-card:hover .save-icon-box {
+  border-color: #e11d48;
+  background: rgba(45, 12, 65, 0.95);
+  box-shadow: 0 0 22px rgba(225, 29, 72, 0.55);
+}
+
+body[data-palette="Ichihara Yuko"] .save-icon-card.selected .save-icon-box {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(60, 15, 80, 0.95) 0%, rgba(26, 9, 38, 0.95) 100%);
+  box-shadow: 0 0 26px rgba(245, 158, 11, 0.65), inset 0 0 14px rgba(225, 29, 72, 0.4);
+}
+
+body[data-palette="Ichihara Yuko"] .save-icon-halo {
+  background: radial-gradient(ellipse at center, rgba(225, 29, 72, 0.35) 0%, transparent 70%);
+}
+
+body[data-palette="Ichihara Yuko"] .save-icon-title {
+  color: rgba(253, 242, 248, 0.7);
+}
+
+body[data-palette="Ichihara Yuko"] .save-icon-card.selected .save-icon-title {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-window {
+  background: rgba(20, 6, 30, 0.94);
+  border: 1.5px solid #e11d48;
+  box-shadow: 0 0 35px rgba(225, 29, 72, 0.35), 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-titlebar {
+  background: linear-gradient(90deg, rgba(65, 15, 90, 0.9) 0%, rgba(20, 6, 30, 0.9) 100%);
+  border-bottom: 1.5px solid rgba(225, 29, 72, 0.4);
+}
+
+body[data-palette="Ichihara Yuko"] .panel-heading {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-body {
+  color: #fdf2f8;
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-list li {
+  border: 1.5px solid rgba(225, 29, 72, 0.35);
+  background: rgba(26, 9, 38, 0.88);
+  font-size: 23px;
+  padding: 14px 20px;
+  color: #fdf2f8;
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-list li strong {
+  color: #f59e0b;
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-list li:hover {
+  border-color: #e11d48;
+  background: rgba(225, 29, 72, 0.2);
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-list li.selected {
+  border-color: #f59e0b;
+  background: linear-gradient(90deg, rgba(225, 29, 72, 0.35) 0%, rgba(192, 132, 252, 0.22) 100%);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(225, 29, 72, 0.5);
+}
+
+body[data-palette="Ichihara Yuko"] .memcard-list li.selected span {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
+}
+
+body[data-palette="Ichihara Yuko"] .platform-card {
+  background: rgba(26, 9, 38, 0.9);
+  border: 1.5px solid rgba(225, 29, 72, 0.35);
+}
+
+body[data-palette="Ichihara Yuko"] .platform-card:hover {
+  border-color: #e11d48;
+  background: rgba(225, 29, 72, 0.22);
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.35);
+}
+
+body[data-palette="Ichihara Yuko"] .platform-icon-circle {
+  background: rgba(225, 29, 72, 0.18);
+  border-color: #e11d48;
+}
+
+body[data-palette="Ichihara Yuko"] .dossier-card,
+body[data-palette="Ichihara Yuko"] .skill-cat-card,
+body[data-palette="Ichihara Yuko"] .lore-group {
+  background: rgba(26, 9, 38, 0.88);
+  border: 1.5px solid rgba(225, 29, 72, 0.3);
+}
+
+body[data-palette="Ichihara Yuko"] .footer-keyboard-bar {
+  background: rgba(20, 6, 30, 0.92);
+  border: 1px solid rgba(225, 29, 72, 0.4);
+}
+
+body[data-palette="Ichihara Yuko"] .highlight-cyan {
+  color: #fb7185;
+}
+
+body[data-palette="Ichihara Yuko"] .btn-hint-item {
+  color: #fdf2f8;
 }
 
 /* ============================================================
