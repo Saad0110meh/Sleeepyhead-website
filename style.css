@@ -2945,9 +2945,14 @@ body[data-btheme="VCR Slate"] .save-icon-card.selected .save-icon-title {
   letter-spacing: 0.5px;
 }
 
-/* Hide Seven Stars canvas in favor of authentic PS2 System Menu Ambience Video */
+/* Seven Stars Orbital Canvas: Visible ONLY for PS2 Classic Blue */
 #seven-stars-canvas {
-  display: none !important;
+  display: none;
+}
+
+body[data-palette="PS2 Classic Blue"] #seven-stars-canvas,
+body:not([data-palette]) #seven-stars-canvas {
+  display: block;
 }
 
 /* Game Notification / Reset Banner */

@@ -203,7 +203,7 @@ const CORE_ACHIEVEMENT_IDS = [
   'lore_checked', 'platforms_checked'
 ];
 
-let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_trophies_v2') || '[]');
+let unlockedAchievements = JSON.parse(localStorage.getItem('sleepyhead_trophies_v3') || '[]');
 
 // Config state
 const DATE_FORMATS = ['DD/MM/YYYY', 'YYYY-MM-DD', 'MM/DD/YYYY'];
@@ -465,11 +465,17 @@ function resizeSevenStars() {
 resizeSevenStars();
 window.addEventListener('resize', resizeSevenStars);
 
-// Orbiting Seven Stars canvas animation (commented out in favor of authentic PS2 System Menu ambience video)
-/*
+// 3. PS2 SEVEN STARS MAIN MENU CANVAS (Image 1)
+// Active strictly for PS2 Classic Blue; dormant/hidden for other themes
 let starAngle = 0;
 function renderSevenStars() {
-  if (!ssCtx || document.getElementById('ps2-main-menu').classList.contains('hidden')) {
+  const isMainMenu = document.getElementById('ps2-main-menu') && !document.getElementById('ps2-main-menu').classList.contains('hidden');
+  const isClassic = CONSOLE_PALETTES[paletteIndex] === 'PS2 Classic Blue';
+
+  if (!ssCtx || !isMainMenu || !isClassic) {
+    if (ssCtx && sevenStarsCanvas) {
+      ssCtx.clearRect(0, 0, sevenStarsCanvas.width, sevenStarsCanvas.height);
+    }
     requestAnimationFrame(renderSevenStars);
     return;
   }
@@ -533,7 +539,6 @@ function renderSevenStars() {
   requestAnimationFrame(renderSevenStars);
 }
 requestAnimationFrame(renderSevenStars);
-*/
 
 // ==========================================
 // 4. SPOKE SPHERE SYSTEM CONFIG DIAL (Image 2)
@@ -890,8 +895,11 @@ function applyWallpaperTheme(palette) {
     playVideoTheme('Themes/Mecha/mecha_live.mp4');
   } else {
     // PS2 Classic Blue:
-    // Plays authentic PS2 original system menu ambient video!
-    playVideoTheme('assets/ps2_menu_classic.mp4');
+    // Pure clean PS2 BIOS with manual 3D orbital stars canvas animation
+    document.body.classList.remove('has-wallpaper');
+    vid.pause();
+    vid.classList.add('hidden');
+    img.classList.add('hidden');
   }
 }
 
@@ -1104,8 +1112,16 @@ let pulseTimer = 0;
 let easterEggSpawned = false;
 
 function checkEasterEggCondition() {
+  // 1. All core achievements must be unlocked
   const allCoreUnlocked = CORE_ACHIEVEMENT_IDS.every(id => unlockedAchievements.includes(id));
-  if (allCoreUnlocked && !easterEggSpawned) {
+
+  // 2. In addition, ALL world obelisks must currently be awakened (online) in the Rubix world
+  const activeWorldObelisks = interactiveObjects.filter(
+    obj => obj.id !== 'emotion_engine_obelisk' && obj.id !== 'trophy_vault'
+  );
+  const allWorldObelisksAwakened = activeWorldObelisks.length > 0 && activeWorldObelisks.every(obj => obj.activated);
+
+  if (allCoreUnlocked && allWorldObelisksAwakened && !easterEggSpawned) {
     spawnEasterEggObelisk();
   }
 }
@@ -1164,7 +1180,7 @@ function resetRubixGame() {
   // 4. Reset in-game awakened obelisk trophies
   const inGameIds = ['sword_slash', 'projects_checked', 'career_checked', 'skills_checked', 'lore_checked', 'platforms_checked', 'emotion_engine'];
   unlockedAchievements = unlockedAchievements.filter(id => !inGameIds.includes(id));
-  localStorage.setItem('sleepyhead_trophies_v2', JSON.stringify(unlockedAchievements));
+  localStorage.setItem('sleepyhead_trophies_v3', JSON.stringify(unlockedAchievements));
 
   // 5. Reset player position to world spawn center
   player.x = WORLD_WIDTH / 2;
@@ -1315,6 +1331,7 @@ function hitObelisk(obj) {
       createShockwave(cx, cy, '#ffffff', 75);
       createParticleBurst(cx, cy, obj.color, 36);
       createParticleBurst(cx, cy, '#ffffff', 18);
+      checkEasterEggCondition();
     }
   } else {
     // Tactile reaction when striking an active obelisk
@@ -2144,7 +2161,7 @@ function renderAchievements() {
 function unlockAchievement(id) {
   if (!unlockedAchievements.includes(id)) {
     unlockedAchievements.push(id);
-    localStorage.setItem('sleepyhead_trophies_v2', JSON.stringify(unlockedAchievements));
+    localStorage.setItem('sleepyhead_trophies_v3', JSON.stringify(unlockedAchievements));
     const ach = ACHIEVEMENTS.find(a => a.id === id);
     if (ach) {
       showTrophyToast(ach);
