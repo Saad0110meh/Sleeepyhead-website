@@ -1790,15 +1790,9 @@ function renderGameWorld() {
   ctx.fillStyle = '#e2c044';
   ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI * 2); ctx.fill();
 
-  // Light Blade Slash Arc
-  if (player.isSlashing) {
-    ctx.strokeStyle = '#ff0055';
-    ctx.lineWidth = 5;
-    ctx.shadowColor = '#ff0055';
-    ctx.shadowBlur = 18;
-    ctx.beginPath();
-    ctx.arc(0, 0, 42, player.slashAngle - Math.PI / 3, player.slashAngle + Math.PI / 3);
-    ctx.stroke();
+  // Light Blade Slash Arc - Fluid Tapered Hard-Light Crescent Sweep
+  if (player.isSlashing && player.slashTimer > 0) {
+    renderSlashEffect(ctx, player);
   }
 
   ctx.restore();
@@ -1806,6 +1800,117 @@ function renderGameWorld() {
 
   // Screen Space HUD Overlay (Mini-Map)
   renderMiniMap();
+}
+
+function renderSlashEffect(ctx, player) {
+  const totalFrames = 15;
+  const progress = (totalFrames - player.slashTimer) / totalFrames; // 0.0 -> 1.0
+  const alpha = Math.min(1, player.slashTimer / 7); // Smooth dissolve
+
+  ctx.save();
+
+  const arcSpan = Math.PI * 0.88; // ~158 degree sweeping strike
+  const startAngle = player.slashAngle - arcSpan * 0.52;
+  const endAngle = player.slashAngle + arcSpan * 0.48;
+
+  // The leading edge whips across rapidly in the initial burst
+  const sweepFactor = Math.min(1, Math.pow(progress * 2.2 + 0.25, 0.75));
+  const activeEndAngle = startAngle + (endAngle - startAngle) * sweepFactor;
+
+  // Taper parameters:
+  // Starts with a longer radial reach and thicker width (12px) on the left,
+  // ending in a short radial reach and razor needle point (1px) on the right.
+  const startRadius = 56;
+  const endRadius = 40;
+  const startThickness = 12;
+  const endThickness = 1.0;
+
+  const steps = 32;
+  const outerPoints = [];
+  const innerPoints = [];
+  const midPoints = [];
+
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps; // 0 = start/left, 1 = tip/right
+    const angle = startAngle + (activeEndAngle - startAngle) * t;
+
+    // Organic non-linear taper
+    const easeT = Math.pow(t, 1.25);
+    const rBase = startRadius - (startRadius - endRadius) * easeT;
+    const thickness = startThickness - (startThickness - endThickness) * easeT;
+
+    const rOut = rBase + thickness * 0.55;
+    const rIn = Math.max(12, rBase - thickness * 0.45);
+
+    outerPoints.push({ x: Math.cos(angle) * rOut, y: Math.sin(angle) * rOut });
+    innerPoints.push({ x: Math.cos(angle) * rIn, y: Math.sin(angle) * rIn });
+    midPoints.push({ x: Math.cos(angle) * rBase, y: Math.sin(angle) * rBase });
+  }
+
+  // 1. NEON HARD-LIGHT GLOW WEDGE (Blade energy volume)
+  ctx.save();
+  ctx.globalAlpha = alpha * 0.95;
+  ctx.shadowColor = '#ff0055';
+  ctx.shadowBlur = 24;
+
+  const grad = ctx.createLinearGradient(
+    outerPoints[0].x, outerPoints[0].y,
+    outerPoints[outerPoints.length - 1].x, outerPoints[outerPoints.length - 1].y
+  );
+  grad.addColorStop(0, 'rgba(255, 0, 85, 0.95)');
+  grad.addColorStop(0.5, 'rgba(255, 45, 120, 0.85)');
+  grad.addColorStop(1, 'rgba(255, 150, 200, 0.95)');
+
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(outerPoints[0].x, outerPoints[0].y);
+  for (let i = 1; i < outerPoints.length; i++) {
+    ctx.lineTo(outerPoints[i].x, outerPoints[i].y);
+  }
+  for (let i = innerPoints.length - 1; i >= 0; i--) {
+    ctx.lineTo(innerPoints[i].x, innerPoints[i].y);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  // 2. RAZOR-SHARP HIGH-FREQUENCY BLADE CORE (White-hot laser spine)
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.shadowColor = '#ffffff';
+  ctx.shadowBlur = 12;
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = Math.max(1, 3.2 * (1 - progress * 0.6));
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  ctx.beginPath();
+  ctx.moveTo(midPoints[0].x, midPoints[0].y);
+  for (let i = 1; i < midPoints.length; i++) {
+    ctx.lineTo(midPoints[i].x, midPoints[i].y);
+  }
+  ctx.stroke();
+  ctx.restore();
+
+  // 3. MOTION SPEED TRAILS (Outer & Inner sonic streak lines)
+  ctx.save();
+  ctx.globalAlpha = alpha * 0.65;
+  ctx.strokeStyle = 'rgba(255, 130, 185, 0.8)';
+  ctx.lineWidth = 1.2;
+
+  // Leading edge outer streak
+  ctx.beginPath();
+  const streakStart = startAngle + (activeEndAngle - startAngle) * 0.2;
+  ctx.arc(0, 0, startRadius + 4, streakStart, activeEndAngle);
+  ctx.stroke();
+
+  // Trailing inner echo streak
+  ctx.beginPath();
+  ctx.arc(0, 0, endRadius - 4, streakStart, activeEndAngle);
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.restore();
 }
 
 function renderMiniMap() {
