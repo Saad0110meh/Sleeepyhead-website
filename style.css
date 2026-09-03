@@ -981,29 +981,29 @@ body, html {
 }
 
 .memcard-titlebar {
-  padding: 14px 22px;
+  padding: 16px 26px;
   border-bottom: 1px solid var(--ps2-cyan-dim);
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 17px;
   letter-spacing: 2px;
   color: var(--ps2-cyan);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-shadow: 0 0 8px var(--ps2-cyan-glow);
+  text-shadow: 0 0 10px var(--ps2-cyan-glow);
 }
 
 .modal-close-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: rgba(255, 0, 85, 0.15);
   border: 1.5px solid var(--ps2-magenta);
   color: var(--ps2-magenta);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 900;
   cursor: pointer;
   line-height: 1;
@@ -1015,25 +1015,25 @@ body, html {
 .modal-close-btn:hover {
   background: var(--ps2-magenta);
   color: #ffffff;
-  box-shadow: 0 0 12px rgba(255, 0, 85, 0.7);
+  box-shadow: 0 0 14px rgba(255, 0, 85, 0.8);
   transform: scale(1.1);
 }
 
 .memcard-body {
-  padding: 24px 28px;
+  padding: 26px 32px;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-  font-size: 21px;
-  line-height: 1.5;
+  font-size: 25px;
+  line-height: 1.55;
 }
 
 .panel-heading {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 18px;
   color: var(--ps2-gold);
-  margin: 0 0 18px 0;
-  letter-spacing: 1.5px;
+  margin: 0 0 20px 0;
+  letter-spacing: 2px;
 }
 
 .memcard-panel { display: none; }
@@ -1056,8 +1056,8 @@ body, html {
 }
 
 .memcard-list li {
-  padding: 12px 18px;
-  margin-bottom: 10px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
   border: 1px solid rgba(0, 240, 255, 0.35);
   background: rgba(8, 20, 52, 0.75);
   color: #f1f5f9;
@@ -1066,19 +1066,21 @@ body, html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 19px;
+  font-size: 23px;
   transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .memcard-list li span {
   color: #f8fafc;
+  font-size: 23px;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .memcard-list li strong {
   color: var(--ps2-gold);
-  margin-right: 6px;
+  font-size: 24px;
+  margin-right: 8px;
 }
 
 .memcard-list li:hover {
@@ -1246,21 +1248,21 @@ body, html {
 
 .dossier-column h4 {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--ps2-cyan);
-  letter-spacing: 1.5px;
-  margin: 0 0 16px 0;
+  letter-spacing: 2px;
+  margin: 0 0 18px 0;
   border-bottom: 1px solid var(--ps2-cyan-dim);
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 
 .dossier-card {
   background: rgba(8, 20, 52, 0.75);
   border: 1px solid rgba(0, 240, 255, 0.3);
   border-radius: 8px;
-  padding: 16px 18px;
-  margin-bottom: 16px;
+  padding: 18px 22px;
+  margin-bottom: 18px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease;
 }
@@ -1276,53 +1278,56 @@ body, html {
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .dossier-title {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 21px;
   color: var(--ps2-gold);
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .dossier-badge {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 16px;
   background: rgba(255, 0, 85, 0.25);
   border: 1px solid var(--ps2-magenta);
   color: #ffffff;
-  padding: 3px 8px;
+  padding: 5px 12px;
   border-radius: 4px;
   font-weight: bold;
   white-space: nowrap;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
 }
 
 .dossier-badge.gold {
   background: rgba(226, 192, 68, 0.25);
   border-color: var(--ps2-gold);
   color: var(--ps2-gold);
+  box-shadow: 0 0 10px rgba(226, 192, 68, 0.4);
 }
 
 .dossier-sub {
   color: var(--ps2-cyan);
-  font-size: 19px;
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .dossier-meta {
   color: #7dd3fc;
-  font-size: 16px;
+  font-size: 21px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .dossier-desc {
   color: #f8fafc;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 23px;
+  line-height: 1.65;
   margin: 0;
 }
 
@@ -1331,7 +1336,7 @@ body, html {
   justify-content: flex-end;
   align-items: center;
   gap: 28px;
-  padding: 14px 24px;
+  padding: 16px 28px;
   border-top: 1px solid var(--ps2-cyan-dim);
   background: rgba(3, 8, 28, 0.85);
   border-bottom-left-radius: 6px;
@@ -1342,9 +1347,9 @@ body, html {
   color: #ffffff !important;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--font-body);
-  font-size: 20px;
+  font-size: 24px;
   letter-spacing: 1px;
   font-weight: bold;
   transition: all 0.2s ease;
@@ -1380,34 +1385,35 @@ body, html {
 .skill-cat-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--ps2-gold);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-  padding-bottom: 8px;
+  padding-bottom: 10px;
+  letter-spacing: 1.5px;
 }
 
 .skill-cat-icon {
-  font-size: 20px;
+  font-size: 26px;
 }
 
 .skill-badges-flow {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .skill-chip {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 23px;
   background: rgba(0, 240, 255, 0.12);
   border: 1px solid rgba(0, 240, 255, 0.35);
   color: #f1f5f9;
-  padding: 4px 12px;
-  border-radius: 5px;
+  padding: 6px 16px;
+  border-radius: 6px;
   transition: all 0.18s ease;
 }
 
@@ -1420,51 +1426,51 @@ body, html {
 
 /* Lore & Media Grid */
 .bio-copy-text {
-  font-size: 22px;
-  line-height: 1.6;
-  color: #f8fafc;
-  margin-bottom: 20px;
+  font-size: 26px;
+  line-height: 1.65;
+  color: #ffffff;
+  margin-bottom: 24px;
 }
 
 .lore-sections-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 18px;
 }
 
 .lore-group {
   background: rgba(8, 20, 52, 0.75);
   border: 1px solid rgba(0, 240, 255, 0.25);
   border-radius: 8px;
-  padding: 14px 18px;
+  padding: 16px 20px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .lore-group-title {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--ps2-cyan);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  letter-spacing: 1px;
+  gap: 10px;
+  letter-spacing: 1.5px;
 }
 
 .lore-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .lore-chip {
   background: rgba(226, 192, 68, 0.14);
   border: 1px solid rgba(226, 192, 68, 0.45);
   color: #ffffff;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 18px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 23px;
 }
 
 .lore-chip.pink {
@@ -1481,18 +1487,18 @@ body, html {
 .platforms-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: 20px;
 }
 
 .platform-card {
   background: rgba(8, 20, 56, 0.85);
   border: 1px solid rgba(0, 240, 255, 0.3);
   border-radius: 8px;
-  padding: 16px 20px;
+  padding: 18px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   text-decoration: none;
   transition: all 0.22s ease;
   box-shadow: 0 4px 14px rgba(0,0,0,0.4);
@@ -1508,19 +1514,19 @@ body, html {
 .platform-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .platform-icon-circle {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   background: rgba(0, 240, 255, 0.12);
   border: 1.5px solid var(--ps2-cyan);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 26px;
 }
 
 .platform-info {
@@ -1530,26 +1536,26 @@ body, html {
 
 .platform-name {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--ps2-gold);
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .platform-handle {
-  font-size: 20px;
+  font-size: 25px;
   color: var(--ps2-silver);
   font-weight: 600;
 }
 
 .platform-tag {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 16px;
   font-weight: bold;
   background: rgba(0, 240, 255, 0.15);
   border: 1px solid var(--ps2-cyan-dim);
   color: var(--ps2-cyan);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 4px;
 }
 
@@ -1704,17 +1710,20 @@ body[data-palette="Dorfic"] .memcard-window {
 body[data-palette="Dorfic"] .memcard-titlebar {
   border-bottom: 1px solid #8a3c00;
   color: #ff7700;
+  font-size: 17px;
   text-shadow: 0 0 8px rgba(255, 119, 0, 0.6);
 }
 
 body[data-palette="Dorfic"] .panel-heading {
   color: #ffaa00;
+  font-size: 18px;
 }
 
 body[data-palette="Dorfic"] .memcard-list li {
   border: 1px solid rgba(255, 119, 0, 0.45);
   background: rgba(30, 16, 8, 0.88);
-  font-size: 18px;
+  font-size: 23px;
+  padding: 14px 20px;
   color: #f5ede4;
 }
 
@@ -1929,26 +1938,28 @@ body[data-palette="Frutiger Aero"] .memcard-window {
 body[data-palette="Frutiger Aero"] .memcard-titlebar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   color: #ffffff;
+  font-size: 17px;
   text-shadow: 0 0 12px rgba(0, 229, 255, 0.8), 0 2px 4px rgba(0, 20, 40, 0.9);
 }
 
 body[data-palette="Frutiger Aero"] .panel-heading {
   color: #ffe066;
+  font-size: 18px;
   text-shadow: 0 0 10px rgba(255, 224, 102, 0.6);
 }
 
 body[data-palette="Frutiger Aero"] .memcard-body {
-  font-size: 18px;
+  font-size: 23px;
 }
 
 body[data-palette="Frutiger Aero"] .memcard-list li {
   border: 1.5px solid rgba(255, 255, 255, 0.4);
   background: rgba(3, 42, 72, 0.82);
   border-radius: 12px;
-  font-size: 18px;
+  font-size: 22px;
   color: #ffffff;
-  padding: 12px 18px;
-  margin-bottom: 10px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
 }
 
 body[data-palette="Frutiger Aero"] .memcard-list li span {

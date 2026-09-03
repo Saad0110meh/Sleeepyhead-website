@@ -216,10 +216,30 @@ const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix',
 let bthemeIndex = 0;
 
 const ZOOM_LEVELS = ['100%', '125%', '150%', '175%'];
-let zoomIndex = parseInt(localStorage.getItem('sleepyhead_zoom_idx') || '0', 10);
-if (isNaN(zoomIndex) || zoomIndex < 0 || zoomIndex >= ZOOM_LEVELS.length) zoomIndex = 0;
+let zoomIndex = parseInt(localStorage.getItem('sleepyhead_zoom_idx') || '1', 10);
+if (isNaN(zoomIndex) || zoomIndex < 0 || zoomIndex >= ZOOM_LEVELS.length) zoomIndex = 1;
 
 let cfgAudio = true;
+
+// Custom PS2 SCPH-10000 Module Transition Sound Effects
+const sfxEnterModule = new Audio('assets/SCPH-10000_00022.wav');
+const sfxLeaveModule = new Audio('assets/SCPH-10000_00029.wav');
+
+function playEnterModuleSound() {
+  if (!cfgAudio) return;
+  try {
+    sfxEnterModule.currentTime = 0;
+    sfxEnterModule.play().catch(() => {});
+  } catch (e) {}
+}
+
+function playLeaveModuleSound() {
+  if (!cfgAudio) return;
+  try {
+    sfxLeaveModule.currentTime = 0;
+    sfxLeaveModule.play().catch(() => {});
+  } catch (e) {}
+}
 
 function applyZoomLevel(levelStr) {
   const scaleMap = { '100%': 1, '125%': 1.25, '150%': 1.5, '175%': 1.75 };
@@ -1724,6 +1744,7 @@ function openModal(panelType) {
   isModalOpen = true;
   modalOverlay.classList.remove('hidden');
   document.getElementById('interact-prompt').classList.add('hidden');
+  playEnterModuleSound();
 
   const titleEl = document.getElementById('memcard-title');
   const titles = {
@@ -1767,7 +1788,7 @@ function closeModal() {
   if (!isModalOpen) return;
   isModalOpen = false;
   modalOverlay.classList.add('hidden');
-  playPS2BackSound();
+  playLeaveModuleSound();
 }
 
 const modalXClose = document.getElementById('modal-x-close');
@@ -1802,14 +1823,14 @@ function renderProjects() {
       playPS2SelectSound();
       detailEl.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:16px;margin:0;letter-spacing:1px;">${proj.title}</h4>
-          <span style="background:rgba(255,0,85,0.2);border:1px solid var(--ps2-magenta);color:#fff;padding:2px 6px;border-radius:3px;font-size:10px;font-family:var(--font-display);">${proj.category}</span>
+          <h4 style="color:var(--ps2-gold);font-family:var(--font-display);font-size:22px;margin:0;letter-spacing:1px;">${proj.title}</h4>
+          <span style="background:rgba(255,0,85,0.25);border:1px solid var(--ps2-magenta);color:#fff;padding:4px 10px;border-radius:4px;font-size:14px;font-family:var(--font-display);font-weight:bold;">${proj.category}</span>
         </div>
-        <p style="margin:8px 0;line-height:1.55;color:var(--ps2-silver);font-size:18px;">${proj.desc}</p>
-        <div style="margin-top:12px;">
-          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:12px;font-family:var(--font-display);letter-spacing:1px;">TECH SPECIFICATIONS:</span>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
-            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.14);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:3px 10px;border-radius:3px;font-size:16px;">${t}</span>`).join('')}
+        <p style="margin:10px 0;line-height:1.6;color:var(--ps2-silver);font-size:22px;">${proj.desc}</p>
+        <div style="margin-top:14px;">
+          <span style="color:var(--ps2-cyan);font-weight:bold;font-size:16px;font-family:var(--font-display);letter-spacing:1.5px;">TECH SPECIFICATIONS:</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            ${proj.tech.map(t => `<span style="background:rgba(0,240,255,0.14);border:1px solid var(--ps2-cyan-dim);color:var(--ps2-silver);padding:5px 12px;border-radius:4px;font-size:19px;">${t}</span>`).join('')}
           </div>
         </div>
         ${proj.link ? `
@@ -1860,7 +1881,7 @@ function renderCareer() {
           <div class="dossier-sub">${edu.institution}</div>
           ${edu.department ? `<div class="dossier-meta">${edu.department}</div>` : ''}
           ${edu.result ? `
-          <div style="color:var(--ps2-gold);font-family:var(--font-display);font-size:12px;margin-top:6px;">
+          <div style="color:var(--ps2-gold);font-family:var(--font-display);font-size:16px;margin-top:8px;">
             STATUS: ${edu.result}
           </div>` : ''}
         </div>
@@ -1931,22 +1952,22 @@ function renderLore() {
 
     <div class="lore-group">
       <div class="lore-group-title">&#127859; CULINARY & EXPERIMENTAL COOKING</div>
-      <p style="margin:4px 0 0 0;font-size:18px;color:var(--ps2-silver);">${LORE.favorites.cooking}</p>
+      <p style="margin:6px 0 0 0;font-size:22px;color:var(--ps2-silver);">${LORE.favorites.cooking}</p>
     </div>
 
     <div class="lore-group">
       <div class="lore-group-title">&#127950;&#65039; CARS & MECHA</div>
-      <p style="margin:4px 0 0 0;font-size:18px;color:var(--ps2-silver);">${LORE.favorites.cars}</p>
+      <p style="margin:6px 0 0 0;font-size:22px;color:var(--ps2-silver);">${LORE.favorites.cars}</p>
     </div>
 
     <div class="lore-group">
       <div class="lore-group-title">&#9992;&#65039; TRAVEL & EXPLORATION</div>
-      <p style="margin:4px 0 0 0;font-size:18px;color:var(--ps2-silver);">${LORE.favorites.travel}</p>
+      <p style="margin:6px 0 0 0;font-size:22px;color:var(--ps2-silver);">${LORE.favorites.travel}</p>
     </div>
 
     <div class="lore-group" style="border-color:var(--ps2-gold);">
       <div class="lore-group-title" style="color:var(--ps2-gold);">&#128049; SUPREME BEINGS</div>
-      <p style="margin:4px 0 0 0;font-size:19px;color:#ffffff;font-weight:bold;">${LORE.favorites.animal}</p>
+      <p style="margin:6px 0 0 0;font-size:23px;color:#ffffff;font-weight:bold;">${LORE.favorites.animal}</p>
     </div>
   `;
 }
@@ -1981,7 +2002,7 @@ function renderAchievements() {
     li.style.color = isUnlocked ? 'var(--ps2-silver)' : '#6c7086';
     li.innerHTML = `
       <span>${isUnlocked ? '★' : '☆'} <strong>${ach.title}</strong>: ${ach.desc}</span>
-      <span style="font-size:12px;font-weight:bold;color:${isUnlocked ? 'var(--ps2-gold)' : '#6c7086'};">${isUnlocked ? '[UNLOCKED]' : '[LOCKED]'}</span>
+      <span style="font-size:16px;font-weight:bold;color:${isUnlocked ? 'var(--ps2-gold)' : '#6c7086'};">${isUnlocked ? '[UNLOCKED]' : '[LOCKED]'}</span>
     `;
     listEl.appendChild(li);
   });
