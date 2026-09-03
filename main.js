@@ -784,20 +784,26 @@ function applyWallpaperTheme(palette) {
   const img = document.getElementById('wallpaper-img');
   if (!vid || !img) return;
 
-  if (palette === 'Frutiger Aero') {
+  const playVideoTheme = (srcPath) => {
     document.body.classList.add('has-wallpaper');
-    vid.src = 'Themes/Frutiger/frutiger_live.mp4';
     vid.classList.remove('hidden');
     img.classList.add('hidden');
+    // Prevent restarting/reloading the video if already playing the exact source
+    if (!vid.src.endsWith(srcPath)) {
+      vid.src = srcPath;
+      vid.load();
+    }
     vid.play().catch(() => {});
+  };
+
+  if (palette === 'Dorfic') {
+    playVideoTheme('Themes/Dorfic/Dorfic.mp4');
+  } else if (palette === 'Frutiger Aero') {
+    playVideoTheme('Themes/Frutiger/frutiger_live.mp4');
   } else if (palette === 'Mecha Sci-Fi') {
-    document.body.classList.add('has-wallpaper');
-    vid.src = 'Themes/Mecha/MECHA - YOUTUBE.mp4';
-    vid.classList.remove('hidden');
-    img.classList.add('hidden');
-    vid.play().catch(() => {});
+    playVideoTheme('Themes/Mecha/MECHA - YOUTUBE.mp4');
   } else {
-    // Dorfic, Liquid Metal, Cyberpunk, PS2 Classic Blue:
+    // PS2 Classic Blue, Liquid Metal, Cyberpunk:
     // Pure clean PS2 3D Canvas Orbiting Stars & Spoke Sphere recolored schema!
     document.body.classList.remove('has-wallpaper');
     vid.pause();
@@ -1451,22 +1457,6 @@ function renderGameWorld() {
           ctx.moveTo(ocx + 4, ocy + 8);
           ctx.lineTo(ocx + 12, ocy + 22);
           ctx.stroke();
-        }
-
-        // Charge Pips at bottom of obelisk
-        const pipY = oy + obj.h - 8;
-        for (let p = 0; p < obj.maxHits; p++) {
-          const pipX = ocx + (p - (obj.maxHits - 1) / 2) * 12;
-          ctx.beginPath();
-          ctx.arc(pipX, pipY, 2.5, 0, Math.PI * 2);
-          if (p < obj.hits) {
-            ctx.fillStyle = obj.color;
-            ctx.shadowBlur = 6;
-          } else {
-            ctx.fillStyle = '#334155';
-            ctx.shadowBlur = 0;
-          }
-          ctx.fill();
         }
       }
 

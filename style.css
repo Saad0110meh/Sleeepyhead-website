@@ -17,17 +17,21 @@
   --font-body: 'VT323', 'Share Tech Mono', monospace;
 }
 
-/* PALETTE: Dorfic (3 Shades of Orange & Crisp White) */
+/* PALETTE: Dorfic (Industrial RTS / Dieselpunk Tactical Orange) */
 body[data-palette="Dorfic"] {
-  --ps2-blue-deep: #170a04;
-  --ps2-blue-main: #2e1408;
-  --ps2-blue-panel: rgba(46, 20, 8, 0.92);
-  --ps2-cyan: #ff7b00;            /* Shade 1: Vibrant Dorfic Orange */
-  --ps2-cyan-glow: rgba(255, 123, 0, 0.65);
-  --ps2-cyan-dim: #9e4300;         /* Shade 2: Burnt Orange */
-  --ps2-magenta: #ff9e00;          /* Shade 3: Warm Amber Orange */
-  --ps2-silver: #ffffff;           /* Crisp White */
-  --ps2-gold: #ffb703;             /* Golden Flame */
+  --ps2-blue-deep: #0e0804;
+  --ps2-blue-main: #1c1007;
+  --ps2-blue-panel: rgba(24, 14, 7, 0.90);
+  --ps2-cyan: #ff7700;            /* Vibrant Dorfic Hazard Orange */
+  --ps2-cyan-glow: rgba(255, 119, 0, 0.65);
+  --ps2-cyan-dim: #8a3c00;         /* Burnt Amber Rust */
+  --ps2-magenta: #ff3300;          /* Warning Flare Red */
+  --ps2-silver: #f5ede4;           /* Industrial Off-White */
+  --ps2-gold: #ffaa00;             /* Caution Yellow */
+  --ps2-grey-bg: #2a1a10;
+
+  --font-display: 'Share Tech Mono', 'Orbitron', monospace;
+  --font-body: 'Share Tech Mono', monospace;
 }
 
 /* PALETTE: Liquid Metal (Mercury Silver & Steel Blue) */
@@ -43,17 +47,21 @@ body[data-palette="Liquid Metal"] {
   --ps2-gold: #e2e8f0;            /* Silver Chrome */
 }
 
-/* PALETTE: Frutiger Aero (Glossy Y2K Aqua & Cyan) */
+/* PALETTE: Frutiger Aero (Glossy Y2K Aqua Glass & Modern Aerodynamic) */
 body[data-palette="Frutiger Aero"] {
-  --ps2-blue-deep: #022c43;
-  --ps2-blue-main: #053f5e;
-  --ps2-blue-panel: rgba(5, 63, 94, 0.92);
-  --ps2-cyan: #00b4d8;
-  --ps2-cyan-glow: rgba(0, 180, 216, 0.65);
-  --ps2-cyan-dim: #115e59;
-  --ps2-magenta: #00f5d4;
-  --ps2-silver: #e0f2fe;
-  --ps2-gold: #ffd166;
+  --ps2-blue-deep: #022338;
+  --ps2-blue-main: #043959;
+  --ps2-blue-panel: rgba(3, 40, 68, 0.85);
+  --ps2-cyan: #00e5ff;            /* Crystalline Aqua Cyan */
+  --ps2-cyan-glow: rgba(0, 229, 255, 0.7);
+  --ps2-cyan-dim: #0088a8;         /* Deep Reef Marine */
+  --ps2-magenta: #55efc4;          /* Fresh Nature Aqua Green */
+  --ps2-silver: #ffffff;           /* Pure Glossy White */
+  --ps2-gold: #ffe066;             /* Sunlight Ray */
+  --ps2-grey-bg: #0b3d5b;
+
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Outfit', 'Rajdhani', sans-serif;
 }
 
 /* PALETTE: Cyberpunk (Neon Pink & Cyber Yellow) */
@@ -82,7 +90,7 @@ body[data-palette="Mecha Sci-Fi"] {
   --ps2-gold: #ffe156;
 }
 
-/* WALLPAPER ENGINE LIVE BACKGROUND CONTAINER */
+/* WALLPAPER LIVE BACKGROUND CONTAINER */
 .wallpaper-bg {
   position: fixed;
   inset: 0;
@@ -98,18 +106,43 @@ body[data-palette="Mecha Sci-Fi"] {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(3, 10, 32, 0.45) 0%, rgba(1, 4, 18, 0.85) 100%);
+  background: radial-gradient(circle at center, rgba(3, 10, 32, 0.25) 0%, rgba(1, 4, 18, 0.8) 100%);
   z-index: 1;
   pointer-events: none;
+  transition: background 0.5s ease;
+}
+
+/* Dorfic Vignette: High-contrast rich industrial warm carbon vignette */
+body[data-palette="Dorfic"] .wallpaper-bg::after {
+  background: radial-gradient(circle at center, rgba(18, 9, 3, 0.2) 0%, rgba(10, 5, 2, 0.84) 100%);
+}
+
+/* Frutiger Aero Vignette: Soft clean aquatic depth vignette preserving video brilliance */
+body[data-palette="Frutiger Aero"] .wallpaper-bg::after {
+  background: radial-gradient(circle at center, rgba(0, 35, 60, 0.1) 0%, rgba(2, 22, 40, 0.62) 100%);
+}
+
+/* Mecha Sci-Fi Vignette */
+body[data-palette="Mecha Sci-Fi"] .wallpaper-bg::after {
+  background: radial-gradient(circle at center, rgba(10, 15, 28, 0.25) 0%, rgba(5, 8, 18, 0.85) 100%);
 }
 
 .wallpaper-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.38;
-  transition: opacity 0.6s ease;
-  filter: contrast(1.05) brightness(0.95);
+  opacity: 0.85;
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+body[data-palette="Dorfic"] .wallpaper-video {
+  opacity: 0.84;
+  filter: contrast(1.1) brightness(0.92);
+}
+
+body[data-palette="Frutiger Aero"] .wallpaper-video {
+  opacity: 0.90;
+  filter: contrast(1.04) brightness(1.02) saturate(1.12);
 }
 
 .wallpaper-img {
@@ -117,32 +150,20 @@ body[data-palette="Mecha Sci-Fi"] {
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.35;
+  opacity: 0.75;
   transition: opacity 0.6s ease;
 }
 
 /* Translucent Screen Overlay when Live Wallpaper is active */
 body.has-wallpaper .screen {
-  background: radial-gradient(circle at center, rgba(6, 16, 48, 0.72) 0%, rgba(2, 6, 22, 0.92) 90%) !important;
+  background: transparent !important;
 }
 
 body.has-wallpaper #ps2-main-menu,
 body.has-wallpaper #ps2-sysconfig-screen,
-body.has-wallpaper #ps2-version-screen {
-  background: radial-gradient(circle at center, rgba(6, 16, 48, 0.7) 0%, rgba(2, 6, 22, 0.92) 90%) !important;
-}
-
+body.has-wallpaper #ps2-version-screen,
 body.has-wallpaper #ps2-memcard-browser {
-  background: radial-gradient(circle at center, rgba(10, 22, 58, 0.85) 0%, rgba(3, 8, 28, 0.96) 100%) !important;
-  backdrop-filter: blur(10px);
-}
-
-body.has-wallpaper .save-icon-card .save-icon-box {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 240, 255, 0.3);
-}
-
-body.has-wallpaper .crt-overlay::before {
-  opacity: 0.45;
+  background: transparent !important;
 }
 
 * { box-sizing: border-box; }
@@ -1433,5 +1454,406 @@ body, html {
   padding: 3px 8px;
   border-radius: 4px;
 }
+
+/* ============================================================
+   THEME STYLING: DORFIC (Industrial RTS / Dieselpunk Tactical)
+============================================================= */
+body[data-palette="Dorfic"] {
+  letter-spacing: 0.4px;
+}
+
+body[data-palette="Dorfic"].crt-overlay::before {
+  opacity: 0.32;
+  background: linear-gradient(
+    rgba(20, 10, 0, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 120, 0, 0.03),
+    rgba(0, 0, 0, 0.01),
+    rgba(255, 170, 0, 0.02)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Dorfic Main Menu */
+body[data-palette="Dorfic"] .menu-text {
+  color: rgba(245, 237, 228, 0.45);
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Dorfic"] .menu-item.active .menu-text {
+  color: #ff7700;
+  text-shadow: 0 0 20px rgba(255, 119, 0, 0.8), 0 0 40px #ff7700, 0 2px 4px #000;
+}
+
+body[data-palette="Dorfic"] .menu-item::before {
+  color: #ff7700;
+}
+
+body[data-palette="Dorfic"] .menu-item.active::before {
+  text-shadow: 0 0 14px rgba(255, 119, 0, 0.9);
+}
+
+/* Dorfic System Configuration */
+body[data-palette="Dorfic"] .sysconfig-date,
+body[data-palette="Dorfic"] .sysconfig-time {
+  background: rgba(24, 14, 7, 0.9);
+  border: 1px solid #ff7700;
+  border-radius: 4px;
+  color: #f5ede4;
+  box-shadow: 0 0 14px rgba(255, 119, 0, 0.45);
+  text-shadow: 0 0 8px #ff7700;
+}
+
+body[data-palette="Dorfic"] .sysconfig-title {
+  color: #ffaa00;
+  text-shadow: 0 0 12px rgba(255, 170, 0, 0.6);
+}
+
+body[data-palette="Dorfic"] .sysconfig-opt {
+  background: rgba(28, 16, 8, 0.72);
+  border: 1px solid rgba(255, 119, 0, 0.25);
+  backdrop-filter: blur(8px);
+  font-size: 17px;
+}
+
+body[data-palette="Dorfic"] .sysconfig-opt.selected {
+  border-color: #ff7700;
+  background: rgba(255, 119, 0, 0.22);
+  box-shadow: inset 0 0 12px rgba(255, 119, 0, 0.4), 0 0 16px rgba(255, 119, 0, 0.5);
+}
+
+body[data-palette="Dorfic"] .sysconfig-opt.selected .opt-label {
+  color: #ff7700;
+  text-shadow: 0 0 10px rgba(255, 119, 0, 0.7);
+}
+
+/* Dorfic Browser & Save Cards */
+body[data-palette="Dorfic"] .memcard-browser-header {
+  background: rgba(22, 12, 6, 0.82);
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 119, 0, 0.35);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 119, 0, 0.08);
+}
+
+body[data-palette="Dorfic"] .memcard-ps2-logo {
+  color: #ff7700;
+  text-shadow: 0 0 16px rgba(255, 119, 0, 0.8), 0 2px 4px #000;
+}
+
+body[data-palette="Dorfic"] .memcard-section-title {
+  color: #f5ede4;
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Dorfic"] .memcard-slot-label {
+  color: #ffaa00;
+  text-shadow: 0 0 12px rgba(255, 170, 0, 0.7);
+}
+
+body[data-palette="Dorfic"] .save-icon-box {
+  background: linear-gradient(135deg, #28160c 0%, #140a04 100%);
+  border: 2px solid #ff7700;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 16px rgba(255, 119, 0, 0.4);
+}
+
+body[data-palette="Dorfic"] .save-icon-halo {
+  background: radial-gradient(circle, rgba(255, 119, 0, 0.95) 0%, rgba(255, 119, 0, 0.35) 55%, transparent 75%);
+}
+
+body[data-palette="Dorfic"] .save-icon-title {
+  color: #f5ede4;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+}
+
+body[data-palette="Dorfic"] .save-icon-card.selected .save-icon-title {
+  color: #ff7700;
+  text-shadow: 0 0 12px rgba(255, 119, 0, 0.8), 0 2px 4px #000;
+}
+
+body[data-palette="Dorfic"] .footer-keyboard-bar {
+  background: rgba(24, 13, 6, 0.9);
+  border: 1px solid #8a3c00;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.7), 0 0 12px rgba(255, 119, 0, 0.2);
+}
+
+body[data-palette="Dorfic"] .highlight-cyan {
+  color: #ff7700;
+}
+
+body[data-palette="Dorfic"] .btn-hint-item {
+  color: #f5ede4;
+  font-size: 19px;
+  letter-spacing: 1px;
+}
+
+/* Dorfic Modals & Windows */
+body[data-palette="Dorfic"] .memcard-window {
+  background: rgba(24, 14, 7, 0.95);
+  border: 2px solid #ff7700;
+  box-shadow: 0 0 0 1px #000, 0 0 35px rgba(255, 119, 0, 0.5), inset 0 0 40px rgba(255, 119, 0, 0.08);
+}
+
+body[data-palette="Dorfic"] .memcard-titlebar {
+  border-bottom: 1px solid #8a3c00;
+  color: #ff7700;
+  text-shadow: 0 0 8px rgba(255, 119, 0, 0.6);
+}
+
+body[data-palette="Dorfic"] .panel-heading {
+  color: #ffaa00;
+}
+
+body[data-palette="Dorfic"] .memcard-list li {
+  border: 1px solid #8a3c00;
+  background: rgba(255, 119, 0, 0.06);
+}
+
+body[data-palette="Dorfic"] .memcard-list li:hover,
+body[data-palette="Dorfic"] .memcard-list li.selected {
+  border-color: #ff7700;
+  background: rgba(255, 119, 0, 0.2);
+  color: #ffaa00;
+}
+
+body[data-palette="Dorfic"] .platform-card {
+  background: rgba(26, 15, 8, 0.88);
+  border: 1px solid #8a3c00;
+}
+
+body[data-palette="Dorfic"] .platform-card:hover {
+  border-color: #ff7700;
+  background: rgba(255, 119, 0, 0.18);
+  box-shadow: 0 6px 20px rgba(255, 119, 0, 0.3);
+}
+
+body[data-palette="Dorfic"] .platform-icon-circle {
+  background: rgba(255, 119, 0, 0.12);
+  border-color: #ff7700;
+}
+
+/* ============================================================
+   THEME STYLING: FRUTIGER AERO (Glossy Y2K Aqua Glass & Modern Aerodynamic)
+============================================================= */
+body[data-palette="Frutiger Aero"] {
+  letter-spacing: 0.3px;
+}
+
+body[data-palette="Frutiger Aero"].crt-overlay::before {
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-size: 100% 4px, 8px 100%;
+}
+
+/* Frutiger Aero Main Menu */
+body[data-palette="Frutiger Aero"] .menu-text {
+  color: rgba(255, 255, 255, 0.65);
+  text-shadow: 0 2px 6px rgba(0, 20, 40, 0.85);
+  font-weight: 700;
+}
+
+body[data-palette="Frutiger Aero"] .menu-item.active .menu-text {
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.85), 0 0 35px rgba(0, 229, 255, 0.5), 0 2px 6px rgba(0, 20, 40, 0.9);
+}
+
+body[data-palette="Frutiger Aero"] .menu-item::before {
+  color: #00e5ff;
+}
+
+body[data-palette="Frutiger Aero"] .menu-item.active::before {
+  text-shadow: 0 0 16px rgba(0, 229, 255, 0.9);
+}
+
+/* Frutiger Aero System Configuration */
+body[data-palette="Frutiger Aero"] .sysconfig-date,
+body[data-palette="Frutiger Aero"] .sysconfig-time {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 14px;
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 30, 60, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  text-shadow: 0 1px 3px rgba(0, 20, 40, 0.8), 0 0 10px rgba(0, 229, 255, 0.5);
+}
+
+body[data-palette="Frutiger Aero"] .sysconfig-title {
+  color: #ffe066;
+  text-shadow: 0 0 14px rgba(255, 224, 102, 0.7), 0 2px 4px rgba(0, 20, 40, 0.9);
+}
+
+body[data-palette="Frutiger Aero"] .sysconfig-opt {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  font-size: 16px;
+}
+
+body[data-palette="Frutiger Aero"] .sysconfig-opt.selected {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.32) 0%, rgba(85, 239, 196, 0.25) 100%);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.65), 0 4px 20px rgba(0, 229, 255, 0.45);
+}
+
+body[data-palette="Frutiger Aero"] .sysconfig-opt.selected .opt-label {
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.9), 0 2px 4px rgba(0, 20, 40, 0.9);
+}
+
+/* Frutiger Aero Browser & Save Cards */
+body[data-palette="Frutiger Aero"] .memcard-browser-header {
+  background: rgba(255, 255, 255, 0.14);
+  padding: 16px 28px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 8px 32px rgba(0, 20, 50, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+body[data-palette="Frutiger Aero"] .memcard-ps2-logo {
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.85), 0 2px 6px rgba(0, 20, 40, 0.9);
+}
+
+body[data-palette="Frutiger Aero"] .memcard-section-title {
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 20, 40, 0.9);
+  font-weight: 700;
+}
+
+body[data-palette="Frutiger Aero"] .memcard-sub-info {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 20, 40, 0.85);
+  font-size: 16px;
+}
+
+body[data-palette="Frutiger Aero"] .memcard-slot-label {
+  color: #ffe066;
+  text-shadow: 0 0 14px rgba(255, 224, 102, 0.75), 0 2px 4px rgba(0, 20, 40, 0.9);
+}
+
+body[data-palette="Frutiger Aero"] .save-icon-box {
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(0, 160, 220, 0.4) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px);
+  box-shadow: 
+    0 12px 28px rgba(0, 25, 55, 0.45), 
+    inset 0 2px 4px rgba(255, 255, 255, 0.75), 
+    0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+body[data-palette="Frutiger Aero"] .save-icon-halo {
+  width: 112px;
+  height: 112px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.95) 0%, rgba(85, 239, 196, 0.4) 55%, transparent 75%);
+}
+
+body[data-palette="Frutiger Aero"] .save-icon-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 6px rgba(0, 20, 40, 0.95), 0 0 12px rgba(0, 229, 255, 0.6);
+}
+
+body[data-palette="Frutiger Aero"] .save-icon-card.selected .save-icon-title {
+  color: #00e5ff;
+  text-shadow: 0 0 16px rgba(0, 229, 255, 0.95), 0 2px 6px rgba(0, 20, 40, 0.95);
+}
+
+body[data-palette="Frutiger Aero"] .footer-keyboard-bar {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 25, 55, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+}
+
+body[data-palette="Frutiger Aero"] .highlight-cyan {
+  color: #00e5ff;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+}
+
+body[data-palette="Frutiger Aero"] .btn-hint-item {
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 20, 40, 0.85);
+}
+
+body[data-palette="Frutiger Aero"] .v-row {
+  font-size: 17px;
+}
+
+/* Frutiger Aero Modals & Windows */
+body[data-palette="Frutiger Aero"] .memcard-window {
+  background: rgba(3, 38, 65, 0.88);
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 18px;
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 16px 48px rgba(0, 20, 50, 0.5), 0 0 35px rgba(0, 229, 255, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+body[data-palette="Frutiger Aero"] .memcard-titlebar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.8), 0 2px 4px rgba(0, 20, 40, 0.9);
+}
+
+body[data-palette="Frutiger Aero"] .panel-heading {
+  color: #ffe066;
+  text-shadow: 0 0 10px rgba(255, 224, 102, 0.6);
+}
+
+body[data-palette="Frutiger Aero"] .memcard-body {
+  font-size: 16px;
+}
+
+body[data-palette="Frutiger Aero"] .memcard-list li {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+body[data-palette="Frutiger Aero"] .memcard-list li:hover,
+body[data-palette="Frutiger Aero"] .memcard-list li.selected {
+  border-color: #00e5ff;
+  background: rgba(0, 229, 255, 0.22);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.4);
+}
+
+body[data-palette="Frutiger Aero"] .platform-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+body[data-palette="Frutiger Aero"] .platform-card:hover {
+  border-color: #00e5ff;
+  background: rgba(0, 229, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.35);
+}
+
+body[data-palette="Frutiger Aero"] .platform-icon-circle {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: #00e5ff;
+}
+
 
 
