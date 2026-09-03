@@ -85,17 +85,21 @@ body[data-palette="Vaporwave"] {
   --font-body: 'VT323', 'Outfit', monospace;
 }
 
-/* PALETTE: Mecha Sci-Fi (Steel Blue & Laser Red) */
+/* PALETTE: Mecha Sci-Fi (Gundam Mecha Armor, Laser Crimson & High-Tech HUD Blue) */
 body[data-palette="Mecha Sci-Fi"] {
-  --ps2-blue-deep: #0f172a;
-  --ps2-blue-main: #1e293b;
-  --ps2-blue-panel: rgba(30, 41, 59, 0.92);
-  --ps2-cyan: #35a7ff;
-  --ps2-cyan-glow: rgba(53, 167, 255, 0.7);
-  --ps2-cyan-dim: #1d4e89;
-  --ps2-magenta: #ff5964;
-  --ps2-silver: #f8fafc;
-  --ps2-gold: #ffe156;
+  --ps2-blue-deep: #080c14;
+  --ps2-blue-main: #0f172a;
+  --ps2-blue-panel: rgba(15, 23, 42, 0.90);
+  --ps2-cyan: #38bdf8;            /* HUD Tactical Hologram Blue */
+  --ps2-cyan-glow: rgba(56, 189, 248, 0.7);
+  --ps2-cyan-dim: #1e3a8a;        /* Deep Mecha Plating Blue */
+  --ps2-magenta: #ef4444;         /* Laser Cannon Warning Red */
+  --ps2-silver: #f8fafc;          /* High-Tensile Armor White */
+  --ps2-gold: #f59e0b;            /* Cockpit Alert Amber */
+  --ps2-grey-bg: #1e293b;
+
+  --font-display: 'Orbitron', 'Share Tech Mono', monospace;
+  --font-body: 'Share Tech Mono', 'Rajdhani', monospace;
 }
 
 /* WALLPAPER LIVE BACKGROUND CONTAINER */
@@ -159,6 +163,10 @@ body[data-palette="Liquid Metal"] .wallpaper-video {
 
 body[data-palette="Vaporwave"] .wallpaper-img {
   opacity: 0.86;
+}
+
+body[data-palette="Mecha Sci-Fi"] .wallpaper-video {
+  opacity: 0.88;
 }
 
 .wallpaper-img {
@@ -2436,6 +2444,425 @@ body[data-palette="Vaporwave"] .highlight-cyan {
 
 body[data-palette="Vaporwave"] .btn-hint-item {
   color: #fdf4ff;
+}
+
+/* ============================================================
+   THEME STYLING: MECHA SCI-FI (Gundam Armor, Cockpit HUD & Laser Red)
+============================================================= */
+body[data-palette="Mecha Sci-Fi"] {
+  letter-spacing: 0.4px;
+}
+
+body[data-palette="Mecha Sci-Fi"].crt-overlay::before {
+  opacity: 0.22;
+  background: linear-gradient(
+    rgba(8, 12, 20, 0) 50%, 
+    rgba(0, 0, 0, 0.4) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.03),
+    rgba(0, 0, 0, 0.01),
+    rgba(239, 68, 68, 0.02)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Mecha Sci-Fi Main Menu */
+body[data-palette="Mecha Sci-Fi"] .menu-text {
+  color: rgba(248, 250, 252, 0.5);
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Mecha Sci-Fi"] .menu-item.active .menu-text {
+  color: #38bdf8;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.95), 0 0 35px #ef4444, 0 2px 4px #000;
+  font-weight: 900;
+}
+
+body[data-palette="Mecha Sci-Fi"] .menu-item::before {
+  color: #ef4444;
+}
+
+body[data-palette="Mecha Sci-Fi"] .menu-item.active::before {
+  text-shadow: 0 0 14px rgba(239, 68, 68, 0.9);
+}
+
+/* Mecha Sci-Fi System Configuration */
+body[data-palette="Mecha Sci-Fi"] .sysconfig-date,
+body[data-palette="Mecha Sci-Fi"] .sysconfig-time {
+  background: rgba(15, 23, 42, 0.94);
+  border: 1.5px solid #38bdf8;
+  border-radius: 4px;
+  color: #f8fafc;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+  text-shadow: 0 0 8px #38bdf8;
+}
+
+body[data-palette="Mecha Sci-Fi"] .sysconfig-title {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.65);
+}
+
+body[data-palette="Mecha Sci-Fi"] .sysconfig-opt {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-size: 17px;
+}
+
+body[data-palette="Mecha Sci-Fi"] .sysconfig-opt.selected {
+  border-color: #38bdf8;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.3) 0%, rgba(239, 68, 68, 0.2) 100%);
+  box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.35), 0 0 16px rgba(56, 189, 248, 0.45);
+}
+
+body[data-palette="Mecha Sci-Fi"] .sysconfig-opt.selected .opt-label {
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+}
+
+/* Mecha Sci-Fi Browser & Save Cards */
+body[data-palette="Mecha Sci-Fi"] .memcard-browser-header {
+  background: rgba(11, 19, 36, 0.88);
+  padding: 16px 24px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-ps2-logo {
+  color: #38bdf8;
+  text-shadow: 0 0 16px rgba(56, 189, 248, 0.9), 0 2px 4px #000;
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-section-title {
+  color: #f8fafc;
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-slot-label {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+}
+
+body[data-palette="Mecha Sci-Fi"] .save-icon-box {
+  width: 94px;
+  height: 94px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 2px solid #38bdf8;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8), 0 0 16px rgba(56, 189, 248, 0.4);
+}
+
+body[data-palette="Mecha Sci-Fi"] .save-icon-halo {
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.95) 0%, rgba(239, 68, 68, 0.45) 55%, transparent 75%);
+}
+
+body[data-palette="Mecha Sci-Fi"] .save-icon-title {
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+}
+
+body[data-palette="Mecha Sci-Fi"] .save-icon-card.selected .save-icon-title {
+  color: #38bdf8;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.95), 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+/* Mecha Sci-Fi Modals & Windows */
+body[data-palette="Mecha Sci-Fi"] .memcard-window {
+  background: rgba(11, 19, 36, 0.95);
+  border: 2px solid #38bdf8;
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 35px rgba(56, 189, 248, 0.45),
+    inset 0 0 40px rgba(56, 189, 248, 0.08);
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-titlebar {
+  border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-size: 17px;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+}
+
+body[data-palette="Mecha Sci-Fi"] .panel-heading {
+  color: #f59e0b;
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-body {
+  font-size: 23px;
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-list li {
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  background: rgba(15, 23, 42, 0.88);
+  font-size: 23px;
+  padding: 14px 20px;
+  color: #f8fafc;
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-list li strong {
+  color: #f59e0b;
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-list li:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.2);
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-list li.selected {
+  border-color: #ef4444;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.35) 0%, rgba(239, 68, 68, 0.22) 100%);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.5);
+}
+
+body[data-palette="Mecha Sci-Fi"] .memcard-list li.selected span {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+}
+
+body[data-palette="Mecha Sci-Fi"] .platform-card {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+}
+
+body[data-palette="Mecha Sci-Fi"] .platform-card:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.22);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+}
+
+body[data-palette="Mecha Sci-Fi"] .platform-icon-circle {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+}
+
+body[data-palette="Mecha Sci-Fi"] .dossier-card,
+body[data-palette="Mecha Sci-Fi"] .skill-cat-card,
+body[data-palette="Mecha Sci-Fi"] .lore-group {
+  background: rgba(15, 23, 42, 0.88);
+  border: 1.5px solid rgba(56, 189, 248, 0.3);
+}
+
+body[data-palette="Mecha Sci-Fi"] .footer-keyboard-bar {
+  background: rgba(11, 19, 36, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+body[data-palette="Mecha Sci-Fi"] .highlight-cyan {
+  color: #38bdf8;
+}
+
+body[data-palette="Mecha Sci-Fi"] .btn-hint-item {
+  color: #f8fafc;
+}
+
+/* ============================================================
+   BROWSER THEMES: VISUAL OVERHAULS (4 DISTINCT MODES)
+============================================================= */
+
+/* 1. GLASSMORPHIC 3D: Ultra-Modern Frosted Acrylic Glass */
+body[data-btheme="Glassmorphic 3D"] .save-icon-box {
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.55) !important;
+  border-radius: 24px !important;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1.5px 0 rgba(0, 0, 0, 0.25) !important;
+  transform: perspective(800px) rotateX(10deg);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body[data-btheme="Glassmorphic 3D"] .save-icon-card:hover .save-icon-box,
+body[data-btheme="Glassmorphic 3D"] .save-icon-card.selected .save-icon-box {
+  transform: perspective(800px) rotateX(0deg) translateY(-14px) scale(1.12);
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.4),
+    inset 0 2px 0 #ffffff !important;
+}
+
+body[data-btheme="Glassmorphic 3D"] .save-icon-halo {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(0, 240, 255, 0.4) 45%, transparent 75%);
+  filter: blur(4px);
+}
+
+body[data-btheme="Glassmorphic 3D"] .memcard-browser-header {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  padding: 18px 30px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+body[data-btheme="Glassmorphic 3D"] .save-icon-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* 2. CYBER MATRIX: Hologram Cyber Deck with Chamfered Tech Corners */
+body[data-btheme="Cyber Matrix"] .save-icon-box {
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  background: rgba(2, 20, 24, 0.94) !important;
+  border: 2px solid #00ff88 !important;
+  border-radius: 0 !important;
+  box-shadow: 
+    0 0 18px rgba(0, 255, 136, 0.35),
+    inset 0 0 16px rgba(0, 255, 136, 0.25) !important;
+  transition: all 0.25s ease;
+}
+
+body[data-btheme="Cyber Matrix"] .save-icon-card:hover .save-icon-box,
+body[data-btheme="Cyber Matrix"] .save-icon-card.selected .save-icon-box {
+  border-color: #00f0ff !important;
+  box-shadow: 
+    0 0 28px rgba(0, 240, 255, 0.7),
+    inset 0 0 22px rgba(0, 255, 136, 0.5) !important;
+  transform: translateY(-12px) scale(1.08);
+}
+
+body[data-btheme="Cyber Matrix"] .save-icon-halo {
+  border-radius: 4px;
+  border: 2px dashed #00ff88;
+  background: transparent;
+  box-shadow: 0 0 20px #00ff88;
+  animation: matrixRotate 8s linear infinite;
+}
+
+@keyframes matrixRotate {
+  from { transform: scale(1.15) rotate(0deg); }
+  to { transform: scale(1.15) rotate(360deg); }
+}
+
+body[data-btheme="Cyber Matrix"] .memcard-browser-header {
+  background: rgba(2, 18, 22, 0.92);
+  border-top: 2px solid #00ff88;
+  border-bottom: 2px solid #00ff88;
+  border-left: 6px solid #00ff88;
+  border-right: 6px solid #00ff88;
+  border-radius: 0;
+  padding: 16px 26px;
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.25);
+}
+
+body[data-btheme="Cyber Matrix"] .memcard-ps2-logo {
+  color: #00ff88;
+  text-shadow: 0 0 16px #00ff88;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+body[data-btheme="Cyber Matrix"] .memcard-section-title {
+  color: #00f0ff;
+  text-shadow: 0 0 10px #00f0ff;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+body[data-btheme="Cyber Matrix"] .memcard-slot-label {
+  color: #00ff88;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+body[data-btheme="Cyber Matrix"] .save-icon-title {
+  font-family: 'Share Tech Mono', monospace;
+  color: #00ff88;
+  letter-spacing: 1.5px;
+}
+
+body[data-btheme="Cyber Matrix"] .save-icon-card.selected .save-icon-title {
+  color: #00f0ff;
+  text-shadow: 0 0 12px #00f0ff;
+}
+
+/* 3. VCR SLATE: Vintage 80s/90s Hi-Fi VHS Cassette Tape & Studio Slate */
+body[data-btheme="VCR Slate"] .save-icon-box {
+  width: 104px;
+  height: 78px;
+  border-radius: 6px !important;
+  background: linear-gradient(180deg, #24272e 0%, #15171b 100%) !important;
+  border: 2px solid #6b7280 !important;
+  border-top: 8px solid #f1f5f9 !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.85), inset 0 2px 4px rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+body[data-btheme="VCR Slate"] .save-icon-box::before {
+  content: "T-120";
+  position: absolute;
+  top: -7px;
+  right: 6px;
+  font-family: 'VT323', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  color: #0f172a;
+  letter-spacing: 1px;
+}
+
+body[data-btheme="VCR Slate"] .save-icon-card:hover .save-icon-box,
+body[data-btheme="VCR Slate"] .save-icon-card.selected .save-icon-box {
+  border-color: #ffaa00 !important;
+  border-top-color: #ffaa00 !important;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 170, 0, 0.4) !important;
+  transform: translateY(-10px);
+}
+
+body[data-btheme="VCR Slate"] .save-icon-halo {
+  background: radial-gradient(circle, rgba(255, 170, 0, 0.75) 0%, rgba(255, 85, 0, 0.3) 50%, transparent 75%);
+  border-radius: 12px;
+}
+
+body[data-btheme="VCR Slate"] .memcard-browser-header {
+  background: #181b20;
+  border: 2px solid #374151;
+  border-radius: 6px;
+  padding: 16px 26px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+body[data-btheme="VCR Slate"] .memcard-ps2-logo {
+  color: #ff4757;
+  font-family: 'VT323', monospace;
+  letter-spacing: 4px;
+  text-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+}
+
+body[data-btheme="VCR Slate"] .memcard-section-title {
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  color: #2ed573;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(46, 213, 115, 0.6);
+}
+
+body[data-btheme="VCR Slate"] .memcard-slot-label {
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  color: #ffa502;
+  letter-spacing: 2px;
+}
+
+body[data-btheme="VCR Slate"] .save-icon-title {
+  font-family: 'VT323', monospace;
+  font-size: 26px;
+  color: #ced6e0;
+  letter-spacing: 1px;
+}
+
+body[data-btheme="VCR Slate"] .save-icon-card.selected .save-icon-title {
+  color: #ffa502;
+  text-shadow: 0 0 10px rgba(255, 165, 2, 0.8);
 }
 
 

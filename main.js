@@ -106,14 +106,14 @@ const CAREER_EDUCATION = {
       degree: "Higher Secondary Certificate (HSC)",
       institution: "St. Joseph Higher Secondary School",
       department: "Science Division",
-      result: "Passed",
+      result: "Passed (GPA-5)",
       badge: "SCIENCE"
     },
     {
       degree: "Secondary School Certificate (SSC)",
       institution: "Willes Little Flower School and College",
       department: "Science Division",
-      result: "Passed",
+      result: "Passed (GPA-5)",
       badge: "SCIENCE"
     }
   ]
@@ -210,10 +210,12 @@ const VCR_FILTERS = ['VCR VHS Tracking', 'CRT Scanlines', 'Disabled'];
 let vcrFilterIndex = 0;
 
 const CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave'];
-let paletteIndex = 0;
+let paletteIndex = parseInt(localStorage.getItem('sleepyhead_palette_idx') || '0', 10);
+if (isNaN(paletteIndex) || paletteIndex < 0 || paletteIndex >= CONSOLE_PALETTES.length) paletteIndex = 0;
 
 const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix', 'VCR Slate'];
-let bthemeIndex = 0;
+let bthemeIndex = parseInt(localStorage.getItem('sleepyhead_btheme_idx') || '0', 10);
+if (isNaN(bthemeIndex) || bthemeIndex < 0 || bthemeIndex >= BROWSER_THEMES.length) bthemeIndex = 0;
 
 const ZOOM_LEVELS = ['100%', '125%', '150%', '175%'];
 let zoomIndex = parseInt(localStorage.getItem('sleepyhead_zoom_idx') || '1', 10);
@@ -819,12 +821,14 @@ function toggleSysConfigOption() {
     const currentPalette = CONSOLE_PALETTES[paletteIndex];
     document.getElementById('val-palette').innerText = currentPalette;
     document.body.setAttribute('data-palette', currentPalette);
+    localStorage.setItem('sleepyhead_palette_idx', paletteIndex.toString());
     applyWallpaperTheme(currentPalette);
   } else if (sysConfigIndex === 4) {
     bthemeIndex = (bthemeIndex + 1) % BROWSER_THEMES.length;
     const currentBTheme = BROWSER_THEMES[bthemeIndex];
     document.getElementById('val-btheme').innerText = currentBTheme;
     document.body.setAttribute('data-btheme', currentBTheme);
+    localStorage.setItem('sleepyhead_btheme_idx', bthemeIndex.toString());
   } else if (sysConfigIndex === 5) {
     zoomIndex = (zoomIndex + 1) % ZOOM_LEVELS.length;
     applyZoomLevel(ZOOM_LEVELS[zoomIndex]);
@@ -868,7 +872,7 @@ function applyWallpaperTheme(palette) {
   } else if (palette === 'Vaporwave') {
     playImageTheme('Themes/Vaporwave/futuristic_city_digital_art_hd_vaporwave.jpg');
   } else if (palette === 'Mecha Sci-Fi') {
-    playVideoTheme('Themes/Mecha/MECHA - YOUTUBE.mp4');
+    playVideoTheme('Themes/Mecha/mecha_live.mp4');
   } else {
     // PS2 Classic Blue:
     // Pure clean PS2 3D Canvas Orbiting Stars & Spoke Sphere recolored schema!
@@ -914,12 +918,12 @@ iconCards.forEach((card, idx) => {
 });
 
 function enterMemcardOption(index) {
-  playPS2ConfirmSound();
   const card = iconCards[index];
   const iconType = card.dataset.icon;
 
   if (iconType === 'game') {
     // Launch Hyper Light Drifter Canvas Game World!
+    playEnterModuleSound();
     showScreen('game');
     startCanvasGame();
   } else {
@@ -1008,13 +1012,13 @@ window.addEventListener('keydown', (e) => {
   }
   if (currentScreen === 'game' && k === 'escape' && !isModalOpen) {
     showScreen('memcard');
-    playPS2BackSound();
+    playLeaveModuleSound();
   }
 });
 
 document.getElementById('btn-return-ps2').addEventListener('click', () => {
   showScreen('memcard');
-  playPS2BackSound();
+  playLeaveModuleSound();
 });
 
 // ==========================================
@@ -2063,6 +2067,14 @@ if (btnMemcardBack) {
   });
 }
 
-// Apply initial wallpaper theme and saved zoom scale
+// Apply initial palette, wallpaper theme, browser theme, and saved zoom scale
+document.body.setAttribute('data-palette', CONSOLE_PALETTES[paletteIndex]);
+const valPalette = document.getElementById('val-palette');
+if (valPalette) valPalette.innerText = CONSOLE_PALETTES[paletteIndex];
+
+document.body.setAttribute('data-btheme', BROWSER_THEMES[bthemeIndex]);
+const valBTheme = document.getElementById('val-btheme');
+if (valBTheme) valBTheme.innerText = BROWSER_THEMES[bthemeIndex];
+
 applyWallpaperTheme(CONSOLE_PALETTES[paletteIndex]);
 applyZoomLevel(ZOOM_LEVELS[zoomIndex]);
