@@ -219,26 +219,29 @@ let vcrFilterIndex = 0;
 const BASE_CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave'];
 let CONSOLE_PALETTES = [...BASE_CONSOLE_PALETTES];
 
+let paletteIndex = parseInt(localStorage.getItem('sleepyhead_palette_idx') || '0', 10);
+
 function updateAvailablePalettes() {
-  const isYukoUnlocked = localStorage.getItem('sleepyhead_yuko_unlocked') === 'true' ||
-    CORE_ACHIEVEMENT_IDS.every(id => unlockedAchievements.includes(id));
+  let isYukoUnlocked = false;
+  try {
+    isYukoUnlocked = localStorage.getItem('sleepyhead_yuko_unlocked') === 'true' ||
+      CORE_ACHIEVEMENT_IDS.every(id => unlockedAchievements.includes(id));
+  } catch (e) {}
 
   if (isYukoUnlocked) {
-    try { localStorage.setItem('sleepyhead_yuko_unlocked', 'true'); } catch(e) {}
+    try { localStorage.setItem('sleepyhead_yuko_unlocked', 'true'); } catch (e) {}
     if (!CONSOLE_PALETTES.includes('Ichihara Yuko')) {
       CONSOLE_PALETTES.push('Ichihara Yuko');
     }
   } else {
     CONSOLE_PALETTES = [...BASE_CONSOLE_PALETTES];
-    if (paletteIndex >= CONSOLE_PALETTES.length) {
-      paletteIndex = 0;
-    }
+  }
+
+  if (isNaN(paletteIndex) || paletteIndex < 0 || paletteIndex >= CONSOLE_PALETTES.length) {
+    paletteIndex = 0;
   }
 }
 updateAvailablePalettes();
-
-let paletteIndex = parseInt(localStorage.getItem('sleepyhead_palette_idx') || '0', 10);
-if (isNaN(paletteIndex) || paletteIndex < 0 || paletteIndex >= CONSOLE_PALETTES.length) paletteIndex = 0;
 
 const BROWSER_THEMES = ['Classic Save Cards', 'Glassmorphic 3D', 'Cyber Matrix', 'VCR Slate'];
 let bthemeIndex = parseInt(localStorage.getItem('sleepyhead_btheme_idx') || '0', 10);
