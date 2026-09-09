@@ -119,6 +119,23 @@ body[data-palette="Ichihara Yuko"] {
   --font-body: 'Outfit', 'Rajdhani', sans-serif;
 }
 
+/* PALETTE: Blue (Deep Sea Dreamcore / Bioluminescent Aquatic & Cerulean Abyss) */
+body[data-palette="Blue"] {
+  --ps2-blue-deep: #020d18;
+  --ps2-blue-main: #061c2c;
+  --ps2-blue-panel: rgba(4, 26, 42, 0.92);
+  --ps2-cyan: #00d2ff;            /* Bioluminescent Deep Sea Cyan */
+  --ps2-cyan-glow: rgba(0, 210, 255, 0.75);
+  --ps2-cyan-dim: #0a4f6d;        /* Submerged Oceanic Teal */
+  --ps2-magenta: #38bdf8;         /* Celestial Wave Blue */
+  --ps2-silver: #e0f2fe;          /* Seafoam White */
+  --ps2-gold: #2dd4bf;            /* Aqua Emerald Bioluminescence */
+  --ps2-grey-bg: #07253b;
+
+  --font-display: 'Outfit', 'Rajdhani', sans-serif;
+  --font-body: 'Share Tech Mono', 'Rajdhani', monospace;
+}
+
 /* WALLPAPER LIVE BACKGROUND CONTAINER */
 .wallpaper-bg {
   position: fixed;
@@ -156,6 +173,11 @@ body[data-palette="Mecha Sci-Fi"] .wallpaper-bg::after {
   background: radial-gradient(circle at center, rgba(10, 15, 28, 0.25) 0%, rgba(5, 8, 18, 0.85) 100%);
 }
 
+/* Blue Vignette: Ethereal submerged aquatic gradient */
+body[data-palette="Blue"] .wallpaper-bg::after {
+  background: radial-gradient(circle at center, rgba(0, 32, 50, 0.15) 0%, rgba(1, 10, 18, 0.78) 100%);
+}
+
 .wallpaper-video {
   width: 100%;
   height: 100%;
@@ -184,6 +206,10 @@ body[data-palette="Vaporwave"] .wallpaper-img {
 
 body[data-palette="Mecha Sci-Fi"] .wallpaper-video {
   opacity: 0.88;
+}
+
+body[data-palette="Blue"] .wallpaper-video {
+  opacity: 0.90;
 }
 
 .wallpaper-img {
@@ -451,6 +477,17 @@ body[data-palette="Ichihara Yuko"] .intro-pillar {
 body[data-palette="Ichihara Yuko"] .intro-main-title {
   color: #fdf2f8;
   text-shadow: 0 0 25px rgba(245, 158, 11, 0.95), 0 0 15px #e11d48;
+}
+
+body[data-palette="Blue"] .intro-pillar {
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.58) 0%, rgba(6, 78, 102, 0.25) 100%);
+  box-shadow: 0 0 40px rgba(0, 210, 255, 0.55);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+
+body[data-palette="Blue"] .intro-main-title {
+  color: #f0f9ff;
+  text-shadow: 0 0 25px rgba(224, 242, 254, 0.95), 0 0 15px #00d2ff;
 }
 
 .p1 { width: 120px; height: 400px; left: 10%; top: -50px; transform: rotate(-25deg); animation-delay: 0s; }
@@ -3003,6 +3040,219 @@ body[data-palette="Ichihara Yuko"] .highlight-cyan {
 
 body[data-palette="Ichihara Yuko"] .btn-hint-item {
   color: #fdf2f8;
+}
+
+/* ============================================================
+   THEME STYLING: BLUE (Deep Sea Dreamcore / Bioluminescent Aquatic & Cerulean Abyss)
+============================================================= */
+body[data-palette="Blue"] {
+  letter-spacing: 0.35px;
+}
+
+body[data-palette="Blue"].crt-overlay::before {
+  opacity: 0.24;
+  background: linear-gradient(
+    rgba(2, 13, 24, 0) 50%, 
+    rgba(0, 0, 0, 0.38) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(0, 210, 255, 0.03),
+    rgba(0, 0, 0, 0.01),
+    rgba(56, 189, 248, 0.02)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Blue Main Menu */
+body[data-palette="Blue"] .menu-text {
+  color: rgba(224, 242, 254, 0.5);
+  text-shadow: 0 2px 4px #000;
+}
+
+body[data-palette="Blue"] .menu-item.active .menu-text {
+  color: #00d2ff;
+  text-shadow: 0 0 20px rgba(0, 210, 255, 0.85), 0 0 35px #38bdf8, 0 2px 4px #000;
+  font-weight: 800;
+}
+
+body[data-palette="Blue"] .menu-item::before {
+  color: #2dd4bf;
+}
+
+body[data-palette="Blue"] .menu-item.active::before {
+  text-shadow: 0 0 14px rgba(45, 212, 191, 0.95);
+}
+
+/* Blue System Configuration */
+body[data-palette="Blue"] .sysconfig-date,
+body[data-palette="Blue"] .sysconfig-time {
+  background: rgba(4, 26, 42, 0.94);
+  border: 1.5px solid #00d2ff;
+  border-radius: 4px;
+  color: #f0f9ff;
+  box-shadow: 0 0 16px rgba(0, 210, 255, 0.45);
+  text-shadow: 0 0 8px #00d2ff;
+}
+
+body[data-palette="Blue"] .sysconfig-title {
+  color: #2dd4bf;
+  text-shadow: 0 0 12px rgba(45, 212, 191, 0.75);
+}
+
+body[data-palette="Blue"] .sysconfig-opt {
+  background: rgba(4, 26, 42, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  font-size: 17px;
+}
+
+body[data-palette="Blue"] .sysconfig-opt.selected {
+  border-color: #00d2ff;
+  background: linear-gradient(90deg, rgba(0, 210, 255, 0.32) 0%, rgba(45, 212, 191, 0.2) 100%);
+  box-shadow: inset 0 0 12px rgba(0, 210, 255, 0.35), 0 0 18px rgba(0, 210, 255, 0.45);
+}
+
+body[data-palette="Blue"] .sysconfig-opt.selected .opt-label {
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.85);
+}
+
+/* Blue Browser & Save Cards */
+body[data-palette="Blue"] .memcard-browser-header {
+  background: rgba(4, 22, 36, 0.9);
+  padding: 16px 24px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(0, 210, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+}
+
+body[data-palette="Blue"] .memcard-ps2-logo {
+  color: #00d2ff;
+  text-shadow: 0 0 16px rgba(0, 210, 255, 0.9), 0 2px 4px #000;
+}
+
+body[data-palette="Blue"] .memcard-section-title {
+  color: #2dd4bf;
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.7);
+}
+
+body[data-palette="Blue"] .memcard-slot-label {
+  color: rgba(224, 242, 254, 0.7);
+}
+
+body[data-palette="Blue"] .save-icon-box {
+  background: rgba(6, 30, 48, 0.85);
+  border: 1.5px solid rgba(0, 210, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+body[data-palette="Blue"] .save-icon-card:hover .save-icon-box {
+  border-color: #38bdf8;
+  box-shadow: 0 10px 25px rgba(0, 210, 255, 0.35);
+}
+
+body[data-palette="Blue"] .save-icon-card.selected .save-icon-box {
+  border-color: #00d2ff;
+  box-shadow: 0 0 24px rgba(0, 210, 255, 0.7), inset 0 0 15px rgba(0, 210, 255, 0.25);
+}
+
+body[data-palette="Blue"] .save-icon-halo {
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.4) 0%, rgba(0, 210, 255, 0) 70%);
+}
+
+body[data-palette="Blue"] .save-icon-title {
+  color: rgba(224, 242, 254, 0.75);
+}
+
+body[data-palette="Blue"] .save-icon-card.selected .save-icon-title {
+  color: #00d2ff;
+  text-shadow: 0 0 12px rgba(0, 210, 255, 0.9);
+}
+
+/* Blue Modals & Windows */
+body[data-palette="Blue"] .memcard-window {
+  background: rgba(4, 24, 38, 0.94);
+  border: 1.5px solid rgba(0, 210, 255, 0.5);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 210, 255, 0.25);
+}
+
+body[data-palette="Blue"] .memcard-titlebar {
+  background: linear-gradient(90deg, rgba(0, 210, 255, 0.25) 0%, rgba(6, 30, 48, 0.8) 100%);
+  border-bottom: 1px solid rgba(0, 210, 255, 0.4);
+}
+
+body[data-palette="Blue"] .panel-heading {
+  color: #00d2ff;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.7);
+}
+
+body[data-palette="Blue"] .memcard-body {
+  color: #e0f2fe;
+}
+
+body[data-palette="Blue"] .memcard-list li {
+  background: rgba(6, 30, 48, 0.6);
+  border: 1px solid rgba(0, 210, 255, 0.15);
+}
+
+body[data-palette="Blue"] .memcard-list li strong {
+  color: #38bdf8;
+}
+
+body[data-palette="Blue"] .memcard-list li:hover {
+  background: rgba(0, 210, 255, 0.15);
+  border-color: rgba(0, 210, 255, 0.4);
+}
+
+body[data-palette="Blue"] .memcard-list li.selected {
+  background: linear-gradient(90deg, rgba(0, 210, 255, 0.3) 0%, rgba(6, 30, 48, 0.8) 100%);
+  border-color: #00d2ff;
+  box-shadow: 0 0 14px rgba(0, 210, 255, 0.35);
+}
+
+body[data-palette="Blue"] .memcard-list li.selected span {
+  color: #00d2ff;
+}
+
+body[data-palette="Blue"] .platform-card {
+  background: rgba(6, 30, 48, 0.7);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+}
+
+body[data-palette="Blue"] .platform-card:hover {
+  border-color: #00d2ff;
+  box-shadow: 0 0 18px rgba(0, 210, 255, 0.35);
+}
+
+body[data-palette="Blue"] .platform-icon-circle {
+  background: rgba(0, 210, 255, 0.15);
+  border: 1px solid #00d2ff;
+}
+
+body[data-palette="Blue"] .dossier-card,
+body[data-palette="Blue"] .skill-cat-card,
+body[data-palette="Blue"] .lore-group {
+  background: rgba(6, 30, 48, 0.7);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+}
+
+body[data-palette="Blue"] .footer-keyboard-bar {
+  background: rgba(4, 22, 36, 0.92);
+  border-top: 1.5px solid rgba(0, 210, 255, 0.35);
+}
+
+body[data-palette="Blue"] .highlight-cyan {
+  color: #00d2ff;
+  text-shadow: 0 0 8px rgba(0, 210, 255, 0.8);
+}
+
+body[data-palette="Blue"] .btn-hint-item {
+  color: #e0f2fe;
+}
+
+body[data-palette="Blue"] .btn-icon.circle-btn {
+  border-color: #00d2ff;
+  color: #00d2ff;
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
 }
 
 /* ============================================================

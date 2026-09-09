@@ -216,7 +216,7 @@ let clockDispIndex = 0;
 const VCR_FILTERS = ['VCR VHS Tracking', 'CRT Scanlines', 'Disabled'];
 let vcrFilterIndex = 0;
 
-const BASE_CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave'];
+const BASE_CONSOLE_PALETTES = ['PS2 Classic Blue', 'Dorfic', 'Liquid Metal', 'Frutiger Aero', 'Mecha Sci-Fi', 'Vaporwave', 'Blue'];
 let CONSOLE_PALETTES = [...BASE_CONSOLE_PALETTES];
 
 let paletteIndex = parseInt(localStorage.getItem('sleepyhead_palette_idx') || '0', 10);
@@ -919,6 +919,8 @@ function applyWallpaperTheme(palette) {
     playVideoTheme('Themes/Mecha/mecha_live.mp4');
   } else if (palette === 'Ichihara Yuko') {
     playVideoTheme('Themes/Yuko/Yuko.mp4');
+  } else if (palette === 'Blue') {
+    playVideoTheme('Themes/Blue/blue.mp4');
   } else {
     // PS2 Classic Blue:
     // Pure clean PS2 BIOS with manual 3D orbital stars canvas animation
